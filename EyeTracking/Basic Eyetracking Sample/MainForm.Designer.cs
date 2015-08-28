@@ -37,7 +37,7 @@
             this._box2 = new System.Windows.Forms.GroupBox();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
-            this._simualtionButton = new System.Windows.Forms.Button();
+            this._simulationButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._saveCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,7 @@
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
+            this._simulationStatus = new BasicEyetrackingSample.SimulationStatusControl();
             this._box1.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._box2.SuspendLayout();
@@ -121,7 +122,7 @@
             this._box2.Controls.Add(this._calibrateButton);
             this._box2.Controls.Add(this._trackStatus);
             this._box2.Controls.Add(this._trackButton);
-            this._box2.Controls.Add(this._simualtionButton);
+            this._box2.Controls.Add(this._simulationButton);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
             this._box2.Size = new System.Drawing.Size(395, 373);
@@ -151,13 +152,13 @@
             //
             // _simulationButton
             //
-            this._simualtionButton.Location = new System.Drawing.Point(140,270);
-            this._simualtionButton.Name = "_simulationButton";
-            this._simualtionButton.Size = new System.Drawing.Size(111,27);
-            this._simualtionButton.TabIndex = 0;
-            this._simualtionButton.Text = "Start simulation";
-            this._simualtionButton.UseVisualStyleBackColor = true;
-            this._simualtionButton.Click += new System.EventHandler(this._simualtionButton_Click);
+            this._simulationButton.Location = new System.Drawing.Point(140,270);
+            this._simulationButton.Name = "_simulationButton";
+            this._simulationButton.Size = new System.Drawing.Size(111,27);
+            this._simulationButton.TabIndex = 0;
+            this._simulationButton.Text = "Start simulation";
+            this._simulationButton.UseVisualStyleBackColor = true;
+            this._simulationButton.Click += new System.EventHandler(this._simualtionButton_Click);
             // 
             // menuStrip1
             // 
@@ -274,8 +275,9 @@
         private System.Windows.Forms.ToolStripStatusLabel _connectionStatusLabel;
         private System.Windows.Forms.GroupBox _box2;
         private System.Windows.Forms.Button _trackButton;
-        private System.Windows.Forms.Button _simualtionButton;
+        private System.Windows.Forms.Button _simulationButton;
         private TrackStatusControl _trackStatus;
+        private SimulationStatusControl _simulationStatus;
         private System.Windows.Forms.Button _calibrateButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -286,7 +288,6 @@
         private System.Windows.Forms.SaveFileDialog _saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _framerateMenuItem;
-
     }
 }
 

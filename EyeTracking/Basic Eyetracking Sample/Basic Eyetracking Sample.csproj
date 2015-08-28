@@ -162,6 +162,12 @@
     <Compile Include="SimulationForm.Designer.cs">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SimulationStatusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SimulationStatusControl.Designer.cs">
+      <DependentUpon>SimulationStatusControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrackStatusControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
