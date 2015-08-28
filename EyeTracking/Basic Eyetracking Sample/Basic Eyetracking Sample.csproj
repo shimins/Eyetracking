@@ -138,6 +138,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimulationForm.resx">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TrackStatusControl.resx">
       <DependentUpon>TrackStatusControl.cs</DependentUpon>
       <SubType>Designer</SubType>

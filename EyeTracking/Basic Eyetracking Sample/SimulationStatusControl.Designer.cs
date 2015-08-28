@@ -28,8 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+
+            this.SuspendLayout();
+            // 
+            // From TrackStatusControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
+            this.Name = "SimulationStatusControl";
+            this.Size = new System.Drawing.Size(256, 226);
+            this.ResumeLayout(false);
+
+            //Auto generated code
+            //components = new System.ComponentModel.Container();
+            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
         #endregion

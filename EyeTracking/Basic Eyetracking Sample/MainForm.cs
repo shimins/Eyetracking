@@ -108,6 +108,7 @@ namespace BasicEyetrackingSample
             {
                 _connectionStatusLabel.Text = "Connected to " + _connectionName;
                 _trackButton.Enabled = true;
+                _simulationButton.Enabled = true;
                 _calibrateButton.Enabled = true;
                 _loadCalibrationMenuItem.Enabled = true;
                 _saveCalibrationMenuItem.Enabled = true;
@@ -118,6 +119,7 @@ namespace BasicEyetrackingSample
             {
                 _connectionStatusLabel.Text = "Disconnected";
                 _trackButton.Enabled = false;
+                _simulationButton.Enabled = false;
                 _calibrateButton.Enabled = false;
                 _loadCalibrationMenuItem.Enabled = false;
                 _saveCalibrationMenuItem.Enabled = false;
@@ -128,12 +130,16 @@ namespace BasicEyetrackingSample
             if(_isTracking)
             {
                 _trackButton.Text = "Stop Tracking";
+                _simulationButton.Enabled = true;
                 _trackStatus.Enabled = true;
+                _simulationStatus.Enabled = true;
             }
             else
             {
                 _trackButton.Text = "Start Tracking";
+                _simulationButton.Enabled = true;
                 _trackStatus.Enabled = false;
+                _simulationStatus.Enabled = false;
             }
         }
 
@@ -223,6 +229,7 @@ namespace BasicEyetrackingSample
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
             _trackStatus.OnGazeData(gd);
+            _simulationStatus.OnGazeData(gd);
 
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {

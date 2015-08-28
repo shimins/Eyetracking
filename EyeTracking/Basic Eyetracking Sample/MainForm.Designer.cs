@@ -48,7 +48,6 @@
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
-            this._simulationStatus = new BasicEyetrackingSample.SimulationStatusControl();
             this._box1.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._box2.SuspendLayout();
@@ -277,7 +276,6 @@
         private System.Windows.Forms.Button _trackButton;
         private System.Windows.Forms.Button _simulationButton;
         private TrackStatusControl _trackStatus;
-        private SimulationStatusControl _simulationStatus;
         private System.Windows.Forms.Button _calibrateButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
