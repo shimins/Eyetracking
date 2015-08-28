@@ -132,14 +132,14 @@ namespace BasicEyetrackingSample
                 _trackButton.Text = "Stop Tracking";
                 _simulationButton.Enabled = true;
                 _trackStatus.Enabled = true;
-                _simulationStatus.Enabled = true;
+                //_simulationStatus.Enabled = true;
             }
             else
             {
                 _trackButton.Text = "Start Tracking";
                 _simulationButton.Enabled = true;
                 _trackStatus.Enabled = false;
-                _simulationStatus.Enabled = false;
+                //_simulationStatus.Enabled = false;
             }
         }
 
@@ -229,7 +229,7 @@ namespace BasicEyetrackingSample
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
             _trackStatus.OnGazeData(gd);
-            _simulationStatus.OnGazeData(gd);
+            //_simulationStatus.OnGazeData(gd);
 
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
