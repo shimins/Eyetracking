@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
@@ -20,12 +21,17 @@ namespace BasicEyetrackingSample
         private ISyncManager _syncManager; 
         private string _connectionName;
         private bool _isTracking;
+        private EyeTrackerInfo _info;
+        private Form _simulationForm;
+        private SimulationStatusControl _simulationStatus;
 
         public MainForm()
         {
             InitializeComponent();
 
             _clock = new Clock();
+            _simulationStatus = new SimulationStatusControl();
+            _simulationStatus.Enabled = false;
 
             _trackerBrowser = new EyeTrackerBrowser();
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
@@ -132,14 +138,12 @@ namespace BasicEyetrackingSample
                 _trackButton.Text = "Stop Tracking";
                 _simulationButton.Enabled = true;
                 _trackStatus.Enabled = true;
-                //_simulationStatus.Enabled = true;
             }
             else
             {
                 _trackButton.Text = "Start Tracking";
                 _simulationButton.Enabled = true;
                 _trackStatus.Enabled = false;
-                //_simulationStatus.Enabled = false;
             }
         }
 
@@ -173,8 +177,8 @@ namespace BasicEyetrackingSample
             var selectedItem = GetSelectedItem();
             if(selectedItem != null)
             {
-                var info = (EyeTrackerInfo) selectedItem.Tag;
-                ConnectToTracker(info);    
+                _info = (EyeTrackerInfo) selectedItem.Tag;
+                ConnectToTracker(_info);    
             }
             UpdateUIElements();
         }
@@ -213,9 +217,7 @@ namespace BasicEyetrackingSample
                 MessageBox.Show("Could not connect to eyetracker.","Connection Failed",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 DisconnectTracker();
             }
-
             UpdateUIElements();
-            
         }
 
         private void _connectedTracker_GazeDataReceived(object sender, GazeDataEventArgs e)
@@ -229,7 +231,7 @@ namespace BasicEyetrackingSample
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
             _trackStatus.OnGazeData(gd);
-            //_simulationStatus.OnGazeData(gd);
+            _simulationStatus.OnGazeData(gd);
 
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
@@ -401,8 +403,11 @@ namespace BasicEyetrackingSample
 
         private void _simualtionButton_Click(object sender, EventArgs e)
         {
-            Form simualtionForm = new SimulationForm();
-            simualtionForm.Show();
+            //DisconnectTracker();
+            _simulationForm = new SimulationForm();
+            _simulationStatus.Enabled = true;
+            _simulationForm.Show();
+            UpdateUIElements();
         }
     }
 }
