@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Tobii.EyeTracking.IO;
@@ -7,8 +8,8 @@ namespace BasicEyetrackingSample
 {
     public partial class TrackStatusControl : UserControl
     {
-        private Point3D _leftEye;
-        private Point3D _rightEye;
+        private Point2D _leftEye;
+        private Point2D _rightEye;
         private int _leftValidity;
         private int _rightValidity;
         private SolidBrush _brush;
@@ -50,9 +51,9 @@ namespace BasicEyetrackingSample
             _leftValidity = gd.LeftValidity;
             _rightValidity = gd.RightValidity;
 
-            _leftEye = gd.LeftEyePosition3DRelative;
-            _rightEye = gd.RightEyePosition3DRelative;
-            
+            _leftEye = gd.LeftGazePoint2D;
+            _rightEye = gd.RightGazePoint2D;
+
             Invalidate();
         }
 
@@ -61,8 +62,8 @@ namespace BasicEyetrackingSample
             _dataHistory.Clear();
             _leftValidity = 0;
             _rightValidity = 0;
-            _leftEye = new Point3D();
-            _rightEye = new Point3D();
+            _leftEye = new Point2D();
+            _rightEye = new Point2D();
 
             Invalidate();
         }
@@ -99,26 +100,16 @@ namespace BasicEyetrackingSample
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            // Compute status bar color
             _brush.Color = ComputeStatusColor();
             
             // Draw bottom bar
             e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
-        
-            // Draw eyes
 
-            if (_leftValidity <= 2)
-            {
-                RectangleF r = new RectangleF((float) ((1.0 - _leftEye.X) * Width - EyeRadius), (float) (_leftEye.Y * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-                e.Graphics.FillEllipse(_eyeBrush, r);
-            }
-
-            if(_rightValidity <= 2)
-            {
-                RectangleF r = new RectangleF((float) ((1 - _rightEye.X) * Width - EyeRadius), (float) (_rightEye.Y * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-                e.Graphics.FillEllipse(_eyeBrush, r);
-            }
+            // Draw gaze
+            var currentX = (float)((_leftEye.X + _rightEye.X) / 2);
+            var currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
+            RectangleF r = new RectangleF((float)(currentX * Width - EyeRadius), (float)(currentY * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
+            e.Graphics.FillEllipse(_eyeBrush, r);
         }
 
         private Color ComputeStatusColor()
