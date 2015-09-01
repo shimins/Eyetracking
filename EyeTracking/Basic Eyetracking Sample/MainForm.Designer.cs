@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
             this._trackerInfoLabel = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._connectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._box2 = new System.Windows.Forms.GroupBox();
+            this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -46,7 +48,6 @@
             this._framerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
             this._box1.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._box2.SuspendLayout();
@@ -78,8 +79,8 @@
             // 
             // _trackerInfoLabel
             // 
-            this._trackerInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this._trackerInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this._trackerInfoLabel.Location = new System.Drawing.Point(19, 225);
             this._trackerInfoLabel.Name = "_trackerInfoLabel";
             this._trackerInfoLabel.Size = new System.Drawing.Size(196, 95);
@@ -87,8 +88,8 @@
             // 
             // _trackerList
             // 
-            this._trackerList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this._trackerList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this._trackerList.Location = new System.Drawing.Point(19, 33);
             this._trackerList.MultiSelect = false;
             this._trackerList.Name = "_trackerList";
@@ -103,9 +104,9 @@
             // 
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._connectionStatusLabel});
-            this._statusStrip.Location = new System.Drawing.Point(0, 418);
+            this._statusStrip.Location = new System.Drawing.Point(0, 677);
             this._statusStrip.Name = "_statusStrip";
-            this._statusStrip.Size = new System.Drawing.Size(665, 22);
+            this._statusStrip.Size = new System.Drawing.Size(1229, 22);
             this._statusStrip.TabIndex = 2;
             this._statusStrip.Text = "statusStrip1";
             // 
@@ -117,19 +118,26 @@
             // 
             // _box2
             // 
-            this._box2.Controls.Add(this._calibrateButton);
             this._box2.Controls.Add(this._trackStatus);
-            this._box2.Controls.Add(this._trackButton);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
-            this._box2.Size = new System.Drawing.Size(395, 373);
+            this._box2.Size = new System.Drawing.Size(1300, 1000);
             this._box2.TabIndex = 3;
             this._box2.TabStop = false;
             this._box2.Text = "Eyetracker Status";
             // 
+            // _trackStatus
+            // 
+            this._trackStatus.BackColor = System.Drawing.Color.Black;
+            this._trackStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("_trackStatus.BackgroundImage")));
+            this._trackStatus.Location = new System.Drawing.Point(49, 33);
+            this._trackStatus.Name = "_trackStatus";
+            this._trackStatus.Size = new System.Drawing.Size(1200, 900);
+            this._trackStatus.TabIndex = 1;
+            // 
             // _calibrateButton
             // 
-            this._calibrateButton.Location = new System.Drawing.Point(197, 334);
+            this._calibrateButton.Location = new System.Drawing.Point(69, 517);
             this._calibrateButton.Name = "_calibrateButton";
             this._calibrateButton.Size = new System.Drawing.Size(111, 27);
             this._calibrateButton.TabIndex = 2;
@@ -139,7 +147,7 @@
             // 
             // _trackButton
             // 
-            this._trackButton.Location = new System.Drawing.Point(74, 334);
+            this._trackButton.Location = new System.Drawing.Point(69, 451);
             this._trackButton.Name = "_trackButton";
             this._trackButton.Size = new System.Drawing.Size(111, 27);
             this._trackButton.TabIndex = 0;
@@ -154,7 +162,7 @@
             this.propertiesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(665, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1229, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "_menuStrip";
             // 
@@ -171,21 +179,21 @@
             // _saveCalibrationMenuItem
             // 
             this._saveCalibrationMenuItem.Name = "_saveCalibrationMenuItem";
-            this._saveCalibrationMenuItem.Size = new System.Drawing.Size(163, 22);
+            this._saveCalibrationMenuItem.Size = new System.Drawing.Size(152, 22);
             this._saveCalibrationMenuItem.Text = "Save Calibration";
             this._saveCalibrationMenuItem.Click += new System.EventHandler(this._saveCalibrationMenuItem_Click);
             // 
             // _viewCalibrationMenuItem
             // 
             this._viewCalibrationMenuItem.Name = "_viewCalibrationMenuItem";
-            this._viewCalibrationMenuItem.Size = new System.Drawing.Size(163, 22);
+            this._viewCalibrationMenuItem.Size = new System.Drawing.Size(152, 22);
             this._viewCalibrationMenuItem.Text = "View Calibration";
             this._viewCalibrationMenuItem.Click += new System.EventHandler(this._viewCalibrationMenuItem_Click);
             // 
             // _loadCalibrationMenuItem
             // 
             this._loadCalibrationMenuItem.Name = "_loadCalibrationMenuItem";
-            this._loadCalibrationMenuItem.Size = new System.Drawing.Size(163, 22);
+            this._loadCalibrationMenuItem.Size = new System.Drawing.Size(152, 22);
             this._loadCalibrationMenuItem.Text = "Load Calibration";
             this._loadCalibrationMenuItem.Click += new System.EventHandler(this._loadCalibrationMenuItem_Click);
             // 
@@ -200,7 +208,7 @@
             // _framerateMenuItem
             // 
             this._framerateMenuItem.Name = "_framerateMenuItem";
-            this._framerateMenuItem.Size = new System.Drawing.Size(152, 22);
+            this._framerateMenuItem.Size = new System.Drawing.Size(139, 22);
             this._framerateMenuItem.Text = "FrameRate...";
             this._framerateMenuItem.Click += new System.EventHandler(this._framerateMenuItem_Click);
             // 
@@ -218,29 +226,22 @@
             this._saveFileDialog.Filter = "Calibration Files|*.calib";
             this._saveFileDialog.Title = "Save Calibration File";
             // 
-            // _trackStatus
-            // 
-            this._trackStatus.BackColor = System.Drawing.Color.Black;
-            this._trackStatus.Location = new System.Drawing.Point(74, 33);
-            this._trackStatus.Name = "_trackStatus";
-            this._trackStatus.Size = new System.Drawing.Size(234, 179);
-            this._trackStatus.TabIndex = 1;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 440);
+            this.ClientSize = new System.Drawing.Size(1229, 699);
+            this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);
+            this.Controls.Add(this._trackButton);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this._box1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SDK - Basic Eyetracking Sample";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this._box1.ResumeLayout(false);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();

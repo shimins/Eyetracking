@@ -106,6 +106,7 @@
     <Compile Include="CalibrationForm.Designer.cs">
       <DependentUpon>CalibrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CircleImage.cs" />
     <Compile Include="FrameRateDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,5 +185,9 @@
       <Link>tetio.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\blur-0.jpg" />
+    <Content Include="images\blur-20.jpg" />
+    <Content Include="images\blur-50.jpg" />
+    <Content Include="images\blur-80.jpg" />
   </ItemGroup>
 </Project>
