@@ -50,8 +50,7 @@ namespace BasicEyetrackingSample
 
             _leftValidity = gd.LeftValidity;
             _rightValidity = gd.RightValidity;
-            //_leftEye = gd.LeftEyePosition3DRelative;
-            //_rightEye = gd.RightEyePosition3DRelative;
+
             _leftEye = gd.LeftGazePoint2D;
             _rightEye = gd.RightGazePoint2D;
 
@@ -101,36 +100,16 @@ namespace BasicEyetrackingSample
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            //Debug.WriteLine("jeg skal paint trackStatus");
-            //Debug.WriteLine(_leftEye.X);
-            //Debug.WriteLine(_leftEye.Y);
-            // Compute status bar color
             _brush.Color = ComputeStatusColor();
             
             // Draw bottom bar
             e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
 
-            // Draw eyes
+            // Draw gaze
             var currentX = (float)((_leftEye.X + _rightEye.X) / 2);
             var currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
             RectangleF r = new RectangleF((float)(currentX * Width - EyeRadius), (float)(currentY * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
             e.Graphics.FillEllipse(_eyeBrush, r);
-            //if (_leftValidity <= 2)
-            //{
-            //    double xProportion = 440.0/Screen.GetBounds(this).Right * 0.01;
-            //    double yProportion = 260.0/Screen.GetBounds(this).Height * 0.01;
-            //    Debug.WriteLine(_leftEye.Y);
-            //    //Debug.WriteLine((_leftEye.Y - 140)*yProportion);
-            //    RectangleF r = new RectangleF((float) ((_leftEye.X + 170) * xProportion * Width - EyeRadius), (float)((1-(_leftEye.Y - 100) * yProportion) * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-            //    //RectangleF r = new RectangleF((float) ((1.0 - _leftEye.X) * Width - EyeRadius), (float) (_leftEye.Y * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-            //    e.Graphics.FillEllipse(_eyeBrush, r);
-            //}
-
-            //if(_rightValidity <= 2)
-            //{
-            //    //RectangleF r = new RectangleF((float) ((1 - _rightEye.X) * Width - EyeRadius), (float) (_rightEye.Y * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-            //    //e.Graphics.FillEllipse(_eyeBrush, r);
-            //}
         }
 
         private Color ComputeStatusColor()

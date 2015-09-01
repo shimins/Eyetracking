@@ -37,7 +37,6 @@
             this._box2 = new System.Windows.Forms.GroupBox();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
-            this._simulationButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._saveCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,7 +120,6 @@
             this._box2.Controls.Add(this._calibrateButton);
             this._box2.Controls.Add(this._trackStatus);
             this._box2.Controls.Add(this._trackButton);
-            this._box2.Controls.Add(this._simulationButton);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
             this._box2.Size = new System.Drawing.Size(395, 373);
@@ -148,16 +146,6 @@
             this._trackButton.Text = "Start Tracking";
             this._trackButton.UseVisualStyleBackColor = true;
             this._trackButton.Click += new System.EventHandler(this._trackButton_Click);
-            //
-            // _simulationButton
-            //
-            this._simulationButton.Location = new System.Drawing.Point(140,270);
-            this._simulationButton.Name = "_simulationButton";
-            this._simulationButton.Size = new System.Drawing.Size(111,27);
-            this._simulationButton.TabIndex = 0;
-            this._simulationButton.Text = "Start simulation";
-            this._simulationButton.UseVisualStyleBackColor = true;
-            this._simulationButton.Click += new System.EventHandler(this._simualtionButton_Click);
             // 
             // menuStrip1
             // 
@@ -274,7 +262,6 @@
         private System.Windows.Forms.ToolStripStatusLabel _connectionStatusLabel;
         private System.Windows.Forms.GroupBox _box2;
         private System.Windows.Forms.Button _trackButton;
-        private System.Windows.Forms.Button _simulationButton;
         private TrackStatusControl _trackStatus;
         private System.Windows.Forms.Button _calibrateButton;
         private System.Windows.Forms.MenuStrip menuStrip1;

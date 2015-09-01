@@ -23,15 +23,12 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
         private Form _simulationForm;
-        private SimulationStatusControl _simulationStatus;
 
         public MainForm()
         {
             InitializeComponent();
 
             _clock = new Clock();
-            _simulationStatus = new SimulationStatusControl();
-            _simulationStatus.Enabled = false;
 
             _trackerBrowser = new EyeTrackerBrowser();
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
@@ -114,7 +111,6 @@ namespace BasicEyetrackingSample
             {
                 _connectionStatusLabel.Text = "Connected to " + _connectionName;
                 _trackButton.Enabled = true;
-                _simulationButton.Enabled = true;
                 _calibrateButton.Enabled = true;
                 _loadCalibrationMenuItem.Enabled = true;
                 _saveCalibrationMenuItem.Enabled = true;
@@ -125,7 +121,6 @@ namespace BasicEyetrackingSample
             {
                 _connectionStatusLabel.Text = "Disconnected";
                 _trackButton.Enabled = false;
-                _simulationButton.Enabled = false;
                 _calibrateButton.Enabled = false;
                 _loadCalibrationMenuItem.Enabled = false;
                 _saveCalibrationMenuItem.Enabled = false;
@@ -136,13 +131,11 @@ namespace BasicEyetrackingSample
             if(_isTracking)
             {
                 _trackButton.Text = "Stop Tracking";
-                _simulationButton.Enabled = true;
                 _trackStatus.Enabled = true;
             }
             else
             {
                 _trackButton.Text = "Start Tracking";
-                _simulationButton.Enabled = true;
                 _trackStatus.Enabled = false;
             }
         }
@@ -231,7 +224,6 @@ namespace BasicEyetrackingSample
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
             _trackStatus.OnGazeData(gd);
-            _simulationStatus.OnGazeData(gd);
 
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
@@ -399,15 +391,6 @@ namespace BasicEyetrackingSample
             {
                 _connectedTracker.SetFrameRate(fpsDialog.CurrentFrameRate);
             }
-        }
-
-        private void _simualtionButton_Click(object sender, EventArgs e)
-        {
-            //DisconnectTracker();
-            _simulationForm = new SimulationForm();
-            _simulationStatus.Enabled = true;
-            _simulationForm.Show();
-            UpdateUIElements();
         }
     }
 }
