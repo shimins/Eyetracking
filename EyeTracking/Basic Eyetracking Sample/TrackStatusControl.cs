@@ -104,7 +104,7 @@ namespace BasicEyetrackingSample
             _brush.Color = ComputeStatusColor();
             
             // Draw bottom bar
-            e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
+            //e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
 
             // Draw images
             var currentX = (float)((_leftEye.X + _rightEye.X) / 2);
