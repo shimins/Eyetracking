@@ -223,7 +223,6 @@ namespace BasicEyetrackingSample
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
             _trackStatus.OnGazeData(gd.LeftGazePoint2D, gd.RightGazePoint2D);
-
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
                 Int64 convertedTime = _syncManager.RemoteToLocal(gd.Timestamp);

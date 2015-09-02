@@ -23,9 +23,12 @@ namespace BasicEyetrackingSample
         private const int ImageLength = 5;
 
         private Point point;
+        private Stopwatch stopwatch;
 
         public TrackStatusControl()
         {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             InitializeComponent();
 
             SetStyle(ControlStyles.UserPaint, true);
@@ -89,6 +92,8 @@ namespace BasicEyetrackingSample
                 image.DrawCircle(point, e.Graphics);
                 i++;
             }
+            stopwatch.Stop();
+            Console.WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
         }
     }
 }
