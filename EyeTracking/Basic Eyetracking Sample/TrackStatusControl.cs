@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,11 +12,11 @@ namespace BasicEyetrackingSample
     {
         private Point2D _leftEye;
         private Point2D _rightEye;
-        private int _leftValidity;
-        private int _rightValidity;
-        private SolidBrush _brush;
-        private SolidBrush _eyeBrush;
         private Queue<IGazeDataItem> _dataHistory;
+        private float currentX;
+        private float currentY;
+        private float previousX;
+        private float previousY;
 
         private static int HistorySize = 30;
         private static int BarHeight = 25;
@@ -30,12 +31,6 @@ namespace BasicEyetrackingSample
             SetStyle(ControlStyles.DoubleBuffer, true);
 
             _dataHistory = new Queue<IGazeDataItem>(HistorySize);
-
-            _brush = new SolidBrush(Color.Red);
-            _eyeBrush = new SolidBrush(Color.White);
-
-            _leftValidity = 4;
-            _rightValidity = 4;
         }
 
         public void OnGazeData(IGazeDataItem gd)
@@ -48,10 +43,7 @@ namespace BasicEyetrackingSample
             {
                 _dataHistory.Dequeue();
             }
-
-            _leftValidity = gd.LeftValidity;
-            _rightValidity = gd.RightValidity;
-
+            
             _leftEye = gd.LeftGazePoint2D;
             _rightEye = gd.RightGazePoint2D;
 
@@ -61,8 +53,6 @@ namespace BasicEyetrackingSample
         public void Clear()
         {
             _dataHistory.Clear();
-            _leftValidity = 0;
-            _rightValidity = 0;
             _leftEye = new Point2D();
             _rightEye = new Point2D();
 
@@ -70,52 +60,33 @@ namespace BasicEyetrackingSample
         }
 
 
-        /// <summary>
-        /// Gets the current brush
-        /// </summary>
-        private SolidBrush Brush
-        {
-            get
-            {
-                if (_leftValidity == 4 && _rightValidity == 4)
-                {
-                    _brush.Color = Color.Red;
-                }
-                else if (_leftValidity == 0 && _rightValidity == 0)
-                {
-                    _brush.Color = Color.Lime;
-                }
-                else if (_leftValidity == 2 && _rightValidity == 2)
-                {
-                    _brush.Color = Color.Orange;
-                }
-                else
-                {
-                    _brush.Color = Color.Yellow;
-                }
-
-                return _brush;
-            }
-        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            _brush.Color = ComputeStatusColor();
-            
             // Draw bottom bar
             //e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
+            var point = new Point();
 
             // Draw images
-            var currentX = (float)((_leftEye.X + _rightEye.X) / 2);
-            var currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
-            var point = new Point((int)(currentX * Width - EyeRadius), (int)(currentY * Height - EyeRadius));
-
+            currentX = (float)((_leftEye.X + _rightEye.X) / 2);
+            currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
+            if (IsGazeMoving())
+            {
+                previousX = currentX;
+                previousY = currentY;
+                point = new Point((int) (currentX*Width - EyeRadius), (int) (currentY*Height - EyeRadius));
+            }
+            else
+            {
+                point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
+            }
             var images = new[] { "blur-0.jpg", "blur-20.jpg", "blur-50.jpg", "blur-80.jpg" };
-            var radiusArray = new[] { 75, 200, 450, 800 };
+            var radiusArray = new[] { 400, 500, 600, 800 };
 
             var radiusReverse = radiusArray.Reverse().ToArray();
-
+            
+            // Draw gaze
             var i = 0;
             foreach (var imageName in images.Reverse())
             {
@@ -124,52 +95,22 @@ namespace BasicEyetrackingSample
                 eyeImage.DrawCircle(point, radiusReverse[i]);
                 i++;
             }
-
-
-            // Draw gaze
-
-            //RectangleF r = new RectangleF((float)(currentX * Width - EyeRadius), (float)(currentY * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-            //e.Graphics.FillEllipse(_eyeBrush, r);
         }
 
-        private Color ComputeStatusColor()
+        private bool IsGazeMoving()
         {
-            if (!Enabled)
-                return Color.Gray;
-
-            int quality = 0;
-            int count = 0;
-
-            foreach (IGazeDataItem item in _dataHistory)
+            if (_leftEye.Y == -1.0) //gaze data will be -1 if the gaze was not found
             {
-                if(item.LeftValidity == 4 && item.RightValidity == 4)
-                {
-                    quality += 0;
-                }
-                else if (item.LeftValidity == 0 && item.RightValidity == 0)
-                {
-                    quality += 2;
-                }
-                else
-                {
-                    quality++;
-                }
-
-                count++;
+                return false;
             }
-
-            float q = (count == 0 ? 0 : quality / (2F*count));
-            
-            if(q > 0.8)
+            else if (Math.Abs(previousX - currentX)/currentX >= 0.005 && Math.Abs(previousY - currentX)/currentY >= 0.005)
             {
-                return Color.Lime;
+                return true;
             }
-            if(q < 0.1)
+            else
             {
-                return Color.Red;
+                return false;
             }
-
-            return Color.Red;
         }
     }
 }

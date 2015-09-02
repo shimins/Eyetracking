@@ -22,7 +22,6 @@ namespace BasicEyetrackingSample
         private string _connectionName;
         private bool _isTracking;
         private EyeTrackerInfo _info;
-        private Form _simulationForm;
 
         public MainForm()
         {
