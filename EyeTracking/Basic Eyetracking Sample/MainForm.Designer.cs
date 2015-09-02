@@ -131,7 +131,6 @@ namespace BasicEyetrackingSample
             // _trackStatus
             // 
             this._trackStatus.BackColor = System.Drawing.Color.Black;
-            this._trackStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Nature-20")));
             this._trackStatus.Location = new System.Drawing.Point(49, 33);
             this._trackStatus.Name = "_trackStatus";
             this._trackStatus.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - 400, Screen.PrimaryScreen.Bounds.Height - 200);

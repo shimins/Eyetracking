@@ -5,30 +5,30 @@ namespace BasicEyetrackingSample
 {
     public class CircleImage
     {
-        public Graphics Graphics { get; set; }
+        public int Radidus { get; set; }
         public Bitmap Bitmap { get; set; }
 
-        public CircleImage(Image image, Graphics graphics)
+        public CircleImage(Image image, int radius)
         {
-            Graphics = graphics;
+            Radidus = radius;
             Bitmap = new Bitmap(image);
         }
 
-        public void DrawCircle(Point center, int radius)
+        public void DrawCircle(Point center, Graphics graphics)
         {
-            var rectangle = new Rectangle(center.X - radius, center.Y - radius, radius * 2, radius * 2);
+            var rectangle = new Rectangle(center.X - Radidus, center.Y - Radidus, Radidus * 2, Radidus * 2);
             var path = new GraphicsPath();
             path.AddEllipse(rectangle);
-            Graphics.Clip = new Region(path);
-            Graphics.DrawImage(Bitmap, 0, 0);
+            graphics.Clip = new Region(path);
+            graphics.DrawImage(Bitmap, 0, 0);
         }
     }
 
     public class ImageHelper
     {
-        public static Image Resize(Image image, int width, int height)
+        public static Image Resize(Image image, Size size)
         {
-            return new Bitmap(image, new Size(width, height));
+            return new Bitmap(image, size);
         }
     }
 }
