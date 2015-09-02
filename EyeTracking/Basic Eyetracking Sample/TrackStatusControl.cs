@@ -21,7 +21,9 @@ namespace BasicEyetrackingSample
         private static int EyeRadius = 8;
 
         private List<CircleImage> images = new List<CircleImage>();
-        private const int ImageLength = 5;
+        private const int ImageLength = 10;
+
+        private Point point;
 
         public TrackStatusControl()
         {
@@ -38,7 +40,7 @@ namespace BasicEyetrackingSample
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*70) + 400;
+                var radius = (i*75) + 400;
                 var eyeImage = new CircleImage(image, radius);
                 images.Add(eyeImage);
             }
@@ -58,8 +60,14 @@ namespace BasicEyetrackingSample
 
             _leftEye = gd.LeftGazePoint2D;
             _rightEye = gd.RightGazePoint2D;
-
-            Invalidate();
+            currentX = (float)((_leftEye.X + _rightEye.X) / 2);
+            currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
+            if (_leftEye.Y != -1.0)
+            {
+                previousX = currentX;
+                previousY = currentY;
+                Invalidate();
+            }
         }
 
         public void Clear()
@@ -76,24 +84,7 @@ namespace BasicEyetrackingSample
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            // Draw bottom bar
-            //e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
-            Point point;
-
-            // Draw images
-            currentX = (float)((_leftEye.X + _rightEye.X) / 2);
-            currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
-            if(_leftEye.Y != -1.0)
-            {
-                previousX = currentX;
-                previousY = currentY;
-                point = new Point((int)(currentX * Width - EyeRadius), (int)(currentY * Height - EyeRadius));
-            }
-            else
-            {
-                point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
-            }
-
+            point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
             // Draw gaze
             var i = 0;
             foreach (var image in images)
@@ -102,13 +93,5 @@ namespace BasicEyetrackingSample
                 i++;
             }
         }
-
-        //private bool IsGazeMoving()
-        //{
-        //    if (_leftEye.Y == -1.0) //gaze data will be -1 if the gaze was not found
-        //        return false;
-        //    // Else
-        //    return Math.Abs(previousX - currentX) / currentX >= 0.005 && Math.Abs(previousY - currentX) / currentY >= 0.005;
-        //}
     }
 }
