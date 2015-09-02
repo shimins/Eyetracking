@@ -22,7 +22,7 @@ namespace BasicEyetrackingSample
             //path.AddRectangle(rectangle);
             graphics.Clip = new Region(path);
             graphics.DrawImage(Bitmap, 0, 0);
-            //graphics.DrawEllipse(new Pen(Color.Red), rectangle);
+            graphics.DrawEllipse(new Pen(Color.Red), rectangle);
         }
     }
 

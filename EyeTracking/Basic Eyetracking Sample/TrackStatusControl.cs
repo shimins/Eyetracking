@@ -9,19 +9,18 @@ namespace BasicEyetrackingSample
 {
     public partial class TrackStatusControl : UserControl
     {
-        private Point2D _leftEye;
-        private Point2D _rightEye;
+
         private Queue<IGazeDataItem> _dataHistory;
-        private float currentX;
-        private float currentY;
-        private float previousX;
-        private float previousY;
+        private double currentX;
+        private double currentY;
+        private double previousX;
+        private double previousY;
 
         private static int HistorySize = 30;
         private static int EyeRadius = 8;
 
         private List<CircleImage> images = new List<CircleImage>();
-        private const int ImageLength = 10;
+        private const int ImageLength = 5;
 
         private Point point;
 
@@ -40,29 +39,27 @@ namespace BasicEyetrackingSample
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*75) + 400;
+                var radius = (i*150) + 400;
                 var eyeImage = new CircleImage(image, radius);
                 images.Add(eyeImage);
             }
         }
 
 
-        public void OnGazeData(IGazeDataItem gd)
+        public void OnGazeData(Point2D leftPoint, Point2D rightPoint)
         {
             // Add data to history
-            _dataHistory.Enqueue(gd);
+            //_dataHistory.Enqueue(gd);
 
             // Remove history item if necessary
-            while (_dataHistory.Count > HistorySize)
-            {
-                _dataHistory.Dequeue();
-            }
+            //while (_dataHistory.Count > HistorySize)
+            //{
+            //    _dataHistory.Dequeue();
+            //}
 
-            _leftEye = gd.LeftGazePoint2D;
-            _rightEye = gd.RightGazePoint2D;
-            currentX = (float)((_leftEye.X + _rightEye.X) / 2);
-            currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
-            if (_leftEye.Y != -1.0)
+            currentX = (leftPoint.X + rightPoint.X) / 2;
+            currentY = (leftPoint.Y + rightPoint.Y) / 2;
+            if (leftPoint.Y != -1.0)
             {
                 previousX = currentX;
                 previousY = currentY;
@@ -73,8 +70,8 @@ namespace BasicEyetrackingSample
         public void Clear()
         {
             _dataHistory.Clear();
-            _leftEye = new Point2D();
-            _rightEye = new Point2D();
+            currentX = 0.0;
+            currentY = 0.0;
 
             Invalidate();
         }
