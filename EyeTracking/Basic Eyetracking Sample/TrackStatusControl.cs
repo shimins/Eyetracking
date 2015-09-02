@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Tobii.EyeTracking.IO;
 
@@ -103,13 +104,32 @@ namespace BasicEyetrackingSample
             _brush.Color = ComputeStatusColor();
             
             // Draw bottom bar
-            e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
+            //e.Graphics.FillRectangle(_brush, new Rectangle(0, Height - BarHeight, Width, BarHeight));
 
-            // Draw gaze
+            // Draw images
             var currentX = (float)((_leftEye.X + _rightEye.X) / 2);
             var currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
-            RectangleF r = new RectangleF((float)(currentX * Width - EyeRadius), (float)(currentY * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
-            e.Graphics.FillEllipse(_eyeBrush, r);
+            var point = new Point((int)(currentX * Width - EyeRadius), (int)(currentY * Height - EyeRadius));
+
+            var images = new[] { "blur-0.jpg", "blur-20.jpg", "blur-50.jpg", "blur-80.jpg" };
+            var radiusArray = new[] { 75, 200, 450, 800 };
+
+            var radiusReverse = radiusArray.Reverse().ToArray();
+
+            var i = 0;
+            foreach (var imageName in images.Reverse())
+            {
+                var image = Image.FromFile("images/" + imageName);
+                var eyeImage = new CircleImage(image, e.Graphics);
+                eyeImage.DrawCircle(point, radiusReverse[i]);
+                i++;
+            }
+
+
+            // Draw gaze
+
+            //RectangleF r = new RectangleF((float)(currentX * Width - EyeRadius), (float)(currentY * Height - EyeRadius), 2 * EyeRadius, 2 * EyeRadius);
+            //e.Graphics.FillEllipse(_eyeBrush, r);
         }
 
         private Color ComputeStatusColor()
