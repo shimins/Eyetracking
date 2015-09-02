@@ -23,4 +23,12 @@ namespace BasicEyetrackingSample
             Graphics.DrawImage(Bitmap, 0, 0);
         }
     }
+
+    public class ImageHelper
+    {
+        public static Image Resize(Image image, int width, int height)
+        {
+            return new Bitmap(image, new Size(width, height));
+        }
+    }
 }

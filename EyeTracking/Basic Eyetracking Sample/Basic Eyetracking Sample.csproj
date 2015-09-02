@@ -189,5 +189,11 @@
     <Content Include="images\blur-20.jpg" />
     <Content Include="images\blur-50.jpg" />
     <Content Include="images\blur-80.jpg" />
+    <Content Include="images\nature\Nature-0.jpg" />
+    <Content Include="images\nature\Nature-14.jpg" />
+    <Content Include="images\nature\Nature-20.jpg" />
+    <Content Include="images\nature\Nature-4.jpg" />
+    <Content Include="images\nature\Nature-8.jpg" />
+    <None Include="Resources\background.jpg" />
   </ItemGroup>
 </Project>

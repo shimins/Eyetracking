@@ -106,9 +106,9 @@ namespace BasicEyetrackingSample
             // 
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._connectionStatusLabel});
-            this._statusStrip.Location = new System.Drawing.Point(0, 677);
+            this._statusStrip.Location = new System.Drawing.Point(0, 1165);
             this._statusStrip.Name = "_statusStrip";
-            this._statusStrip.Size = new System.Drawing.Size(1229, 22);
+            this._statusStrip.Size = new System.Drawing.Size(1920, 22);
             this._statusStrip.TabIndex = 2;
             this._statusStrip.Text = "statusStrip1";
             // 
@@ -123,7 +123,7 @@ namespace BasicEyetrackingSample
             this._box2.Controls.Add(this._trackStatus);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
-            this._box2.Size = new System.Drawing.Size(1300, 1000);
+            this._box2.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - 300, Screen.PrimaryScreen.Bounds.Height - 100);
             this._box2.TabIndex = 3;
             this._box2.TabStop = false;
             this._box2.Text = "Eyetracker Status";
@@ -131,10 +131,10 @@ namespace BasicEyetrackingSample
             // _trackStatus
             // 
             this._trackStatus.BackColor = System.Drawing.Color.Black;
-            this._trackStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("_trackStatus.BackgroundImage")));
+            this._trackStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Nature-20")));
             this._trackStatus.Location = new System.Drawing.Point(49, 33);
             this._trackStatus.Name = "_trackStatus";
-            this._trackStatus.Size = new System.Drawing.Size(1200, 900);
+            this._trackStatus.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - 400, Screen.PrimaryScreen.Bounds.Height - 200);
             this._trackStatus.TabIndex = 1;
             // 
             // _calibrateButton
@@ -164,7 +164,7 @@ namespace BasicEyetrackingSample
             this.propertiesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1229, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1920, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "_menuStrip";
             // 
@@ -232,7 +232,7 @@ namespace BasicEyetrackingSample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width,Screen.PrimaryScreen.Bounds.Height);
+            this.ClientSize = new System.Drawing.Size(1920, 1187);
             this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);

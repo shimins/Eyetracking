@@ -19,7 +19,6 @@ namespace BasicEyetrackingSample
         private float previousY;
 
         private static int HistorySize = 30;
-        private static int BarHeight = 25;
         private static int EyeRadius = 8;
 
         public TrackStatusControl()
@@ -81,18 +80,18 @@ namespace BasicEyetrackingSample
             {
                 point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
             }
-            var images = new[] { "blur-0.jpg", "blur-20.jpg", "blur-50.jpg", "blur-80.jpg" };
-            var radiusArray = new[] { 400, 500, 600, 800 };
-
-            var radiusReverse = radiusArray.Reverse().ToArray();
+            var images = new string [4] {"nature/Nature-14.jpg", "nature/Nature-8.jpg", "nature/Nature-4.jpg", "nature/Nature-0.jpg"};
+            var radiusArray = new[] {800, 600, 500, 400};
+            
             
             // Draw gaze
             var i = 0;
-            foreach (var imageName in images.Reverse())
+            foreach (var imageName in images)
             {
                 var image = Image.FromFile("images/" + imageName);
+                image = ImageHelper.Resize(image, Size.Width, Size.Height);
                 var eyeImage = new CircleImage(image, e.Graphics);
-                eyeImage.DrawCircle(point, radiusReverse[i]);
+                eyeImage.DrawCircle(point, radiusArray[i]);
                 i++;
             }
         }
