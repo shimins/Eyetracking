@@ -21,7 +21,7 @@ namespace BasicEyetrackingSample
         private static int EyeRadius = 8;
 
         private List<CircleImage> images = new List<CircleImage>();
-
+        private const int ImageLength = 5;
 
         public TrackStatusControl()
         {
@@ -33,18 +33,14 @@ namespace BasicEyetrackingSample
 
             _dataHistory = new Queue<IGazeDataItem>(HistorySize);
 
-            var imageNames = new string[4]
-            {"nature/Nature-14.jpg", "nature/Nature-8.jpg", "nature/Nature-4.jpg", "nature/Nature-0.jpg"};
-            var radiusArray = new[] { 800, 600, 500, 400 };
-
-            var i = 0;
-            foreach (var imageName in imageNames)
+            const string imageFolder = "images/nature/";
+            for (var i = ImageLength-1; i >= 0; i--)
             {
-                var image = Image.FromFile("images/" + imageName);
+                var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var eyeImage = new CircleImage(image, radiusArray[i]);
+                var radius = (i*70) + 400;
+                var eyeImage = new CircleImage(image, radius);
                 images.Add(eyeImage);
-                i++;
             }
         }
 
@@ -88,7 +84,6 @@ namespace BasicEyetrackingSample
             currentX = (float)((_leftEye.X + _rightEye.X) / 2);
             currentY = (float)((_leftEye.Y + _rightEye.Y) / 2);
             if(_leftEye.Y != -1.0)
-            //if (IsGazeMoving())
             {
                 previousX = currentX;
                 previousY = currentY;
@@ -98,8 +93,6 @@ namespace BasicEyetrackingSample
             {
                 point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
             }
-            //var images = new string [4] {"nature/Nature-14.jpg", "nature/Nature-8.jpg", "nature/Nature-4.jpg", "nature/Nature-0.jpg"};
-            //var radiusArray = new[] {800, 600, 500, 400};
 
             // Draw gaze
             var i = 0;
