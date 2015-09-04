@@ -10,28 +10,25 @@ namespace BasicEyetrackingSample
     public partial class TrackStatusControl : UserControl
     {
 
-        private Queue<IGazeDataItem> _dataHistory;
-        private double currentX;
-        private double currentY;
-        private double previousX;
-        private double previousY;
+        private readonly Queue<IGazeDataItem> _dataHistory;
+        private Point2D _current;
+        private Point2D _previous;
 
-        private static int HistorySize = 30;
-        private static int EyeRadius = 8;
+        private const int HistorySize = 30;
+        private const int EyeRadius = 8;
 
-        private List<CircleImage> images = new List<CircleImage>();
+        private readonly List<CircleImage> _images = new List<CircleImage>();
         private const int ImageLength = 5;
 
-        private Point point;
-        private Stopwatch stopwatch;
+        private Point _point;
+        private readonly Stopwatch _stopwatch;
 
         public TrackStatusControl()
         {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
+            _stopwatch = new Stopwatch();
             InitializeComponent();
 
-            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
 
@@ -44,7 +41,7 @@ namespace BasicEyetrackingSample
                 image = ImageHelper.Resize(image, Size);
                 var radius = (i*150) + 400;
                 var eyeImage = new CircleImage(image, radius);
-                images.Add(eyeImage);
+                _images.Add(eyeImage);
             }
         }
 
@@ -60,12 +57,10 @@ namespace BasicEyetrackingSample
             //    _dataHistory.Dequeue();
             //}
 
-            currentX = (leftPoint.X + rightPoint.X) / 2;
-            currentY = (leftPoint.Y + rightPoint.Y) / 2;
-            if (leftPoint.Y != -1.0)
+            _current = new Point2D((leftPoint.X + rightPoint.X) / 2, (leftPoint.Y + rightPoint.Y) / 2);
+            if (leftPoint.Y > -1.0 && _current.X != _previous.X)
             {
-                previousX = currentX;
-                previousY = currentY;
+                _previous = _current;
                 Invalidate();
             }
         }
@@ -73,8 +68,7 @@ namespace BasicEyetrackingSample
         public void Clear()
         {
             _dataHistory.Clear();
-            currentX = 0.0;
-            currentY = 0.0;
+            _current = new Point2D();
 
             Invalidate();
         }
@@ -84,16 +78,12 @@ namespace BasicEyetrackingSample
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            point = new Point((int)(previousX * Width - EyeRadius), (int)(previousY * Height - EyeRadius));
+            _point = new Point((int)(_previous.X * Width - EyeRadius), (int)(_previous.Y * Height - EyeRadius));
             // Draw gaze
-            var i = 0;
-            foreach (var image in images)
+            foreach (var image in _images)
             {
-                image.DrawCircle(point, e.Graphics);
-                i++;
+                image.DrawCircle(_point, e.Graphics);
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
         }
     }
 }

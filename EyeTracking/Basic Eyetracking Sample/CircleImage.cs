@@ -19,7 +19,6 @@ namespace BasicEyetrackingSample
             var rectangle = new Rectangle(center.X - Radidus, center.Y - Radidus, Radidus * 2, Radidus * 2);
             var path = new GraphicsPath();
             path.AddEllipse(rectangle);
-            //path.AddRectangle(rectangle);
             graphics.Clip = new Region(path);
             graphics.DrawImage(Bitmap, 0, 0);
             graphics.DrawEllipse(new Pen(Color.Red), rectangle);
