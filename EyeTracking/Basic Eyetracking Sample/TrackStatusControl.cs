@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Tobii.EyeTracking.IO;
 
@@ -9,37 +10,32 @@ namespace BasicEyetrackingSample
 {
     public partial class TrackStatusControl : UserControl
     {
-
-        private readonly Queue<IGazeDataItem> _dataHistory;
+        
         private Point2D _current;
         private Point2D _previous;
-
-        private const int HistorySize = 30;
-        private const int EyeRadius = 8;
 
         private readonly List<CircleImage> _images = new List<CircleImage>();
         private const int ImageLength = 5;
 
         private Point _point;
-        private readonly Stopwatch _stopwatch;
 
         public TrackStatusControl()
         {
-            _stopwatch = new Stopwatch();
             InitializeComponent();
 
             SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
-
-            _dataHistory = new Queue<IGazeDataItem>(HistorySize);
+            
+            _previous.X = 0;
+            _previous.Y = 0;
 
             const string imageFolder = "images/nature/";
             for (var i = ImageLength-1; i >= 0; i--)
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*150) + 400;
+                var radius = (i*100) + 500;
                 var eyeImage = new CircleImage(image, radius);
                 _images.Add(eyeImage);
             }
@@ -48,26 +44,31 @@ namespace BasicEyetrackingSample
 
         public void OnGazeData(Point2D leftPoint, Point2D rightPoint)
         {
-            // Add data to history
-            //_dataHistory.Enqueue(gd);
-
-            // Remove history item if necessary
-            //while (_dataHistory.Count > HistorySize)
-            //{
-            //    _dataHistory.Dequeue();
-            //}
-
+            var sw = new Stopwatch();
+            sw.Start();
+            if (!(leftPoint.X > -1.0)) return;
             _current = new Point2D((leftPoint.X + rightPoint.X) / 2, (leftPoint.Y + rightPoint.Y) / 2);
-            if (leftPoint.Y > -1.0 && _current.X != _previous.X)
+            if (!GazeHaveMoved(_current)) return;
+            _previous = _current;
+            Invalidate();
+            sw.Stop();
+            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+        }
+
+        private bool GazeHaveMoved(Point2D currentPoint)
+        {
+            if (Math.Abs(_previous.X - currentPoint.X) > 0.03 || Math.Abs(_previous.Y - currentPoint.Y) > 0.03)
             {
-                _previous = _current;
-                Invalidate();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public void Clear()
         {
-            _dataHistory.Clear();
             _current = new Point2D();
 
             Invalidate();
@@ -77,9 +78,17 @@ namespace BasicEyetrackingSample
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            
             base.OnPaint(e);
-            _point = new Point((int)(_previous.X * Width - EyeRadius), (int)(_previous.Y * Height - EyeRadius));
+            _point = new Point((int)(_previous.X * Width), (int)(_previous.Y * Height));
+
+            e.Graphics.CompositingMode = CompositingMode.SourceOver;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+            e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+            e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            e.Graphics.SmoothingMode = SmoothingMode.None;
             // Draw gaze
+
             foreach (var image in _images)
             {
                 image.DrawCircle(_point, e.Graphics);
