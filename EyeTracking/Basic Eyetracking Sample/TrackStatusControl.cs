@@ -15,7 +15,7 @@ namespace BasicEyetrackingSample
         private Point2D _previous;
 
         private readonly List<CircleImage> _images = new List<CircleImage>();
-        private const int ImageLength = 5;
+        private const int ImageLength = 10;
 
         private Point _point;
 
@@ -35,7 +35,7 @@ namespace BasicEyetrackingSample
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*100) + 500;
+                var radius = (i*100) + 400;
                 var eyeImage = new CircleImage(image, radius);
                 _images.Add(eyeImage);
             }
@@ -52,7 +52,7 @@ namespace BasicEyetrackingSample
             _previous = _current;
             Invalidate();
             sw.Stop();
-            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+            Console.WriteLine(@"Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
         }
 
         private bool GazeHaveMoved(Point2D currentPoint)
@@ -61,10 +61,7 @@ namespace BasicEyetrackingSample
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public void Clear()
@@ -78,7 +75,6 @@ namespace BasicEyetrackingSample
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            
             base.OnPaint(e);
             _point = new Point((int)(_previous.X * Width), (int)(_previous.Y * Height));
 
@@ -87,8 +83,8 @@ namespace BasicEyetrackingSample
             e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
             e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
             e.Graphics.SmoothingMode = SmoothingMode.None;
+            
             // Draw gaze
-
             foreach (var image in _images)
             {
                 image.DrawCircle(_point, e.Graphics);
