@@ -18,7 +18,10 @@ namespace BasicEyetrackingSample
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TrackerForm());
+            Form mainForm = new MainForm();
+            mainForm.Show();
+            Application.Run();
+            //Application.Run(new TrackerForm());
         }
     }
 }

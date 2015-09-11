@@ -41,6 +41,7 @@ namespace BasicEyetrackingSample
             this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
+            this._goBackButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._saveCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -156,6 +157,16 @@ namespace BasicEyetrackingSample
             this._trackButton.UseVisualStyleBackColor = true;
             this._trackButton.Click += new System.EventHandler(this._trackButton_Click);
             // 
+            // _goBackButton
+            // 
+            this._goBackButton.Location = new System.Drawing.Point(69, 573);
+            this._goBackButton.Name = "_goBackButton";
+            this._goBackButton.Size = new System.Drawing.Size(111, 27);
+            this._goBackButton.TabIndex = 0;
+            this._goBackButton.Text = "Go Back To Main Screen";
+            this._goBackButton.UseVisualStyleBackColor = true;
+            this._goBackButton.Click += new System.EventHandler(this._backToMainForm_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -236,10 +247,11 @@ namespace BasicEyetrackingSample
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._trackButton);
+            this.Controls.Add(this._goBackButton);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this._box1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "MainForm";
+            this.Name = "Eyetracking";
             this.Text = "SDK - Basic Eyetracking Sample";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -264,6 +276,7 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.ToolStripStatusLabel _connectionStatusLabel;
         private System.Windows.Forms.GroupBox _box2;
         private System.Windows.Forms.Button _trackButton;
+        private System.Windows.Forms.Button _goBackButton;
         private TrackStatusControl _trackStatus;
         private System.Windows.Forms.Button _calibrateButton;
         private System.Windows.Forms.MenuStrip menuStrip1;

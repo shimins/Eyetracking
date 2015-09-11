@@ -390,5 +390,12 @@ namespace BasicEyetrackingSample
                 _connectedTracker.SetFrameRate(fpsDialog.CurrentFrameRate);
             }
         }
+
+        private void _backToMainForm_Click(object sender, EventArgs e)
+        {
+            Form mainForm = new MainForm();
+            mainForm.Show();
+            this.Close();
+        }
     }
 }
