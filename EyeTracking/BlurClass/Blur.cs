@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Linq.Expressions;
 
 namespace BlurClass
 {
-    public class Class1
+    public class Blur
     {
-        private Bitmap blurImage(Bitmap image, Rectangle rectangle, int blurLevel)
+        public Bitmap blurImage(Bitmap image, int blurLevel)
         {
             var blurred = new Bitmap(image.Width, image.Height);
 
@@ -19,9 +20,9 @@ namespace BlurClass
                     new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
 
             // look at every pixel in the blur rectangle
-            for (var xx = rectangle.X; xx < rectangle.X + rectangle.Width; xx++)
+            for (var xx = 0; xx < image.Width; xx++)
             {
-                for (var yy = rectangle.Y; yy < rectangle.Y + rectangle.Height; yy++)
+                for (var yy = 0; yy < image.Height; yy++)
                 {
                     int avgR = 0, avgG = 0, avgB = 0;
                     var blurPixelCount = 0;
@@ -41,14 +42,16 @@ namespace BlurClass
                             blurPixelCount++;
                         }
                     }
-
-                    avgR = avgR / blurPixelCount;
-                    avgG = avgG / blurPixelCount;
-                    avgB = avgB / blurPixelCount;
+                    if (blurPixelCount > 0)
+                    {
+                        avgR = avgR / blurPixelCount;
+                        avgG = avgG / blurPixelCount;
+                        avgB = avgB / blurPixelCount;
+                    }
 
                     // now that we know the average for the blur size, set each pixel to that color
-                    for (Int32 x = xx; x < xx + blurLevel && x < image.Width && x < rectangle.Width; x++)
-                        for (Int32 y = yy; y < yy + blurLevel && y < image.Height && y < rectangle.Height; y++)
+                    for (Int32 x = xx; x < xx + blurLevel && x < image.Width && x < image.Width; x++)
+                        for (Int32 y = yy; y < yy + blurLevel && y < image.Height && y < image.Height; y++)
                             blurred.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
                 }
             }

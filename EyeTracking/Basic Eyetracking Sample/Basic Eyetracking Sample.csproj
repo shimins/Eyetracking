@@ -148,6 +148,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\BlurForm.resx">
+      <DependentUpon>BlurForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CalibrationForm.resx">
       <DependentUpon>CalibrationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -238,5 +241,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlurClass\BlurClass.csproj">
+      <Project>{EC086F95-A39C-4E3E-8B3F-9E0A60E588DC}</Project>
+      <Name>BlurClass</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
