@@ -2,7 +2,7 @@
 
 namespace BasicEyetrackingSample
 {
-    partial class MainForm
+    partial class TrackerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackerForm));
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
             this._trackerInfoLabel = new System.Windows.Forms.Label();

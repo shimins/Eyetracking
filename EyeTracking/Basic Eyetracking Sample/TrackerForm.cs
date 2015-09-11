@@ -12,7 +12,7 @@ using Tobii.EyeTracking.IO;
 
 namespace BasicEyetrackingSample
 {
-    public partial class MainForm : Form
+    public partial class TrackerForm : Form
     {
         private readonly EyeTrackerBrowser _trackerBrowser;
         private readonly Clock _clock;
@@ -23,7 +23,7 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
 
-        public MainForm()
+        public TrackerForm()
         {
             InitializeComponent();
 

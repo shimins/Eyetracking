@@ -15,7 +15,7 @@ namespace BasicEyetrackingSample
         private Point2D _previous;
 
         private readonly List<CircleImage> _images = new List<CircleImage>();
-        private const int ImageLength = 10;
+        private const int ImageLength = 21;
 
         private Point _point;
 
@@ -31,11 +31,11 @@ namespace BasicEyetrackingSample
             _previous.Y = 0;
 
             const string imageFolder = "images/nature/";
-            for (var i = ImageLength-1; i >= 0; i--)
+            for (var i = ImageLength-1; i >= 0; i=i-2)
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*100) + 400;
+                var radius = (i*50) + 400;
                 var eyeImage = new CircleImage(image, radius);
                 _images.Add(eyeImage);
             }

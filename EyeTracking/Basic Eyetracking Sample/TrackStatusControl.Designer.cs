@@ -41,6 +41,7 @@ namespace BasicEyetrackingSample
             this.Name = "TrackStatusControl";
             this.Size = new System.Drawing.Size(1520, 1000);
             this.ResumeLayout(false);
+
         }
         #endregion
     }
