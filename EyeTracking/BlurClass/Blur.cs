@@ -1,64 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 namespace BlurClass
 {
     public class Blur
     {
-
         private static double[,] filterMatrix;
-        private static string test = null;
 
-        public static Bitmap _GaussianBlur(Bitmap _Image, int _blurLevel)
+        private const int factor = 1;
+        private const int bias = 0;
+
+        public static Bitmap GaussianBlur(Bitmap sourceBitmap, int blurLevel)
         {
-            Calculate(_blurLevel);
-            BitmapData sourceData = _Image.LockBits(new Rectangle(0, 0,
-                                     _Image.Width, _Image.Height),
-                                                       ImageLockMode.ReadOnly,
-                                                 PixelFormat.Format32bppArgb);
+            filterMatrix = MatrixCalculator.Calculate(blurLevel, 2.5);
 
-            byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
-            byte[] resultBuffer = new byte[sourceData.Stride * sourceData.Height];
+            Console.WriteLine(sourceBitmap.Size);
+            Console.WriteLine(filterMatrix);
+
+            var sourceData = sourceBitmap.LockBits(new Rectangle(0, 0,
+                                                 sourceBitmap.Width, sourceBitmap.Height),
+                                                                   ImageLockMode.ReadOnly,
+                                                             PixelFormat.Format32bppArgb);
+
+            var pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
+            var resultBuffer = new byte[sourceData.Stride * sourceData.Height];
 
             Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
-            _Image.UnlockBits(sourceData);
-
-            double blue = 0.0;
-            double green = 0.0;
-            double red = 0.0;
-
-            double factor = 1;
-            int bias = 0;
+            sourceBitmap.UnlockBits(sourceData);
 
             int filterWidth = filterMatrix.GetLength(1);
-            Console.WriteLine(filterMatrix.GetLength(1));
             int filterHeight = filterMatrix.GetLength(0);
 
             int filterOffset = (filterWidth - 1) / 2;
-            int calcOffset = 0;
-
-            int byteOffset = 0;
 
             for (int offsetY = filterOffset; offsetY <
-                _Image.Height - filterOffset; offsetY++)
+                sourceBitmap.Height - filterOffset; offsetY++)
             {
                 for (int offsetX = filterOffset; offsetX <
-                    _Image.Width - filterOffset; offsetX++)
+                    sourceBitmap.Width - filterOffset; offsetX++)
                 {
-                    blue = 0;
-                    green = 0;
-                    red = 0;
+                    double blue = 0;
+                    double green = 0;
+                    double red = 0;
 
-                    byteOffset = offsetY *
-                                 sourceData.Stride +
-                                 offsetX * 4;
+                    var byteOffset = offsetY *
+                                     sourceData.Stride +
+                                     offsetX * 4;
 
                     for (int filterY = -filterOffset;
                         filterY <= filterOffset; filterY++)
@@ -67,19 +56,19 @@ namespace BlurClass
                             filterX <= filterOffset; filterX++)
                         {
 
-                            calcOffset = byteOffset +
-                                         (filterX * 4) +
-                                         (filterY * sourceData.Stride);
+                            var calcOffset = byteOffset +
+                                             (filterX * 4) +
+                                             (filterY * sourceData.Stride);
 
-                            blue += (double)(pixelBuffer[calcOffset]) *
+                            blue += pixelBuffer[calcOffset] *
                                     filterMatrix[filterY + filterOffset,
                                                         filterX + filterOffset];
 
-                            green += (double)(pixelBuffer[calcOffset + 1]) *
+                            green += pixelBuffer[calcOffset + 1] *
                                      filterMatrix[filterY + filterOffset,
                                                         filterX + filterOffset];
 
-                            red += (double)(pixelBuffer[calcOffset + 2]) *
+                            red += pixelBuffer[calcOffset + 2] *
                                    filterMatrix[filterY + filterOffset,
                                                       filterX + filterOffset];
                         }
@@ -100,59 +89,18 @@ namespace BlurClass
                 }
             }
 
-            Bitmap resultBitmap = new Bitmap(_Image.Width, _Image.Height);
+            var resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
 
-            BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0,
+            var resultData = resultBitmap.LockBits(new Rectangle(0, 0,
                                      resultBitmap.Width, resultBitmap.Height),
                                                       ImageLockMode.WriteOnly,
                                                  PixelFormat.Format32bppArgb);
 
             Marshal.Copy(resultBuffer, 0, resultData.Scan0, resultBuffer.Length);
             resultBitmap.UnlockBits(resultData);
+
             return resultBitmap;
         }
 
-        private static void Calculate(int _blurLevel)
-        {
-            filterMatrix = new double[_blurLevel, _blurLevel];
-            double sumTotal = 0;
-            double weight = 2.5;
-
-            int kernelRadius = _blurLevel / 2;
-            double distance = 0;
-
-            double calculatedEuler = 1.0 /
-           (2.0 * Math.PI * Math.Pow(weight, 2));
-
-
-            for (int filterY = -kernelRadius;
-                 filterY <= kernelRadius; filterY++)
-            {
-                for (int filterX = -kernelRadius;
-                    filterX <= kernelRadius; filterX++)
-                {
-                    distance = ((filterX * filterX) +
-                               (filterY * filterY)) /
-                               (2 * (weight * weight));
-
-
-                    filterMatrix[filterY + kernelRadius,
-                           filterX + kernelRadius] =
-                           calculatedEuler * Math.Exp(-distance);
-
-                    sumTotal += filterMatrix[filterY + kernelRadius,
-                                       filterX + kernelRadius];
-                }
-            }
-
-            for (int y = 0; y < _blurLevel; y++)
-            {
-                for (int x = 0; x < _blurLevel; x++)
-                {
-                    filterMatrix[y, x] = filterMatrix[y, x] *
-                                   (1.0 / sumTotal);
-                }
-            }
-        }
     }
 }
