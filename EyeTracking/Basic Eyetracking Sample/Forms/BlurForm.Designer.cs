@@ -42,6 +42,9 @@ namespace BasicEyetrackingSample
             this._GobackButton = new System.Windows.Forms.Button();
             this._HighestBlurLevel = new System.Windows.Forms.PictureBox();
             this._blurLevel = new System.Windows.Forms.ComboBox();
+            this._saveButton = new System.Windows.Forms.Button();
+            this._numberImages = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._LowestBlurLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._HighestBlurLevel)).BeginInit();
             this.SuspendLayout();
@@ -170,11 +173,48 @@ namespace BasicEyetrackingSample
             this._blurLevel.Text = "1";
             this._blurLevel.SelectedIndexChanged += new System.EventHandler(this._blurLevel_SelectedIndexChanged);
             // 
+            // _saveButton
+            // 
+            this._saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._saveButton.Location = new System.Drawing.Point(730, 159);
+            this._saveButton.Name = "_saveButton";
+            this._saveButton.Size = new System.Drawing.Size(104, 37);
+            this._saveButton.TabIndex = 15;
+            this._saveButton.Text = "Save Image";
+            this._saveButton.UseVisualStyleBackColor = true;
+            this._saveButton.Click += new System.EventHandler(this._saveButton_Click);
+            // 
+            // _numberImages
+            // 
+            this._numberImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._numberImages.FormattingEnabled = true;
+            this._numberImages.Items.AddRange(new object[] {
+            "5",
+            "10"});
+            this._numberImages.Location = new System.Drawing.Point(586, 163);
+            this._numberImages.Name = "_numberImages";
+            this._numberImages.Size = new System.Drawing.Size(112, 28);
+            this._numberImages.TabIndex = 16;
+            this._numberImages.Text = "5";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(438, 166);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 20);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Image group size:";
+            // 
             // BlurForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1196, 781);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this._numberImages);
+            this.Controls.Add(this._saveButton);
             this.Controls.Add(this._blurLevel);
             this.Controls.Add(this._HighestBlurLevel);
             this.Controls.Add(this._GobackButton);
@@ -208,5 +248,8 @@ namespace BasicEyetrackingSample
         private Button _GobackButton;
         private PictureBox _HighestBlurLevel;
         private ComboBox _blurLevel;
+        private Button _saveButton;
+        private ComboBox _numberImages;
+        private Label label1;
     }
 }

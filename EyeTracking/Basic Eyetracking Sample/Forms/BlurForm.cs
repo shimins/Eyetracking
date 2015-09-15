@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +63,41 @@ namespace BasicEyetrackingSample
         private void _blurLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
             Upate();
+        }
+
+        private void _saveButton_Click(object sender, EventArgs e)
+        {
+            if (_blurredImage != null)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Title = "Specify a file name and file path";
+                sfd.Filter = "Png Images(*.png)|*.png|Jpeg Images(*.jpg)|*.jpg";
+                sfd.Filter += "|Bitmap Images(*.bmp)|*.bmp";
+
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string fileExtension = Path.GetExtension(sfd.FileName).ToUpper();
+                    ImageFormat imgFormat = ImageFormat.Png;
+
+                    if (fileExtension == "BMP")
+                    {
+                        imgFormat = ImageFormat.Bmp;
+                    }
+                    else if (fileExtension == "JPG")
+                    {
+                        imgFormat = ImageFormat.Jpeg;
+                    }
+                    for (var i = 0; i < Int32.Parse(_numberImages.Text); i++)
+                    {
+                        StreamWriter streamWriter = new StreamWriter(sfd.FileName, false);
+                        _blurredImage = new Bitmap(Blur.GaussianBlur(_resultImage, (i * 2 + 1)), _HighestBlurLevel.Size);
+                        _blurredImage.Save(streamWriter.BaseStream, imgFormat);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                    }
+                    _blurredImage = null;
+                }
+            }
         }
     }
 }
