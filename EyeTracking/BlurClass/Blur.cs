@@ -4,59 +4,155 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 namespace BlurClass
 {
     public class Blur
     {
-        public Bitmap blurImage(Bitmap image, int blurLevel)
+
+        private static double[,] filterMatrix;
+        private static string test = null;
+
+        public static Bitmap _GaussianBlur(Bitmap _Image, int _blurLevel)
         {
-            var blurred = new Bitmap(image.Width, image.Height);
+            Calculate(_blurLevel);
+            BitmapData sourceData = _Image.LockBits(new Rectangle(0, 0,
+                                     _Image.Width, _Image.Height),
+                                                       ImageLockMode.ReadOnly,
+                                                 PixelFormat.Format32bppArgb);
 
-            // make an exact copy of the bitmap provided
-            using (var graphics = Graphics.FromImage(blurred))
-                graphics.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
-                    new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+            byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
+            byte[] resultBuffer = new byte[sourceData.Stride * sourceData.Height];
 
-            // look at every pixel in the blur rectangle
-            for (var xx = 0; xx < image.Width; xx++)
+            Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
+            _Image.UnlockBits(sourceData);
+
+            double blue = 0.0;
+            double green = 0.0;
+            double red = 0.0;
+
+            double factor = 1;
+            int bias = 0;
+
+            int filterWidth = filterMatrix.GetLength(1);
+            Console.WriteLine(filterMatrix.GetLength(1));
+            int filterHeight = filterMatrix.GetLength(0);
+
+            int filterOffset = (filterWidth - 1) / 2;
+            int calcOffset = 0;
+
+            int byteOffset = 0;
+
+            for (int offsetY = filterOffset; offsetY <
+                _Image.Height - filterOffset; offsetY++)
             {
-                for (var yy = 0; yy < image.Height; yy++)
+                for (int offsetX = filterOffset; offsetX <
+                    _Image.Width - filterOffset; offsetX++)
                 {
-                    int avgR = 0, avgG = 0, avgB = 0;
-                    var blurPixelCount = 0;
+                    blue = 0;
+                    green = 0;
+                    red = 0;
 
-                    // average the color of the red, green and blue for each pixel in the
-                    // blur size while making sure you don't go outside the image bounds
-                    for (var x = xx; (x < xx + blurLevel && x < image.Width); x++)
+                    byteOffset = offsetY *
+                                 sourceData.Stride +
+                                 offsetX * 4;
+
+                    for (int filterY = -filterOffset;
+                        filterY <= filterOffset; filterY++)
                     {
-                        for (var y = yy; (y < yy + blurLevel && y < image.Height); y++)
+                        for (int filterX = -filterOffset;
+                            filterX <= filterOffset; filterX++)
                         {
-                            var pixel = blurred.GetPixel(x, y);
 
-                            avgR += pixel.R;
-                            avgG += pixel.G;
-                            avgB += pixel.B;
+                            calcOffset = byteOffset +
+                                         (filterX * 4) +
+                                         (filterY * sourceData.Stride);
 
-                            blurPixelCount++;
+                            blue += (double)(pixelBuffer[calcOffset]) *
+                                    filterMatrix[filterY + filterOffset,
+                                                        filterX + filterOffset];
+
+                            green += (double)(pixelBuffer[calcOffset + 1]) *
+                                     filterMatrix[filterY + filterOffset,
+                                                        filterX + filterOffset];
+
+                            red += (double)(pixelBuffer[calcOffset + 2]) *
+                                   filterMatrix[filterY + filterOffset,
+                                                      filterX + filterOffset];
                         }
                     }
-                    if (blurPixelCount > 0)
-                    {
-                        avgR = avgR / blurPixelCount;
-                        avgG = avgG / blurPixelCount;
-                        avgB = avgB / blurPixelCount;
-                    }
 
-                    // now that we know the average for the blur size, set each pixel to that color
-                    for (Int32 x = xx; x < xx + blurLevel && x < image.Width && x < image.Width; x++)
-                        for (Int32 y = yy; y < yy + blurLevel && y < image.Height && y < image.Height; y++)
-                            blurred.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
+                    blue = factor * blue + bias;
+                    green = factor * green + bias;
+                    red = factor * red + bias;
+
+                    blue = (blue > 255 ? 255 : (blue < 0 ? 0 : blue));
+                    green = (green > 255 ? 255 : (green < 0 ? 0 : green));
+                    red = (red > 255 ? 255 : (red < 0 ? 0 : red));
+
+                    resultBuffer[byteOffset] = (byte)(blue);
+                    resultBuffer[byteOffset + 1] = (byte)(green);
+                    resultBuffer[byteOffset + 2] = (byte)(red);
+                    resultBuffer[byteOffset + 3] = 255;
                 }
             }
 
-            return blurred;
+            Bitmap resultBitmap = new Bitmap(_Image.Width, _Image.Height);
+
+            BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0,
+                                     resultBitmap.Width, resultBitmap.Height),
+                                                      ImageLockMode.WriteOnly,
+                                                 PixelFormat.Format32bppArgb);
+
+            Marshal.Copy(resultBuffer, 0, resultData.Scan0, resultBuffer.Length);
+            resultBitmap.UnlockBits(resultData);
+            return resultBitmap;
+        }
+
+        private static void Calculate(int _blurLevel)
+        {
+            filterMatrix = new double[_blurLevel, _blurLevel];
+            double sumTotal = 0;
+            double weight = 2.5;
+
+            int kernelRadius = _blurLevel / 2;
+            double distance = 0;
+
+            double calculatedEuler = 1.0 /
+           (2.0 * Math.PI * Math.Pow(weight, 2));
+
+
+            for (int filterY = -kernelRadius;
+                 filterY <= kernelRadius; filterY++)
+            {
+                for (int filterX = -kernelRadius;
+                    filterX <= kernelRadius; filterX++)
+                {
+                    distance = ((filterX * filterX) +
+                               (filterY * filterY)) /
+                               (2 * (weight * weight));
+
+
+                    filterMatrix[filterY + kernelRadius,
+                           filterX + kernelRadius] =
+                           calculatedEuler * Math.Exp(-distance);
+
+                    sumTotal += filterMatrix[filterY + kernelRadius,
+                                       filterX + kernelRadius];
+                }
+            }
+
+            for (int y = 0; y < _blurLevel; y++)
+            {
+                for (int x = 0; x < _blurLevel; x++)
+                {
+                    filterMatrix[y, x] = filterMatrix[y, x] *
+                                   (1.0 / sumTotal);
+                }
+            }
         }
     }
 }

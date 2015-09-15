@@ -165,7 +165,7 @@ namespace BasicEyetrackingSample
             this._goBackButton.TabIndex = 0;
             this._goBackButton.Text = "Go Back To Main Screen";
             this._goBackButton.UseVisualStyleBackColor = true;
-            this._goBackButton.Click += new System.EventHandler(this._backToMainForm_Click);
+            this._goBackButton.Click += new System.EventHandler(this._goBackButton_Click);
             // 
             // menuStrip1
             // 

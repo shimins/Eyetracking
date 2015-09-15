@@ -391,7 +391,7 @@ namespace BasicEyetrackingSample
             }
         }
 
-        private void _backToMainForm_Click(object sender, EventArgs e)
+        private void _goBackButton_Click(object sender, EventArgs e)
         {
             Form mainForm = new MainForm();
             mainForm.Show();

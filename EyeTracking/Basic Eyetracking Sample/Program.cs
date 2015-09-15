@@ -21,7 +21,6 @@ namespace BasicEyetrackingSample
             Form mainForm = new MainForm();
             mainForm.Show();
             Application.Run();
-            //Application.Run(new TrackerForm());
         }
     }
 }

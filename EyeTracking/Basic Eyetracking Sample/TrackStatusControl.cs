@@ -15,9 +15,11 @@ namespace BasicEyetrackingSample
         private Point2D _previous;
 
         private readonly List<CircleImage> _images = new List<CircleImage>();
-        private const int ImageLength = 21;
+        private const int ImageLength = 5;
 
         private Point _point;
+
+        readonly Stopwatch _sw;
 
         public TrackStatusControl()
         {
@@ -30,8 +32,10 @@ namespace BasicEyetrackingSample
             _previous.X = 0;
             _previous.Y = 0;
 
+            _sw = new Stopwatch();
+
             const string imageFolder = "images/nature/";
-            for (var i = ImageLength-1; i >= 0; i=i-2)
+            for (var i = ImageLength; i >= 0; i=i-1)
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
@@ -39,20 +43,20 @@ namespace BasicEyetrackingSample
                 var eyeImage = new CircleImage(image, radius);
                 _images.Add(eyeImage);
             }
+
+            _sw.Start();
         }
 
 
         public void OnGazeData(Point2D leftPoint, Point2D rightPoint)
         {
-            var sw = new Stopwatch();
-            sw.Start();
+
             if (!(leftPoint.X > -1.0)) return;
             _current = new Point2D((leftPoint.X + rightPoint.X) / 2, (leftPoint.Y + rightPoint.Y) / 2);
             if (!GazeHaveMoved(_current)) return;
             _previous = _current;
             Invalidate();
-            sw.Stop();
-            Console.WriteLine(@"Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+            Console.WriteLine(@"Called Invalidate");
         }
 
         private bool GazeHaveMoved(Point2D currentPoint)
@@ -67,7 +71,6 @@ namespace BasicEyetrackingSample
         public void Clear()
         {
             _current = new Point2D();
-
             Invalidate();
         }
 
@@ -75,6 +78,7 @@ namespace BasicEyetrackingSample
 
         protected override void OnPaint(PaintEventArgs e)
         {
+
             base.OnPaint(e);
             _point = new Point((int)(_previous.X * Width), (int)(_previous.Y * Height));
 
@@ -89,6 +93,9 @@ namespace BasicEyetrackingSample
             {
                 image.DrawCircle(_point, e.Graphics);
             }
+            Console.WriteLine(@"Time taken: {0}ms", _sw.Elapsed.TotalMilliseconds);
+            _sw.Restart();
+
         }
     }
 }

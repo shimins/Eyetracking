@@ -31,15 +31,32 @@ namespace BasicEyetrackingSample
                 _Image = (Bitmap) Bitmap.FromFile(fDialog.FileName.ToString());
                 _ImagePath.Text = fDialog.FileName.ToString();
             }
+            _upDate();
         }
 
         private void _blurButton_Click(object sender, EventArgs e)
         {
-            var blur = new Blur();
             Console.WriteLine(_blurLevel.Value);
-            _blurredImage = blur.blurImage(_Image, (int) _blurLevel.Value);
+            _upDate();
+        }
+
+        private void _GobackButton_Click(object sender, EventArgs e)
+        {
+            Form mainForm = new MainForm();
+            mainForm.Show();
+            this.Close();
+        }
+
+        private void _upDate()
+        {
+            _blurredImage = Blur._GaussianBlur(_Image, (int) _blurLevel.Value);
             _LowestBlurLevel.BackgroundImage = _Image;
             _HighestBlurLevel.BackgroundImage = _blurredImage;
+        }
+
+        private void _blurLevel_ValueChanged_1(object sender, EventArgs e)
+        {
+            _upDate();
         }
     }
 }
