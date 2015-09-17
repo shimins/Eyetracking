@@ -23,10 +23,14 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
 
+        private Bitmap _Image;
+        private Bitmap _resultImage;
+        private Bitmap _blurredImage;
+
         public TrackerForm()
         {
             InitializeComponent();
-
+            
             _clock = new Clock();
 
             _trackerBrowser = new EyeTrackerBrowser();
@@ -222,6 +226,7 @@ namespace BasicEyetrackingSample
 
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
+            Console.WriteLine("GAZEDATA");
             _trackStatus.OnGazeData(gd.LeftGazePoint2D, gd.RightGazePoint2D);
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
@@ -398,11 +403,20 @@ namespace BasicEyetrackingSample
             this.Close();
         }
 
-        private void _BlurFormButton_Click(object sender, EventArgs e)
+        private void importImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form blurForm = new BlurForm();
-            blurForm.Show();
-            this.Hide();
+            OpenFileDialog fDialog = new OpenFileDialog();
+            fDialog.Filter = "PNG files|*.png|JPEG files|*.jpeg|JPG files|*jpg|BMP files|*.bmp|GIF files|*.gif";
+            DialogResult result = fDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                _Image = (Bitmap)Image.FromFile(fDialog.FileName);
+                if (_Image.Width > _trackStatus.Width && _Image.Height > _trackStatus.Height)
+                {
+                    _resultImage = new Bitmap(_Image, _Image.Size);
+                    //_resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
+                }
+            }
         }
     }
 }

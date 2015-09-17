@@ -15,14 +15,17 @@ namespace BasicEyetrackingSample
         private Point2D _previous;
 
         private readonly List<CircleImage> _images = new List<CircleImage>();
-        private const int ImageLength = 5;
+        private int numberOfImages;
+        private int radius;
 
         private Point _point;
         
         public TrackStatusControl()
         {
             InitializeComponent();
-
+            ImageSettingForm imageSettingForm = new ImageSettingForm();
+            numberOfImages = 5;
+            radius = 400;
             SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
@@ -30,12 +33,13 @@ namespace BasicEyetrackingSample
             _previous.X = 0;
             _previous.Y = 0;
             const string imageFolder = "images/nature/";
-            for (var i = ImageLength; i >= 0; i=i-1)
+            var factor = 500/numberOfImages;
+            for (var i = numberOfImages; i >= 0; i=i-1)
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var radius = (i*50) + 400;
-                var eyeImage = new CircleImage(image, radius);
+                var r = (i*factor) + radius;
+                var eyeImage = new CircleImage(image, r);
                 _images.Add(eyeImage);
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace BasicEyetrackingSample
 {
@@ -30,7 +31,6 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
-            _trackStatus = new TrackStatusControl();
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
             this._trackerInfoLabel = new System.Windows.Forms.Label();
@@ -38,6 +38,7 @@ namespace BasicEyetrackingSample
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._connectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._box2 = new System.Windows.Forms.GroupBox();
+            this._trackStatus = new TrackStatusControl();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
             this._goBackButton = new System.Windows.Forms.Button();
@@ -48,9 +49,17 @@ namespace BasicEyetrackingSample
             this._loadCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._framerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._BlurFormButton = new System.Windows.Forms.Button();
+            this._blurLevel = new System.Windows.Forms.ComboBox();
+            this._blurLevelLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this._numberOfImages = new System.Windows.Forms.ComboBox();
+            this.radiusBox = new System.Windows.Forms.ComboBox();
+            this.radiusLabel = new System.Windows.Forms.Label();
             this._box1.SuspendLayout();
             this._box2.SuspendLayout();
             this._statusStrip.SuspendLayout();
@@ -124,7 +133,7 @@ namespace BasicEyetrackingSample
             this._box2.Controls.Add(this._trackStatus);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
-            this._box2.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - 300, Screen.PrimaryScreen.Bounds.Height - 100);
+            this._box2.Size = new System.Drawing.Size(1620, 1100);
             this._box2.TabIndex = 3;
             this._box2.TabStop = false;
             this._box2.Text = "Eyetracker Status";
@@ -159,7 +168,7 @@ namespace BasicEyetrackingSample
             // 
             // _goBackButton
             // 
-            this._goBackButton.Location = new System.Drawing.Point(58, 613);
+            this._goBackButton.Location = new System.Drawing.Point(58, 1081);
             this._goBackButton.Name = "_goBackButton";
             this._goBackButton.Size = new System.Drawing.Size(142, 57);
             this._goBackButton.TabIndex = 0;
@@ -171,7 +180,8 @@ namespace BasicEyetrackingSample
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.propertiesToolStripMenuItem});
+            this.propertiesToolStripMenuItem,
+            this.imageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1920, 24);
@@ -224,6 +234,21 @@ namespace BasicEyetrackingSample
             this._framerateMenuItem.Text = "FrameRate...";
             this._framerateMenuItem.Click += new System.EventHandler(this._framerateMenuItem_Click);
             // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importImageToolStripMenuItem});
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.imageToolStripMenuItem.Text = "Image";
+            // 
+            // importImageToolStripMenuItem
+            // 
+            this.importImageToolStripMenuItem.Name = "importImageToolStripMenuItem";
+            this.importImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.importImageToolStripMenuItem.Text = "Import Image";
+            this.importImageToolStripMenuItem.Click += new System.EventHandler(this.importImageToolStripMenuItem_Click);
+            // 
             // _openFileDialog
             // 
             this._openFileDialog.DefaultExt = "calib";
@@ -244,15 +269,102 @@ namespace BasicEyetrackingSample
             this._BlurFormButton.Name = "_BlurFormButton";
             this._BlurFormButton.Size = new System.Drawing.Size(111, 27);
             this._BlurFormButton.TabIndex = 5;
-            this._BlurFormButton.Text = "Import Image";
+            this._BlurFormButton.Text = "Image Settings";
             this._BlurFormButton.UseVisualStyleBackColor = true;
-            this._BlurFormButton.Click += new System.EventHandler(this._BlurFormButton_Click);
+            // 
+            // _blurLevel
+            // 
+            this._blurLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._blurLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._blurLevel.FormattingEnabled = true;
+            this._blurLevel.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this._blurLevel.Location = new System.Drawing.Point(126, 598);
+            this._blurLevel.Name = "_blurLevel";
+            this._blurLevel.Size = new System.Drawing.Size(112, 28);
+            this._blurLevel.TabIndex = 16;
+            this._blurLevel.SelectedIndex = 0;
+            // 
+            // _blurLevelLabel
+            // 
+            this._blurLevelLabel.AutoSize = true;
+            this._blurLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._blurLevelLabel.Location = new System.Drawing.Point(22, 601);
+            this._blurLevelLabel.Name = "_blurLevelLabel";
+            this._blurLevelLabel.Size = new System.Drawing.Size(98, 20);
+            this._blurLevelLabel.TabIndex = 15;
+            this._blurLevelLabel.Text = "Blur Factor:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(9, 651);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(150, 20);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Number of Circles:";
+            // 
+            // _numberOfImages
+            // 
+            this._numberOfImages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._numberOfImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._numberOfImages.FormattingEnabled = true;
+            this._numberOfImages.Items.AddRange(new object[] {
+            "5",
+            "10"});
+            this._numberOfImages.Location = new System.Drawing.Point(165, 648);
+            this._numberOfImages.Name = "_numberOfImages";
+            this._numberOfImages.Size = new System.Drawing.Size(73, 28);
+            this._numberOfImages.TabIndex = 18;
+            this._numberOfImages.SelectedIndex = 0;
+            // 
+            // radiusBox
+            // 
+            this.radiusBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.radiusBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radiusBox.FormattingEnabled = true;
+            this.radiusBox.Items.AddRange(new object[] {
+            "400",
+            "500",
+            "600",
+            "700"});
+            this.radiusBox.Location = new System.Drawing.Point(117, 698);
+            this.radiusBox.Name = "radiusBox";
+            this.radiusBox.Size = new System.Drawing.Size(121, 28);
+            this.radiusBox.TabIndex = 21;
+            this.radiusBox.SelectedIndex = 0;
+            // 
+            // radiusLabel
+            // 
+            this.radiusLabel.AutoSize = true;
+            this.radiusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radiusLabel.Location = new System.Drawing.Point(31, 701);
+            this.radiusLabel.Name = "radiusLabel";
+            this.radiusLabel.Size = new System.Drawing.Size(66, 20);
+            this.radiusLabel.TabIndex = 20;
+            this.radiusLabel.Text = "Radius:";
             // 
             // TrackerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1187);
+            this.Controls.Add(this.radiusBox);
+            this.Controls.Add(this.radiusLabel);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this._numberOfImages);
+            this.Controls.Add(this._blurLevel);
+            this.Controls.Add(this._blurLevelLabel);
             this.Controls.Add(this._BlurFormButton);
             this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
@@ -299,6 +411,14 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _framerateMenuItem;
         private Button _BlurFormButton;
+        private ToolStripMenuItem imageToolStripMenuItem;
+        private ToolStripMenuItem importImageToolStripMenuItem;
+        private ComboBox _blurLevel;
+        private Label _blurLevelLabel;
+        private Label label1;
+        private ComboBox _numberOfImages;
+        private ComboBox radiusBox;
+        private Label radiusLabel;
     }
 }
 
