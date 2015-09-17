@@ -17,13 +17,13 @@ namespace BasicEyetrackingSample
         private readonly List<CircleImage> _images = new List<CircleImage>();
         private int numberOfImages;
         private int radius;
+        //private Bitmap image;
 
         private Point _point;
         
         public TrackStatusControl()
         {
             InitializeComponent();
-            ImageSettingForm imageSettingForm = new ImageSettingForm();
             numberOfImages = 5;
             radius = 400;
             SetStyle(ControlStyles.UserPaint, true); 
@@ -44,6 +44,16 @@ namespace BasicEyetrackingSample
             }
         }
 
+
+        public void SetNumberOfCircles(int number)
+        {
+            this.numberOfImages = number;
+        }
+
+        public void SetRadius(int radius)
+        {
+            this.radius = radius;
+        }
 
         public void OnGazeData(Point2D leftPoint, Point2D rightPoint)
         {

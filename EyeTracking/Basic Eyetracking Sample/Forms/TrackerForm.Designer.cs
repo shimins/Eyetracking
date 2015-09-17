@@ -53,7 +53,6 @@ namespace BasicEyetrackingSample
             this.importImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this._BlurFormButton = new System.Windows.Forms.Button();
             this._blurLevel = new System.Windows.Forms.ComboBox();
             this._blurLevelLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -130,7 +129,7 @@ namespace BasicEyetrackingSample
             // 
             // _box2
             // 
-            this._box2.Controls.Add(this._trackStatus);
+            this._box2.Controls.Add(_trackStatus);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
             this._box2.Size = new System.Drawing.Size(1620, 1100);
@@ -143,7 +142,7 @@ namespace BasicEyetrackingSample
             this._trackStatus.BackColor = System.Drawing.Color.Black;
             this._trackStatus.Location = new System.Drawing.Point(49, 33);
             this._trackStatus.Name = "_trackStatus";
-            this._trackStatus.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - 400, Screen.PrimaryScreen.Bounds.Height - 200);
+            this._trackStatus.Size = new System.Drawing.Size(1520, 1000);
             this._trackStatus.TabIndex = 1;
             // 
             // _calibrateButton
@@ -263,15 +262,6 @@ namespace BasicEyetrackingSample
             this._saveFileDialog.Filter = "Calibration Files|*.calib";
             this._saveFileDialog.Title = "Save Calibration File";
             // 
-            // _BlurFormButton
-            // 
-            this._BlurFormButton.Location = new System.Drawing.Point(69, 551);
-            this._BlurFormButton.Name = "_BlurFormButton";
-            this._BlurFormButton.Size = new System.Drawing.Size(111, 27);
-            this._BlurFormButton.TabIndex = 5;
-            this._BlurFormButton.Text = "Image Settings";
-            this._BlurFormButton.UseVisualStyleBackColor = true;
-            // 
             // _blurLevel
             // 
             this._blurLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -365,7 +355,6 @@ namespace BasicEyetrackingSample
             this.Controls.Add(this._numberOfImages);
             this.Controls.Add(this._blurLevel);
             this.Controls.Add(this._blurLevelLabel);
-            this.Controls.Add(this._BlurFormButton);
             this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);
@@ -410,7 +399,6 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.SaveFileDialog _saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _framerateMenuItem;
-        private Button _BlurFormButton;
         private ToolStripMenuItem imageToolStripMenuItem;
         private ToolStripMenuItem importImageToolStripMenuItem;
         private ComboBox _blurLevel;

@@ -418,5 +418,15 @@ namespace BasicEyetrackingSample
                 }
             }
         }
+
+        public int GetNumberOfCircles()
+        {
+            return Int32.Parse(_numberOfImages.Text);
+        }
+
+        public int GetRadius()
+        {
+            return Int32.Parse(radiusBox.Text);
+        }
     }
 }
