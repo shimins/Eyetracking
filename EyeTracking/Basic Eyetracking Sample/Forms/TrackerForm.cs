@@ -397,5 +397,12 @@ namespace BasicEyetrackingSample
             mainForm.Show();
             this.Close();
         }
+
+        private void _BlurFormButton_Click(object sender, EventArgs e)
+        {
+            Form blurForm = new BlurForm();
+            blurForm.Show();
+            this.Hide();
+        }
     }
 }

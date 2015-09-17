@@ -18,9 +18,7 @@ namespace BasicEyetrackingSample
         private const int ImageLength = 5;
 
         private Point _point;
-
-        readonly Stopwatch _sw;
-
+        
         public TrackStatusControl()
         {
             InitializeComponent();
@@ -31,9 +29,6 @@ namespace BasicEyetrackingSample
             
             _previous.X = 0;
             _previous.Y = 0;
-
-            _sw = new Stopwatch();
-
             const string imageFolder = "images/nature/";
             for (var i = ImageLength; i >= 0; i=i-1)
             {
@@ -43,8 +38,6 @@ namespace BasicEyetrackingSample
                 var eyeImage = new CircleImage(image, radius);
                 _images.Add(eyeImage);
             }
-
-            _sw.Start();
         }
 
 
@@ -56,7 +49,6 @@ namespace BasicEyetrackingSample
             if (!GazeHaveMoved(_current)) return;
             _previous = _current;
             Invalidate();
-            Console.WriteLine(@"Called Invalidate");
         }
 
         private bool GazeHaveMoved(Point2D currentPoint)
@@ -93,8 +85,6 @@ namespace BasicEyetrackingSample
             {
                 image.DrawCircle(_point, e.Graphics);
             }
-            Console.WriteLine(@"Time taken: {0}ms", _sw.Elapsed.TotalMilliseconds);
-            _sw.Restart();
 
         }
     }

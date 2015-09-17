@@ -35,7 +35,8 @@ namespace BasicEyetrackingSample
                 _ImagePath.Text = fDialog.FileName;
                 if (_Image.Width > _HighestBlurLevel.Width && _Image.Height > _HighestBlurLevel.Height)
                 {
-                    _resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
+                    _resultImage = new Bitmap(_Image, _Image.Size);
+                    //_resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
                 }
             }
             Upate();
@@ -48,14 +49,15 @@ namespace BasicEyetrackingSample
 
         private void _GobackButton_Click(object sender, EventArgs e)
         {
-            Form mainForm = new MainForm();
-            mainForm.Show();
-            this.Close();
+            Form trackerForm = new TrackerForm();
+            trackerForm.Show();
+            this.Hide();
         }
 
         private void Upate()
         {
-            _blurredImage = new Bitmap(Blur.GaussianBlur(_resultImage, (Int32.Parse(_blurLevel.Text) * 2 + 1)), _HighestBlurLevel.Size);
+            //_blurredImage = Blur.BlurImage(_resultImage, (Int32.Parse(_blurLevel.Text) * 2 + 1));
+            _blurredImage = Blur.BlurImage(_resultImage, (Int32.Parse(_blurLevel.Text)));
             _LowestBlurLevel.Image = _resultImage;
             _HighestBlurLevel.Image = _blurredImage;
         }

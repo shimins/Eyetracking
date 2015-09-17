@@ -30,7 +30,7 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackerForm));
+            _trackStatus = new TrackStatusControl();
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
             this._trackerInfoLabel = new System.Windows.Forms.Label();
@@ -38,7 +38,6 @@ namespace BasicEyetrackingSample
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._connectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._box2 = new System.Windows.Forms.GroupBox();
-            this._trackStatus = new BasicEyetrackingSample.TrackStatusControl();
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
             this._goBackButton = new System.Windows.Forms.Button();
@@ -51,9 +50,10 @@ namespace BasicEyetrackingSample
             this._framerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this._BlurFormButton = new System.Windows.Forms.Button();
             this._box1.SuspendLayout();
-            this._statusStrip.SuspendLayout();
             this._box2.SuspendLayout();
+            this._statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,7 +139,7 @@ namespace BasicEyetrackingSample
             // 
             // _calibrateButton
             // 
-            this._calibrateButton.Location = new System.Drawing.Point(69, 517);
+            this._calibrateButton.Location = new System.Drawing.Point(69, 501);
             this._calibrateButton.Name = "_calibrateButton";
             this._calibrateButton.Size = new System.Drawing.Size(111, 27);
             this._calibrateButton.TabIndex = 2;
@@ -159,9 +159,9 @@ namespace BasicEyetrackingSample
             // 
             // _goBackButton
             // 
-            this._goBackButton.Location = new System.Drawing.Point(69, 573);
+            this._goBackButton.Location = new System.Drawing.Point(58, 613);
             this._goBackButton.Name = "_goBackButton";
-            this._goBackButton.Size = new System.Drawing.Size(111, 27);
+            this._goBackButton.Size = new System.Drawing.Size(142, 57);
             this._goBackButton.TabIndex = 0;
             this._goBackButton.Text = "Go Back To Main Screen";
             this._goBackButton.UseVisualStyleBackColor = true;
@@ -238,11 +238,22 @@ namespace BasicEyetrackingSample
             this._saveFileDialog.Filter = "Calibration Files|*.calib";
             this._saveFileDialog.Title = "Save Calibration File";
             // 
-            // MainForm
+            // _BlurFormButton
+            // 
+            this._BlurFormButton.Location = new System.Drawing.Point(69, 551);
+            this._BlurFormButton.Name = "_BlurFormButton";
+            this._BlurFormButton.Size = new System.Drawing.Size(111, 27);
+            this._BlurFormButton.TabIndex = 5;
+            this._BlurFormButton.Text = "Import Image";
+            this._BlurFormButton.UseVisualStyleBackColor = true;
+            this._BlurFormButton.Click += new System.EventHandler(this._BlurFormButton_Click);
+            // 
+            // TrackerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1187);
+            this.Controls.Add(this._BlurFormButton);
             this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);
@@ -251,14 +262,13 @@ namespace BasicEyetrackingSample
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this._box1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Eyetracking";
+            this.Name = "TrackerForm";
             this.Text = "SDK - Basic Eyetracking Sample";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this._box1.ResumeLayout(false);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
-            this._box2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -288,6 +298,7 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.SaveFileDialog _saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _framerateMenuItem;
+        private Button _BlurFormButton;
     }
 }
 

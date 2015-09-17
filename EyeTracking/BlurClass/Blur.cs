@@ -14,7 +14,7 @@ namespace BlurClass
 
         public static Bitmap GaussianBlur(Bitmap sourceBitmap, int blurLevel)
         {
-            filterMatrix = MatrixCalculator.Calculate(blurLevel, 2.5);
+            filterMatrix = MatrixCalculator.Calculate(blurLevel, 1);
 
             Console.WriteLine(sourceBitmap.Size);
             Console.WriteLine(filterMatrix);
@@ -102,5 +102,57 @@ namespace BlurClass
             return resultBitmap;
         }
 
+
+        private static Bitmap BlurRect(Bitmap image, Rectangle rectangle, int blurSize)
+        {
+            Bitmap blurred = new Bitmap(image.Width, image.Height);
+
+            // make an exact copy of the bitmap provided
+            using (Graphics graphics = Graphics.FromImage(blurred))
+                graphics.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
+                    new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+
+            // look at every pixel in the blur rectangle
+            for (var xx = rectangle.X; xx < rectangle.X + rectangle.Width; xx+= blurSize)
+            {
+                for (var yy = rectangle.Y; yy < rectangle.Y + rectangle.Height; yy+= blurSize)
+                {
+                    int avgR = 0, avgG = 0, avgB = 0;
+                    var blurPixelCount = 0;
+
+                    // average the color of the red, green and blue for each pixel in the
+                    // blur size while making sure you don't go outside the image bounds
+                    for (var x = xx; (x < xx + blurSize && x < image.Width); x++)
+                    {
+                        for (var y = yy; (y < yy + blurSize && y < image.Height); y++)
+                        {
+                            var pixel = blurred.GetPixel(x, y);
+
+                            avgR += pixel.R;
+                            avgG += pixel.G;
+                            avgB += pixel.B;
+
+                            blurPixelCount++;
+                        }
+                    }
+
+                    avgR = avgR / blurPixelCount;
+                    avgG = avgG / blurPixelCount;
+                    avgB = avgB / blurPixelCount;
+
+                    // now that we know the average for the blur size, set each pixel to that color
+                    for (var x = xx; x < xx + blurSize && x < image.Width && x < rectangle.Width; x++)
+                        for (var y = yy; y < yy + blurSize && y < image.Height && y < rectangle.Height; y++)
+                            blurred.SetPixel(x, y, Color.FromArgb(avgR, avgG, avgB));
+                }
+            }
+
+            return blurred;
+        }
+
+        public static Bitmap BlurImage(Bitmap image, int blurSize)
+        {
+            return BlurRect(image, new Rectangle(0, 0, image.Width, image.Height), blurSize);
+        }
     }
 }

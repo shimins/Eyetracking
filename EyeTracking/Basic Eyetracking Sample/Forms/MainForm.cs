@@ -29,11 +29,11 @@ namespace BasicEyetrackingSample
             this.Close();
         }
 
-        private void blurImageButton_Click(object sender, EventArgs e)
-        {
-            Form blurForm = new BlurForm();
-            blurForm.Show();
-            this.Close();
-        }
+        //private void blurImageButton_Click(object sender, EventArgs e)
+        //{
+        //    Form blurForm = new BlurForm();
+        //    blurForm.Show();
+        //    this.Close();
+        //}
     }
 }
