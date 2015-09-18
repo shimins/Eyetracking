@@ -26,13 +26,20 @@ namespace BasicEyetrackingSample
         private Bitmap _Image;
         private Bitmap _resultImage;
         private Bitmap _blurredImage;
+        private String imageFolder = "images/nature/";
 
         public TrackerForm()
         {
             InitializeComponent();
             
             _clock = new Clock();
-
+            _trackStatus = new TrackStatusControl(1, 5, 400, imageFolder);
+            _box2.Controls.Add(_trackStatus);
+            _trackStatus.BackColor = System.Drawing.Color.Black;
+            _trackStatus.Location = new System.Drawing.Point(49, 33);
+            _trackStatus.Name = "_trackStatus";
+            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
+            _trackStatus.TabIndex = 1;
             _trackerBrowser = new EyeTrackerBrowser();
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
@@ -406,7 +413,8 @@ namespace BasicEyetrackingSample
         private void importImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fDialog = new OpenFileDialog();
-            fDialog.Filter = "PNG files|*.png|JPEG files|*.jpeg|JPG files|*jpg|BMP files|*.bmp|GIF files|*.gif";
+            fDialog.Filter = "JPG files|*-0.jpg|BMP files|*-0.bmp|GIF files|*-0.gif";
+            fDialog.InitialDirectory = Environment.CurrentDirectory;
             DialogResult result = fDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -414,11 +422,13 @@ namespace BasicEyetrackingSample
                 if (_Image.Width > _trackStatus.Width && _Image.Height > _trackStatus.Height)
                 {
                     _resultImage = new Bitmap(_Image, _Image.Size);
+                    Console.WriteLine(Path.GetDirectoryName(fDialog.FileName));
+                    //imageFolder = Path.GetDirectoryName(fDialog.FileName);
+                    //ChangeTrackerControl();
                     //_resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
                 }
             }
         }
-
         public int GetNumberOfCircles()
         {
             return Int32.Parse(_numberOfImages.Text);
@@ -429,12 +439,28 @@ namespace BasicEyetrackingSample
             return Int32.Parse(radiusBox.Text);
         }
 
+
         private void _changeButton_Click(object sender, EventArgs e)
         {
+            ChangeTrackerControl();
+        }
+
+        private void ChangeTrackerControl()
+        {
             TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
-                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text));
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), imageFolder);
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);
+            newStatusControl.BackColor = System.Drawing.Color.Black;
+            newStatusControl.Location = new System.Drawing.Point(49, 33);
+            newStatusControl.Size = new System.Drawing.Size(1520, 1000);
+            newStatusControl.TabIndex = 1;
+            this._trackStatus = newStatusControl;
+        }
+
+        private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

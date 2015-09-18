@@ -31,7 +31,7 @@ namespace BasicEyetrackingSample
 
         //private void blurImageButton_Click(object sender, EventArgs e)
         //{
-        //    Form blurForm = new ImageSettingForm();
+        //    Form blurForm = new CreateSettingForm();
         //    blurForm.Show();
         //    this.Close();
         //}

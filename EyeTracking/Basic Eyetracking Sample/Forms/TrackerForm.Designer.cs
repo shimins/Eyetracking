@@ -31,6 +31,7 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this._changeButton = new System.Windows.Forms.Button();
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
@@ -39,19 +40,19 @@ namespace BasicEyetrackingSample
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._connectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._box2 = new System.Windows.Forms.GroupBox();
-            this._trackStatus = new TrackStatusControl(1,5,400);
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
             this._goBackButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._framerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._saveCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._viewCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._loadCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._framerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._blurLevel = new System.Windows.Forms.ComboBox();
@@ -60,11 +61,21 @@ namespace BasicEyetrackingSample
             this._numberOfImages = new System.Windows.Forms.ComboBox();
             this.radiusBox = new System.Windows.Forms.ComboBox();
             this.radiusLabel = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this._box1.SuspendLayout();
-            this._box2.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // _changeButton
+            // 
+            this._changeButton.Location = new System.Drawing.Point(69, 763);
+            this._changeButton.Name = "_changeButton";
+            this._changeButton.Size = new System.Drawing.Size(111, 27);
+            this._changeButton.TabIndex = 22;
+            this._changeButton.Text = "Apply Changes";
+            this._changeButton.UseVisualStyleBackColor = true;
+            this._changeButton.Click += new System.EventHandler(this._changeButton_Click);
             // 
             // _box1
             // 
@@ -130,21 +141,12 @@ namespace BasicEyetrackingSample
             // 
             // _box2
             // 
-            this._box2.Controls.Add(_trackStatus);
             this._box2.Location = new System.Drawing.Point(256, 38);
             this._box2.Name = "_box2";
             this._box2.Size = new System.Drawing.Size(1620, 1100);
             this._box2.TabIndex = 3;
             this._box2.TabStop = false;
             this._box2.Text = "Eyetracker Status";
-            // 
-            // _trackStatus
-            // 
-            this._trackStatus.BackColor = System.Drawing.Color.Black;
-            this._trackStatus.Location = new System.Drawing.Point(49, 33);
-            this._trackStatus.Name = "_trackStatus";
-            this._trackStatus.Size = new System.Drawing.Size(1520, 1000);
-            this._trackStatus.TabIndex = 1;
             // 
             // _calibrateButton
             // 
@@ -179,14 +181,52 @@ namespace BasicEyetrackingSample
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
+            this.imageToolStripMenuItem,
             this.propertiesToolStripMenuItem,
-            this.imageToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1920, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "_menuStrip";
+            // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importImageToolStripMenuItem,
+            this.createImageToolStripMenuItem});
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.imageToolStripMenuItem.Text = "File";
+            // 
+            // importImageToolStripMenuItem
+            // 
+            this.importImageToolStripMenuItem.Name = "importImageToolStripMenuItem";
+            this.importImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importImageToolStripMenuItem.Text = "Open Image";
+            this.importImageToolStripMenuItem.Click += new System.EventHandler(this.importImageToolStripMenuItem_Click);
+            // 
+            // createImageToolStripMenuItem
+            // 
+            this.createImageToolStripMenuItem.Name = "createImageToolStripMenuItem";
+            this.createImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createImageToolStripMenuItem.Text = "Create Image";
+            this.createImageToolStripMenuItem.Click += new System.EventHandler(this.createImageToolStripMenuItem_Click);
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            this.propertiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._framerateMenuItem});
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.propertiesToolStripMenuItem.Text = "Properties";
+            // 
+            // _framerateMenuItem
+            // 
+            this._framerateMenuItem.Name = "_framerateMenuItem";
+            this._framerateMenuItem.Size = new System.Drawing.Size(139, 22);
+            this._framerateMenuItem.Text = "FrameRate...";
+            this._framerateMenuItem.Click += new System.EventHandler(this._framerateMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -195,8 +235,8 @@ namespace BasicEyetrackingSample
             this._viewCalibrationMenuItem,
             this._loadCalibrationMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.fileToolStripMenuItem.Text = "Caliberation";
             // 
             // _saveCalibrationMenuItem
             // 
@@ -218,36 +258,6 @@ namespace BasicEyetrackingSample
             this._loadCalibrationMenuItem.Size = new System.Drawing.Size(152, 22);
             this._loadCalibrationMenuItem.Text = "Load Calibration";
             this._loadCalibrationMenuItem.Click += new System.EventHandler(this._loadCalibrationMenuItem_Click);
-            // 
-            // propertiesToolStripMenuItem
-            // 
-            this.propertiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._framerateMenuItem});
-            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.propertiesToolStripMenuItem.Text = "Properties";
-            // 
-            // _framerateMenuItem
-            // 
-            this._framerateMenuItem.Name = "_framerateMenuItem";
-            this._framerateMenuItem.Size = new System.Drawing.Size(139, 22);
-            this._framerateMenuItem.Text = "FrameRate...";
-            this._framerateMenuItem.Click += new System.EventHandler(this._framerateMenuItem_Click);
-            // 
-            // imageToolStripMenuItem
-            // 
-            this.imageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importImageToolStripMenuItem});
-            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.imageToolStripMenuItem.Text = "Image";
-            // 
-            // importImageToolStripMenuItem
-            // 
-            this.importImageToolStripMenuItem.Name = "importImageToolStripMenuItem";
-            this.importImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.importImageToolStripMenuItem.Text = "Import Image";
-            this.importImageToolStripMenuItem.Click += new System.EventHandler(this.importImageToolStripMenuItem_Click);
             // 
             // _openFileDialog
             // 
@@ -283,7 +293,7 @@ namespace BasicEyetrackingSample
             this._blurLevel.Name = "_blurLevel";
             this._blurLevel.Size = new System.Drawing.Size(112, 28);
             this._blurLevel.TabIndex = 16;
-            this._blurLevel.SelectedIndex = 0;
+            this.toolTip.SetToolTip(this._blurLevel, "THIS MIGHT TAKE LONG TIME");
             // 
             // _blurLevelLabel
             // 
@@ -317,7 +327,6 @@ namespace BasicEyetrackingSample
             this._numberOfImages.Name = "_numberOfImages";
             this._numberOfImages.Size = new System.Drawing.Size(73, 28);
             this._numberOfImages.TabIndex = 18;
-            this._numberOfImages.SelectedIndex = 0;
             // 
             // radiusBox
             // 
@@ -333,8 +342,6 @@ namespace BasicEyetrackingSample
             this.radiusBox.Name = "radiusBox";
             this.radiusBox.Size = new System.Drawing.Size(121, 28);
             this.radiusBox.TabIndex = 21;
-            this.radiusBox.SelectedIndex = 0;
-            this.radiusBox.SelectedIndex = 0;
             // 
             // radiusLabel
             // 
@@ -346,15 +353,11 @@ namespace BasicEyetrackingSample
             this.radiusLabel.TabIndex = 20;
             this.radiusLabel.Text = "Radius:";
             // 
-            // _changeButton
+            // toolTip
             // 
-            this._changeButton.Location = new System.Drawing.Point(69, 763);
-            this._changeButton.Name = "_changeButton";
-            this._changeButton.Size = new System.Drawing.Size(111, 27);
-            this._changeButton.TabIndex = 22;
-            this._changeButton.Text = "Apply Changes";
-            this._changeButton.UseVisualStyleBackColor = true;
-            this._changeButton.Click += new System.EventHandler(this._changeButton_Click);
+            this.toolTip.IsBalloon = true;
+            this.toolTip.ShowAlways = true;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // TrackerForm
             // 
@@ -421,6 +424,8 @@ namespace BasicEyetrackingSample
         private ComboBox radiusBox;
         private Label radiusLabel;
         private Button _changeButton;
+        private ToolTip toolTip;
+        private ToolStripMenuItem createImageToolStripMenuItem;
     }
 }
 

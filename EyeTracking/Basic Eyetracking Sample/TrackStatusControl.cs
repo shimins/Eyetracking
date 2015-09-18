@@ -17,11 +17,10 @@ namespace BasicEyetrackingSample
         private readonly List<CircleImage> _images = new List<CircleImage>();
         private int numberOfImages;
         private int radius;
-        //private Bitmap image;
 
         private Point _point;
         
-        public TrackStatusControl(int blurLevel, int numberOfImages, int radius)
+        public TrackStatusControl(int blurLevel, int numberOfImages, int radius, string imageFolder)
         {
             InitializeComponent();
             this.numberOfImages = numberOfImages;
@@ -29,19 +28,29 @@ namespace BasicEyetrackingSample
             SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
-            
+            SetNewImageSet(numberOfImages, imageFolder);
+            SetBackGround(blurLevel, imageFolder);
+
             _previous.X = 0;
             _previous.Y = 0;
-            const string imageFolder = "images/nature/";
-            var factor = 500/numberOfImages;
-            for (var i = numberOfImages; i >= 0; i=i-1)
+        }
+
+        private void SetNewImageSet(int imageCount, string imageFolder)
+        {
+            var factor = 500/imageCount;
+            for (var i = numberOfImages; i >= 0; i = i - 1)
             {
                 var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
                 image = ImageHelper.Resize(image, Size);
-                var r = (i*factor) + radius;
+                var r = (i * factor) + radius;
                 var eyeImage = new CircleImage(image, r);
                 _images.Add(eyeImage);
             }
+        }
+
+        private void SetBackGround(int blurLevel, string imageFolder)
+        {
+            this.BackgroundImage = ((System.Drawing.Image)(Image.FromFile(imageFolder + "Nature-" + numberOfImages + ".jpg")));
         }
 
 

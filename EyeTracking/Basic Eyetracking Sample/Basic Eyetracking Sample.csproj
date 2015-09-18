@@ -102,11 +102,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\ImageSettingForm.cs">
+    <Compile Include="Forms\CreateImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ImageSettingForm.Designer.cs">
-      <DependentUpon>ImageSettingForm.cs</DependentUpon>
+    <Compile Include="Forms\CreateImageForm.Designer.cs">
+      <DependentUpon>CreateImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CalibrationResultForm.cs">
       <SubType>Form</SubType>
@@ -148,8 +148,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\ImageSettingForm.resx">
-      <DependentUpon>ImageSettingForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CreateImageForm.resx">
+      <DependentUpon>CreateImageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CalibrationForm.resx">
       <DependentUpon>CalibrationForm.cs</DependentUpon>
