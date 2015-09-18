@@ -6,7 +6,7 @@ namespace BasicEyetrackingSample
     /// <summary>
     /// CURRENTLY NOT USED
     /// </summary>
-    partial class CreateSettingForm
+    partial class CreateImageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateSettingForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateImageForm));
             this._BlurImageLabel = new System.Windows.Forms.Label();
             this._ImagePath = new System.Windows.Forms.TextBox();
             this._ImportImageButton = new System.Windows.Forms.Button();
@@ -138,7 +138,7 @@ namespace BasicEyetrackingSample
             this._HighestBlurLevel.TabIndex = 13;
             this._HighestBlurLevel.TabStop = false;
             // 
-            // CreateSettingForm
+            // CreateImageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -152,8 +152,8 @@ namespace BasicEyetrackingSample
             this.Controls.Add(this._ImportImageButton);
             this.Controls.Add(this._ImagePath);
             this.Controls.Add(this._BlurImageLabel);
-            this.Name = "CreateSettingForm";
-            this.Text = "CreateSettingForm";
+            this.Name = "CreateImageForm";
+            this.Text = "CreateImageForm";
             ((System.ComponentModel.ISupportInitialize)(this._LowestBlurLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._HighestBlurLevel)).EndInit();
             this.ResumeLayout(false);

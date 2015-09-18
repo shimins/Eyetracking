@@ -22,6 +22,7 @@ namespace BasicEyetrackingSample
         private string _connectionName;
         private bool _isTracking;
         private EyeTrackerInfo _info;
+        private CreateImageForm createImageForm;
 
         private Bitmap _Image;
         private Bitmap _resultImage;
@@ -44,6 +45,9 @@ namespace BasicEyetrackingSample
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
+            _numberOfImages.SelectedIndex = 0;
+            _blurLevel.SelectedIndex = 0;
+            radiusBox.SelectedIndex = 0;
         }
 
 
@@ -233,7 +237,6 @@ namespace BasicEyetrackingSample
 
             // Send the gaze data to the track status control.
             var gd = e.GazeDataItem;
-            Console.WriteLine("GAZEDATA");
             _trackStatus.OnGazeData(gd.LeftGazePoint2D, gd.RightGazePoint2D);
             if (_syncManager.CurrentSyncState.Status == SyncStatus.Synchronized)
             {
@@ -460,7 +463,7 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            CreateImageForm
         }
     }
 }

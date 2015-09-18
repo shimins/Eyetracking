@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace BasicEyetrackingSample
 {
-    public partial class CreateSettingForm : Form
+    public partial class CreateImageForm : Form
     {
         private Bitmap _Image;
         private Bitmap _resultImage;
         private Bitmap _blurredImage;
 
-        public CreateSettingForm()
+        public CreateImageForm()
         {
             InitializeComponent();
         }

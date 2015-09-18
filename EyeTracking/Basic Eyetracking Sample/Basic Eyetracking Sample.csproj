@@ -242,10 +242,4 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BlurClass\BlurClass.csproj">
-      <Project>{EC086F95-A39C-4E3E-8B3F-9E0A60E588DC}</Project>
-      <Name>BlurClass</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
