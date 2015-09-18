@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="800" Width="1400" Background="Transparent">
     <Grid>
-
     </Grid>
-    <Window.Background>
+    
+    <!--<Window.Background>
         <ImageBrush ImageSource="/WPF;component/images/nature/Nature-5.jpg" />
-    </Window.Background>
+    </Window.Background>-->
 </Window>

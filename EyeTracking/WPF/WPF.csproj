@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CircleImage.cs" />
+    <Compile Include="TestControl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +115,12 @@
     <Resource Include="images\nature\Nature-7.jpg" />
     <Resource Include="images\nature\Nature-8.jpg" />
     <Resource Include="images\nature\Nature-9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tobii\Tobii.csproj">
+      <Project>{73DE2CD3-FD4B-43B2-ADF4-F29524B98729}</Project>
+      <Name>Tobii</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
