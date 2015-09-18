@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D6008EEC-8927-4589-8BBE-7EFE1D76CD7A}</ProjectGuid>
+    <ProjectGuid>{2FA67AC8-4A78-42F0-9ABB-74A8DE53A0E9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blur_Software</RootNamespace>
-    <AssemblyName>Blur Software</AssemblyName>
+    <RootNamespace>WPF</RootNamespace>
+    <AssemblyName>WPF</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CircleImage.cs" />
+    <Compile Include="TestControl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,10 +99,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Nature-0.jpg" />
+    <Resource Include="images\nature\Nature-0.jpg" />
+    <Resource Include="images\nature\Nature-1.jpg" />
+    <Resource Include="images\nature\Nature-10.jpg" />
+    <Resource Include="images\nature\Nature-12.jpg" />
+    <Resource Include="images\nature\Nature-14.jpg" />
+    <Resource Include="images\nature\Nature-16.jpg" />
+    <Resource Include="images\nature\Nature-18.jpg" />
+    <Resource Include="images\nature\Nature-2.jpg" />
+    <Resource Include="images\nature\Nature-20.jpg" />
+    <Resource Include="images\nature\Nature-3.jpg" />
+    <Resource Include="images\nature\Nature-4.jpg" />
+    <Resource Include="images\nature\Nature-5.jpg" />
+    <Resource Include="images\nature\Nature-6.jpg" />
+    <Resource Include="images\nature\Nature-7.jpg" />
+    <Resource Include="images\nature\Nature-8.jpg" />
+    <Resource Include="images\nature\Nature-9.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Urf_Poro.jpg" />
+    <ProjectReference Include="..\Tobii\Tobii.csproj">
+      <Project>{73DE2CD3-FD4B-43B2-ADF4-F29524B98729}</Project>
+      <Name>Tobii</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

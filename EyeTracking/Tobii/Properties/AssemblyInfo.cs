@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BlurClass")]
+[assembly: AssemblyTitle("Tobii")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BlurClass")]
+[assembly: AssemblyProduct("Tobii")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ec086f95-a39c-4e3e-8b3f-9e0a60e588dc")]
+[assembly: Guid("73de2cd3-fd4b-43b2-adf4-f29524b98729")]
 
 // Version information for an assembly consists of the following four values:
 //

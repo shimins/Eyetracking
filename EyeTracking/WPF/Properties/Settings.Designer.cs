@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Blur_Software.Properties
+namespace WPF.Properties
 {
 
 

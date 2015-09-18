@@ -42,6 +42,7 @@ namespace BasicEyetrackingSample
             this.ResumeLayout(false);
 
         }
+
         #endregion
     }
 }
