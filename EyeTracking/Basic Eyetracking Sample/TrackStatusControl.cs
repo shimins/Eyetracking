@@ -21,11 +21,11 @@ namespace BasicEyetrackingSample
 
         private Point _point;
         
-        public TrackStatusControl()
+        public TrackStatusControl(int blurLevel, int numberOfImages, int radius)
         {
             InitializeComponent();
-            numberOfImages = 5;
-            radius = 400;
+            this.numberOfImages = numberOfImages;
+            this.radius = radius;
             SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);

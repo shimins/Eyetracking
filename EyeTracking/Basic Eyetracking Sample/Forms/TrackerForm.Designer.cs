@@ -31,6 +31,7 @@ namespace BasicEyetrackingSample
         /// </summary>
         private void InitializeComponent()
         {
+            this._changeButton = new System.Windows.Forms.Button();
             this._box1 = new System.Windows.Forms.GroupBox();
             this._connectButton = new System.Windows.Forms.Button();
             this._trackerInfoLabel = new System.Windows.Forms.Label();
@@ -38,7 +39,7 @@ namespace BasicEyetrackingSample
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._connectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._box2 = new System.Windows.Forms.GroupBox();
-            this._trackStatus = new TrackStatusControl();
+            this._trackStatus = new TrackStatusControl(1,5,400);
             this._calibrateButton = new System.Windows.Forms.Button();
             this._trackButton = new System.Windows.Forms.Button();
             this._goBackButton = new System.Windows.Forms.Button();
@@ -333,6 +334,7 @@ namespace BasicEyetrackingSample
             this.radiusBox.Size = new System.Drawing.Size(121, 28);
             this.radiusBox.TabIndex = 21;
             this.radiusBox.SelectedIndex = 0;
+            this.radiusBox.SelectedIndex = 0;
             // 
             // radiusLabel
             // 
@@ -344,11 +346,22 @@ namespace BasicEyetrackingSample
             this.radiusLabel.TabIndex = 20;
             this.radiusLabel.Text = "Radius:";
             // 
+            // _changeButton
+            // 
+            this._changeButton.Location = new System.Drawing.Point(69, 763);
+            this._changeButton.Name = "_changeButton";
+            this._changeButton.Size = new System.Drawing.Size(111, 27);
+            this._changeButton.TabIndex = 22;
+            this._changeButton.Text = "Apply Changes";
+            this._changeButton.UseVisualStyleBackColor = true;
+            this._changeButton.Click += new System.EventHandler(this._changeButton_Click);
+            // 
             // TrackerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1187);
+            this.Controls.Add(this._changeButton);
             this.Controls.Add(this.radiusBox);
             this.Controls.Add(this.radiusLabel);
             this.Controls.Add(this.label1);
@@ -407,6 +420,7 @@ namespace BasicEyetrackingSample
         private ComboBox _numberOfImages;
         private ComboBox radiusBox;
         private Label radiusLabel;
+        private Button _changeButton;
     }
 }
 

@@ -428,5 +428,13 @@ namespace BasicEyetrackingSample
         {
             return Int32.Parse(radiusBox.Text);
         }
+
+        private void _changeButton_Click(object sender, EventArgs e)
+        {
+            TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text));
+            _box2.Controls.Clear();
+            _box2.Controls.Add(newStatusControl);
+        }
     }
 }
