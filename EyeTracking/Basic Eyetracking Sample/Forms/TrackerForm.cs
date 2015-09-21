@@ -23,22 +23,29 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
         private CreateImageForm createImageForm;
-        private List<Bitmap> ImageList;
+        public List<Bitmap> Bitmaps { get; set; }
 
         private Bitmap _Image;
         private Bitmap _resultImage;
-        private Bitmap _blurredImage;
-        //private String imageFolder = "images/nature/";
 
         public TrackerForm()
         {
             InitializeComponent();
             _clock = new Clock();
-            ImageList = new List<Bitmap>();
+            Bitmaps = new List<Bitmap>();
             _trackerBrowser = new EyeTrackerBrowser();
+            createImageForm = new CreateImageForm();
+            createImageForm.BitmapsUpdated += BitmapsUpdated;
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
+            this._trackStatus = new TrackStatusControl(1, 5, 400, Bitmaps);
+            _box2.Controls.Add(_trackStatus);
+            _trackStatus.BackColor = System.Drawing.Color.Black;
+            _trackStatus.Location = new System.Drawing.Point(49, 33);
+            _trackStatus.Name = "_trackStatus";
+            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
+            _trackStatus.TabIndex = 1;
         }
 
 
@@ -442,7 +449,7 @@ namespace BasicEyetrackingSample
         private void ChangeTrackerControl()
         {
             TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
-                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), ImageList);
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), Bitmaps);
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);
             newStatusControl.BackColor = System.Drawing.Color.Black;
@@ -454,23 +461,17 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createImageForm = new CreateImageForm();
+            createImageForm.SetBitmaps(Bitmaps);
             createImageForm.Show();
         }
-
-        public void SetImageList(Bitmap image)
-        {
-            ImageList.Add(image);
-        }
-
-        public void ClearImageList()
-        {
-            ImageList.Clear();
-        }
-
         public void NewImageListConfirmed()
         {
             ChangeTrackerControl();
+        }
+
+        private void BitmapsUpdated(Object sender, EventArgs e)
+        {
+            NewImageListConfirmed();
         }
     }
 }

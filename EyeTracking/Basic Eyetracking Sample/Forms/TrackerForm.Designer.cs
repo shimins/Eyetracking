@@ -68,8 +68,6 @@ namespace BasicEyetrackingSample
             this._statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            this.ImageList = new List<Bitmap>();
-            this._trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
             // 
             // _changeButton
             // 
@@ -154,12 +152,12 @@ namespace BasicEyetrackingSample
             //
             // _trackerStatus
             //
-            _box2.Controls.Add(_trackStatus);
-            _trackStatus.BackColor = System.Drawing.Color.Black;
-            _trackStatus.Location = new System.Drawing.Point(49, 33);
-            _trackStatus.Name = "_trackStatus";
-            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
-            _trackStatus.TabIndex = 1;
+            //_box2.Controls.Add(_trackStatus);
+            //_trackStatus.BackColor = System.Drawing.Color.Black;
+            //_trackStatus.Location = new System.Drawing.Point(49, 33);
+            //_trackStatus.Name = "_trackStatus";
+            //_trackStatus.Size = new System.Drawing.Size(1520, 1000);
+            //_trackStatus.TabIndex = 1;
             // 
             // _calibrateButton
             // 

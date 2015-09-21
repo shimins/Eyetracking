@@ -12,17 +12,18 @@ namespace BasicEyetrackingSample
     public partial class CreateImageForm : Form
     {
         private Bitmap _Image;
-        private Bitmap _resultImage;
         private Bitmap _blurredImage;
         private Blur blur;
         private int blurFactor;
-        private TrackerForm trackerForm;
+        private List<Bitmap> bitmaps;
+
+        public event EventHandler BitmapsUpdated;
 
         public CreateImageForm()
         {
             InitializeComponent();
+            this.bitmaps = new List<Bitmap>();
             blur = new Blur();
-            trackerForm = new TrackerForm();
         }
 
 
@@ -37,6 +38,11 @@ namespace BasicEyetrackingSample
                 _ImagePath.Text = fDialog.FileName;
                 Upate();
             }
+        }
+
+        public void SetBitmaps(List<Bitmap> bitmaps)
+        {
+            this.bitmaps = bitmaps;
         }
 
         private void _GobackButton_Click(object sender, EventArgs e)
@@ -57,14 +63,14 @@ namespace BasicEyetrackingSample
         {
             if (_blurredImage != null)
             {
-                trackerForm.ClearImageList();
-                trackerForm.SetImageList(_Image);
+                bitmaps.Clear();
+                bitmaps.Add(_Image);
                 for (var i = 1; i <= 10; i++)
                 {
-                    trackerForm.SetImageList(blur.BlurImage(_Image, i));
+                    bitmaps.Add(blur.BlurImage(_Image, i));
                 }
             }
-            trackerForm.NewImageListConfirmed();
+            this.BitmapsUpdated(this, EventArgs.Empty);
             this.Close();
         }
     }
