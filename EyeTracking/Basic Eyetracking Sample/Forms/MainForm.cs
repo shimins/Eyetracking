@@ -28,12 +28,5 @@ namespace BasicEyetrackingSample
             trackerForm.Show();
             this.Close();
         }
-
-        //private void blurImageButton_Click(object sender, EventArgs e)
-        //{
-        //    Form blurForm = new CreateImageForm();
-        //    blurForm.Show();
-        //    this.Close();
-        //}
     }
 }

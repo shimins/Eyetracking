@@ -76,6 +76,7 @@ namespace BasicEyetrackingSample
             this._ImportImageButton.TabIndex = 2;
             this._ImportImageButton.Text = "Browse";
             this._ImportImageButton.UseVisualStyleBackColor = true;
+            this._ImportImageButton.Click += new System.EventHandler(this._ImportImageButton_Click);
             // 
             // _LowestBlurLevel
             // 
@@ -107,6 +108,7 @@ namespace BasicEyetrackingSample
             this._GobackButton.TabIndex = 11;
             this._GobackButton.Text = "Go back";
             this._GobackButton.UseVisualStyleBackColor = true;
+            this._GobackButton.Click += new System.EventHandler(this._GobackButton_Click);
             // 
             // _saveButton
             // 
@@ -117,6 +119,7 @@ namespace BasicEyetrackingSample
             this._saveButton.TabIndex = 15;
             this._saveButton.Text = "Save Image";
             this._saveButton.UseVisualStyleBackColor = true;
+            this._saveButton.Click += new System.EventHandler(this._saveButton_Click);
             // 
             // _HighestBlurLabel
             // 

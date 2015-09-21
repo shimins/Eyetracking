@@ -150,7 +150,7 @@ namespace ImageBlur
             return blurred;
         }
 
-        public static Bitmap BlurImage(Bitmap image, int blurSize)
+        public Bitmap BlurImage(Bitmap image, int blurSize)
         {
             return BlurRect(image, new Rectangle(0, 0, image.Width, image.Height), blurSize);
         }
