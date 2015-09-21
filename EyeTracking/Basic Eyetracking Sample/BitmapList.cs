@@ -9,12 +9,7 @@ namespace BasicEyetrackingSample
 {
     class BitmapList
     {
-        private List<Bitmap> bitmapList;
-
-        public BitmapList()
-        {
-            bitmapList = new List<Bitmap>();
-        }
+        public List<Bitmap> bitmapList = new List<Bitmap>();
 
         public void ClearBitmapList()
         {

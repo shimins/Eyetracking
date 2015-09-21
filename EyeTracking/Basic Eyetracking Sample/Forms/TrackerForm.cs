@@ -41,6 +41,12 @@ namespace BasicEyetrackingSample
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
             
             this._trackStatus = new TrackStatusControl(1, 5, 400, bitmapList.GetBitmaps());
+            _box2.Controls.Add(_trackStatus);
+            _trackStatus.BackColor = System.Drawing.Color.Black;
+            _trackStatus.Location = new System.Drawing.Point(49, 33);
+            _trackStatus.Name = "_trackStatus";
+            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
+            _trackStatus.TabIndex = 1;
         }
 
 
@@ -456,6 +462,7 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            createImageForm = new CreateImageForm();
             createImageForm.Show();
         }
         public void NewImageListConfirmed()

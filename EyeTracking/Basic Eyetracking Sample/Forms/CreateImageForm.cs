@@ -17,6 +17,7 @@ namespace BasicEyetrackingSample
         private Blur blur;
         private int blurFactor;
         private BitmapList bitmapList;
+        private TrackerForm trackerForm;
 
         public CreateImageForm()
         {
@@ -64,6 +65,8 @@ namespace BasicEyetrackingSample
                     bitmapList.AddNewElementToBitmapList(blur.BlurImage(_Image, i));
                 }
             }
+            trackerForm = new TrackerForm();
+            trackerForm.NewImageListConfirmed();
             this.Close();
         }
     }
