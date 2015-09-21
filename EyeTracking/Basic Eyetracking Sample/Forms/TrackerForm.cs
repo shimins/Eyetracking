@@ -463,7 +463,13 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateImageForm
+            createImageForm = new CreateImageForm();
+            createImageForm.Show();
+        }
+
+        public void NewImageList(List<Bitmap> imageList)
+        {
+            ChangeTrackerControl();
         }
     }
 }

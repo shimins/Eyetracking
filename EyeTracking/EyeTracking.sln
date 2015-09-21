@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic Eyetracking Sample", "Basic Eyetracking Sample\Basic Eyetracking Sample.csproj", "{09EA5D83-F650-4D5F-9FE0-46D92B444E56}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D8EFBDB-1B15-4BB1-984E-96F6870F4312} = {6D8EFBDB-1B15-4BB1-984E-96F6870F4312}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{7F45EA61-1106-4F6A-B734-5FA51085EE94}"
 EndProject
