@@ -16,13 +16,13 @@ namespace BasicEyetrackingSample
         private Bitmap _blurredImage;
         private Blur blur;
         private int blurFactor;
-        private BitmapList bitmapList;
+        private TrackerForm trackerForm;
 
         public CreateImageForm()
         {
             InitializeComponent();
             blur = new Blur();
-            bitmapList = new BitmapList();
+            trackerForm = new TrackerForm();
         }
 
 
@@ -57,13 +57,14 @@ namespace BasicEyetrackingSample
         {
             if (_blurredImage != null)
             {
-                bitmapList.ClearBitmapList();
-                bitmapList.AddNewElementToBitmapList(_Image);
+                trackerForm.ClearImageList();
+                trackerForm.SetImageList(_Image);
                 for (var i = 1; i <= 10; i++)
                 {
-                    bitmapList.AddNewElementToBitmapList(blur.BlurImage(_Image, i));
+                    trackerForm.SetImageList(blur.BlurImage(_Image, i));
                 }
             }
+            trackerForm.NewImageListConfirmed();
             this.Close();
         }
     }
