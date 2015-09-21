@@ -20,7 +20,7 @@ namespace BasicEyetrackingSample
 
         private Point _point;
         
-        public TrackStatusControl(int blurLevel, int numberOfImages, int radius, string imageFolder)
+        public TrackStatusControl(int blurLevel, int numberOfImages, int radius, List<Bitmap> imageList)
         {
             InitializeComponent();
             this.numberOfImages = numberOfImages;
@@ -28,29 +28,52 @@ namespace BasicEyetrackingSample
             SetStyle(ControlStyles.UserPaint, true); 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
-            SetNewImageSet(numberOfImages, imageFolder);
-            SetBackGround(blurLevel, imageFolder);
+            SetNewImageSet(numberOfImages, imageList);
+            SetBackGround(blurLevel, imageList);
 
             _previous.X = 0;
             _previous.Y = 0;
         }
 
-        private void SetNewImageSet(int imageCount, string imageFolder)
+        private void SetNewImageSet(int imageCount, List<Bitmap> imageList)
         {
             var factor = 500/imageCount;
-            for (var i = numberOfImages; i >= 0; i = i - 1)
+            if (imageList.Count <= 0)
             {
-                var image = Image.FromFile(imageFolder + "Nature-" + i + ".jpg");
-                image = ImageHelper.Resize(image, Size);
-                var r = (i * factor) + radius;
-                var eyeImage = new CircleImage(image, r);
-                _images.Add(eyeImage);
+                for (var i = numberOfImages; i >= 0; i = i - 1)
+                {
+                    var image = Image.FromFile("images/nature/" + "Nature-" + i + ".jpg");
+                    image = ImageHelper.Resize(image, Size);
+                    var r = (i * factor) + radius;
+                    var eyeImage = new CircleImage(image, r);
+                    _images.Add(eyeImage);
+                }
+            }
+            else
+            {
+                for (var i = numberOfImages; i >= 0; i = i - 1)
+                {
+                    var image = imageList[i];
+                    image = (Bitmap) ImageHelper.Resize(image, Size);
+                    var r = (i * factor) + radius;
+                    var eyeImage = new CircleImage(image, r);
+                    _images.Add(eyeImage);
+                }
             }
         }
 
-        private void SetBackGround(int blurLevel, string imageFolder)
+        private void SetBackGround(int blurLevel, List<Bitmap> imageList)
         {
-            this.BackgroundImage = ((System.Drawing.Image)(Image.FromFile(imageFolder + "Nature-" + numberOfImages + ".jpg")));
+            if (imageList.Count <= 0)
+            {
+                this.BackgroundImage =
+                    ((System.Drawing.Image) (Image.FromFile("images/nature/" + "Nature-" + numberOfImages + ".jpg")));
+            }
+            else
+            {
+                this.BackgroundImage =
+                    ((System.Drawing.Image)(imageList[numberOfImages]));
+            }
         }
 
 

@@ -23,18 +23,19 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
         private CreateImageForm createImageForm;
+        private List<Bitmap> ImageList; 
 
         private Bitmap _Image;
         private Bitmap _resultImage;
         private Bitmap _blurredImage;
-        private String imageFolder = "images/nature/";
+        //private String imageFolder = "images/nature/";
 
         public TrackerForm()
         {
             InitializeComponent();
-            
             _clock = new Clock();
-            _trackStatus = new TrackStatusControl(1, 5, 400, imageFolder);
+            ImageList = new List<Bitmap>();
+            _trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
             _box2.Controls.Add(_trackStatus);
             _trackStatus.BackColor = System.Drawing.Color.Black;
             _trackStatus.Location = new System.Drawing.Point(49, 33);
@@ -416,7 +417,7 @@ namespace BasicEyetrackingSample
         private void importImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fDialog = new OpenFileDialog();
-            fDialog.Filter = "JPG files|*-0.jpg|BMP files|*-0.bmp|GIF files|*-0.gif";
+            fDialog.Filter = "JPG files|*.jpg|BMP files|*.bmp|GIF files|*.gif";
             fDialog.InitialDirectory = Environment.CurrentDirectory;
             DialogResult result = fDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -451,7 +452,7 @@ namespace BasicEyetrackingSample
         private void ChangeTrackerControl()
         {
             TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
-                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), imageFolder);
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), ImageList);
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);
             newStatusControl.BackColor = System.Drawing.Color.Black;
@@ -467,9 +468,20 @@ namespace BasicEyetrackingSample
             createImageForm.Show();
         }
 
-        public void NewImageList(List<Bitmap> imageList)
+        public void SetImageList(Bitmap image)
+        {
+            ImageList.Add(image);
+        }
+
+        public void ClearImageList()
+        {
+            ImageList.Clear();
+        }
+
+        public void NewImageListConfirmed()
         {
             ChangeTrackerControl();
         }
+
     }
 }

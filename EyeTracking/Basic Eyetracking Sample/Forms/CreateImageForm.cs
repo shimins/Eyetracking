@@ -15,21 +15,21 @@ namespace BasicEyetrackingSample
         private Bitmap _resultImage;
         private Bitmap _blurredImage;
         private Blur blur;
-        private List<Bitmap> imageList;
         private int blurFactor;
+        private TrackerForm trackerForm;
 
         public CreateImageForm()
         {
             InitializeComponent();
             blur = new Blur();
-            imageList = new List<Bitmap>();
+            trackerForm = new TrackerForm();
         }
 
 
         private void _ImportImageButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog fDialog = new OpenFileDialog();
-            fDialog.Filter = "PNG files|*.png|JPEG files|*.jpeg|JPG files|*jpg|BMP files|*.bmp|GIF files|*.gif";
+            fDialog.Filter = "JPG files|*jpg|PNG files|*.png|JPEG files|*.jpeg|BMP files|*.bmp|GIF files|*.gif";
             DialogResult result = fDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -59,17 +59,11 @@ namespace BasicEyetrackingSample
             {
                 for (var i = 0; i < 10; i++)
                 {
-                    imageList.Add(blur.BlurImage(_Image, i));
+                    trackerForm.ClearImageList();
+                    trackerForm.SetImageList(blur.BlurImage(_Image, i));
                 }
             }
-            TrackerForm trackerForm = new TrackerForm();
-            trackerForm.NewImageList(imageList);
-            trackerForm.Close();
+            trackerForm.NewImageListConfirmed();
         }
-
-        public List<Bitmap> GetImageList()
-        {
-            return imageList;
-        } 
     }
 }
