@@ -68,8 +68,6 @@ namespace BasicEyetrackingSample
             this._statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            this.ImageList = new List<Bitmap>();
-            this._trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
             // 
             // _changeButton
             // 

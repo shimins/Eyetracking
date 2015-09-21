@@ -23,7 +23,7 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
         private CreateImageForm createImageForm;
-        private List<Bitmap> ImageList;
+        private BitmapList bitmapList;
 
         private Bitmap _Image;
         private Bitmap _resultImage;
@@ -34,11 +34,13 @@ namespace BasicEyetrackingSample
         {
             InitializeComponent();
             _clock = new Clock();
-            ImageList = new List<Bitmap>();
+            bitmapList = new BitmapList();
             _trackerBrowser = new EyeTrackerBrowser();
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
+            
+            this._trackStatus = new TrackStatusControl(1, 5, 400, bitmapList.GetBitmaps());
         }
 
 
@@ -442,7 +444,7 @@ namespace BasicEyetrackingSample
         private void ChangeTrackerControl()
         {
             TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
-                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), ImageList);
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), bitmapList.GetBitmaps());
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);
             newStatusControl.BackColor = System.Drawing.Color.Black;
@@ -454,20 +456,8 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createImageForm = new CreateImageForm();
             createImageForm.Show();
         }
-
-        public void SetImageList(Bitmap image)
-        {
-            ImageList.Add(image);
-        }
-
-        public void ClearImageList()
-        {
-            ImageList.Clear();
-        }
-
         public void NewImageListConfirmed()
         {
             ChangeTrackerControl();
