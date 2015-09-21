@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BasicEyetrackingSample
@@ -66,6 +68,8 @@ namespace BasicEyetrackingSample
             this._statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            this.ImageList = new List<Bitmap>();
+            this._trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
             // 
             // _changeButton
             // 
@@ -147,6 +151,15 @@ namespace BasicEyetrackingSample
             this._box2.TabIndex = 3;
             this._box2.TabStop = false;
             this._box2.Text = "Eyetracker Status";
+            //
+            // _trackerStatus
+            //
+            _box2.Controls.Add(_trackStatus);
+            _trackStatus.BackColor = System.Drawing.Color.Black;
+            _trackStatus.Location = new System.Drawing.Point(49, 33);
+            _trackStatus.Name = "_trackStatus";
+            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
+            _trackStatus.TabIndex = 1;
             // 
             // _calibrateButton
             // 
@@ -294,6 +307,7 @@ namespace BasicEyetrackingSample
             this._blurLevel.Size = new System.Drawing.Size(112, 28);
             this._blurLevel.TabIndex = 16;
             this.toolTip.SetToolTip(this._blurLevel, "THIS MIGHT TAKE LONG TIME");
+            this._blurLevel.SelectedIndex = 0;
             // 
             // _blurLevelLabel
             // 
@@ -327,6 +341,7 @@ namespace BasicEyetrackingSample
             this._numberOfImages.Name = "_numberOfImages";
             this._numberOfImages.Size = new System.Drawing.Size(73, 28);
             this._numberOfImages.TabIndex = 18;
+            this._numberOfImages.SelectedIndex = 0;
             // 
             // radiusBox
             // 
@@ -342,6 +357,7 @@ namespace BasicEyetrackingSample
             this.radiusBox.Name = "radiusBox";
             this.radiusBox.Size = new System.Drawing.Size(121, 28);
             this.radiusBox.TabIndex = 21;
+            this.radiusBox.SelectedIndex = 0;
             // 
             // radiusLabel
             // 

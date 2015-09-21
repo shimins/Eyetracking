@@ -57,13 +57,15 @@ namespace BasicEyetrackingSample
         {
             if (_blurredImage != null)
             {
-                for (var i = 0; i < 10; i++)
+                trackerForm.ClearImageList();
+                trackerForm.SetImageList(_Image);
+                for (var i = 1; i <= 10; i++)
                 {
-                    trackerForm.ClearImageList();
                     trackerForm.SetImageList(blur.BlurImage(_Image, i));
                 }
             }
             trackerForm.NewImageListConfirmed();
+            this.Close();
         }
     }
 }

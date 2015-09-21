@@ -23,7 +23,7 @@ namespace BasicEyetrackingSample
         private bool _isTracking;
         private EyeTrackerInfo _info;
         private CreateImageForm createImageForm;
-        private List<Bitmap> ImageList; 
+        private List<Bitmap> ImageList;
 
         private Bitmap _Image;
         private Bitmap _resultImage;
@@ -35,20 +35,10 @@ namespace BasicEyetrackingSample
             InitializeComponent();
             _clock = new Clock();
             ImageList = new List<Bitmap>();
-            _trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
-            _box2.Controls.Add(_trackStatus);
-            _trackStatus.BackColor = System.Drawing.Color.Black;
-            _trackStatus.Location = new System.Drawing.Point(49, 33);
-            _trackStatus.Name = "_trackStatus";
-            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
-            _trackStatus.TabIndex = 1;
             _trackerBrowser = new EyeTrackerBrowser();
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
-            _numberOfImages.SelectedIndex = 0;
-            _blurLevel.SelectedIndex = 0;
-            radiusBox.SelectedIndex = 0;
         }
 
 
@@ -482,6 +472,5 @@ namespace BasicEyetrackingSample
         {
             ChangeTrackerControl();
         }
-
     }
 }
