@@ -40,7 +40,6 @@ namespace BasicEyetrackingSample
             this._ImportImageButton = new System.Windows.Forms.Button();
             this._LowestBlurLevel = new System.Windows.Forms.PictureBox();
             this._LowestBlurLabel = new System.Windows.Forms.Label();
-            this._GobackButton = new System.Windows.Forms.Button();
             this._saveButton = new System.Windows.Forms.Button();
             this._HighestBlurLabel = new System.Windows.Forms.Label();
             this._HighestBlurLevel = new System.Windows.Forms.PictureBox();
@@ -99,17 +98,6 @@ namespace BasicEyetrackingSample
             this._LowestBlurLabel.TabIndex = 8;
             this._LowestBlurLabel.Text = "Imported Image:";
             // 
-            // _GobackButton
-            // 
-            this._GobackButton.Cursor = System.Windows.Forms.Cursors.Default;
-            this._GobackButton.Location = new System.Drawing.Point(26, 29);
-            this._GobackButton.Name = "_GobackButton";
-            this._GobackButton.Size = new System.Drawing.Size(75, 23);
-            this._GobackButton.TabIndex = 11;
-            this._GobackButton.Text = "Go back";
-            this._GobackButton.UseVisualStyleBackColor = true;
-            this._GobackButton.Click += new System.EventHandler(this._GobackButton_Click);
-            // 
             // _saveButton
             // 
             this._saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -148,7 +136,6 @@ namespace BasicEyetrackingSample
             this.ClientSize = new System.Drawing.Size(1178, 784);
             this.Controls.Add(this._saveButton);
             this.Controls.Add(this._HighestBlurLevel);
-            this.Controls.Add(this._GobackButton);
             this.Controls.Add(this._HighestBlurLabel);
             this.Controls.Add(this._LowestBlurLabel);
             this.Controls.Add(this._LowestBlurLevel);
@@ -171,7 +158,6 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.Button _ImportImageButton;
         private System.Windows.Forms.PictureBox _LowestBlurLevel;
         private Label _LowestBlurLabel;
-        private Button _GobackButton;
         private Button _saveButton;
         private Label _HighestBlurLabel;
         private PictureBox _HighestBlurLevel;

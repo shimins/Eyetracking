@@ -30,12 +30,10 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            //this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // eyeTrackingButton
             // 
-            //button1.Location = new System.Drawing.Point((_width-180)/2, (_height-35)*1/3);
             this.button1.Location = new System.Drawing.Point(110,120);
             this.button1.Name = "eyeTrackingButton";
             this.button1.Size = new System.Drawing.Size(180, 35);
@@ -48,9 +46,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            //this.ClientSize = new System.Drawing.Size(_width, _height);
             this.ClientSize = new System.Drawing.Size(400, 275);
-            //this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "MainForm";
             this.Text = "Eyetracking";

@@ -22,30 +22,24 @@ namespace BasicEyetrackingSample
         private string _connectionName;
         private bool _isTracking;
         private EyeTrackerInfo _info;
-        private CreateImageForm createImageForm;
+        private readonly CreateImageForm _createImageForm;
         public List<Bitmap> Bitmaps { get; set; }
 
-        private Bitmap _Image;
+        private Bitmap _image;
         private Bitmap _resultImage;
 
         public TrackerForm()
         {
+            Bitmaps = new List<Bitmap>();
+            this._trackStatus = new TrackStatusControl(1, 5, 400, Bitmaps);
             InitializeComponent();
             _clock = new Clock();
-            Bitmaps = new List<Bitmap>();
             _trackerBrowser = new EyeTrackerBrowser();
-            createImageForm = new CreateImageForm();
-            createImageForm.BitmapsUpdated += BitmapsUpdated;
+            _createImageForm = new CreateImageForm();
+            _createImageForm.BitmapsUpdated += BitmapsUpdated;
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
-            this._trackStatus = new TrackStatusControl(1, 5, 400, Bitmaps);
-            _box2.Controls.Add(_trackStatus);
-            _trackStatus.BackColor = System.Drawing.Color.Black;
-            _trackStatus.Location = new System.Drawing.Point(49, 33);
-            _trackStatus.Name = "_trackStatus";
-            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
-            _trackStatus.TabIndex = 1;
         }
 
 
@@ -419,14 +413,11 @@ namespace BasicEyetrackingSample
             DialogResult result = fDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                _Image = (Bitmap)Image.FromFile(fDialog.FileName);
-                if (_Image.Width > _trackStatus.Width && _Image.Height > _trackStatus.Height)
+                _image = (Bitmap)Image.FromFile(fDialog.FileName);
+                if (_image.Width > _trackStatus.Width && _image.Height > _trackStatus.Height)
                 {
-                    _resultImage = new Bitmap(_Image, _Image.Size);
+                    _resultImage = new Bitmap(_image, _image.Size);
                     Console.WriteLine(Path.GetDirectoryName(fDialog.FileName));
-                    //imageFolder = Path.GetDirectoryName(fDialog.FileName);
-                    //ChangeTrackerControl();
-                    //_resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
                 }
             }
         }
@@ -461,8 +452,8 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createImageForm.SetBitmaps(Bitmaps);
-            createImageForm.Show();
+            _createImageForm.SetBitmaps(Bitmaps);
+            _createImageForm.Show();
         }
         public void NewImageListConfirmed()
         {
