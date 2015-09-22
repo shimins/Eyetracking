@@ -22,33 +22,24 @@ namespace BasicEyetrackingSample
         private string _connectionName;
         private bool _isTracking;
         private EyeTrackerInfo _info;
-        private CreateImageForm createImageForm;
-        private List<Bitmap> ImageList; 
+        private readonly CreateImageForm _createImageForm;
+        public List<Bitmap> Bitmaps { get; set; }
 
-        private Bitmap _Image;
+        private Bitmap _image;
         private Bitmap _resultImage;
-        private Bitmap _blurredImage;
-        //private String imageFolder = "images/nature/";
 
         public TrackerForm()
         {
+            Bitmaps = new List<Bitmap>();
+            this._trackStatus = new TrackStatusControl(1, 5, 400, Bitmaps);
             InitializeComponent();
             _clock = new Clock();
-            ImageList = new List<Bitmap>();
-            _trackStatus = new TrackStatusControl(1, 5, 400, ImageList);
-            _box2.Controls.Add(_trackStatus);
-            _trackStatus.BackColor = System.Drawing.Color.Black;
-            _trackStatus.Location = new System.Drawing.Point(49, 33);
-            _trackStatus.Name = "_trackStatus";
-            _trackStatus.Size = new System.Drawing.Size(1520, 1000);
-            _trackStatus.TabIndex = 1;
             _trackerBrowser = new EyeTrackerBrowser();
+            _createImageForm = new CreateImageForm();
+            _createImageForm.BitmapsUpdated += BitmapsUpdated;
             _trackerBrowser.EyeTrackerFound += EyetrackerFound;
             _trackerBrowser.EyeTrackerUpdated += EyetrackerUpdated;
             _trackerBrowser.EyeTrackerRemoved += EyetrackerRemoved;
-            _numberOfImages.SelectedIndex = 0;
-            _blurLevel.SelectedIndex = 0;
-            radiusBox.SelectedIndex = 0;
         }
 
 
@@ -422,14 +413,11 @@ namespace BasicEyetrackingSample
             DialogResult result = fDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                _Image = (Bitmap)Image.FromFile(fDialog.FileName);
-                if (_Image.Width > _trackStatus.Width && _Image.Height > _trackStatus.Height)
+                _image = (Bitmap)Image.FromFile(fDialog.FileName);
+                if (_image.Width > _trackStatus.Width && _image.Height > _trackStatus.Height)
                 {
-                    _resultImage = new Bitmap(_Image, _Image.Size);
+                    _resultImage = new Bitmap(_image, _image.Size);
                     Console.WriteLine(Path.GetDirectoryName(fDialog.FileName));
-                    //imageFolder = Path.GetDirectoryName(fDialog.FileName);
-                    //ChangeTrackerControl();
-                    //_resultImage = new Bitmap(_Image, _HighestBlurLevel.Size);
                 }
             }
         }
@@ -452,7 +440,7 @@ namespace BasicEyetrackingSample
         private void ChangeTrackerControl()
         {
             TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
-                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), ImageList);
+                Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), Bitmaps);
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);
             newStatusControl.BackColor = System.Drawing.Color.Black;
@@ -464,24 +452,17 @@ namespace BasicEyetrackingSample
 
         private void createImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createImageForm = new CreateImageForm();
-            createImageForm.Show();
+            _createImageForm.SetBitmaps(Bitmaps);
+            _createImageForm.Show();
         }
-
-        public void SetImageList(Bitmap image)
-        {
-            ImageList.Add(image);
-        }
-
-        public void ClearImageList()
-        {
-            ImageList.Clear();
-        }
-
         public void NewImageListConfirmed()
         {
             ChangeTrackerControl();
         }
 
+        private void BitmapsUpdated(Object sender, EventArgs e)
+        {
+            NewImageListConfirmed();
+        }
     }
 }
