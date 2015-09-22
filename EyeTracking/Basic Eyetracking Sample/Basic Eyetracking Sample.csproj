@@ -91,7 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ImageBlur">
-      <HintPath>..\ImageBlur\bin\Release\ImageBlur.dll</HintPath>
+      <HintPath>..\ImageBlur\obj\Debug\ImageBlur.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

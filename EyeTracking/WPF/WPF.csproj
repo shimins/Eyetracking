@@ -99,22 +99,54 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\nature\Nature-0.jpg" />
-    <Resource Include="images\nature\Nature-1.jpg" />
-    <Resource Include="images\nature\Nature-10.jpg" />
-    <Resource Include="images\nature\Nature-12.jpg" />
-    <Resource Include="images\nature\Nature-14.jpg" />
-    <Resource Include="images\nature\Nature-16.jpg" />
-    <Resource Include="images\nature\Nature-18.jpg" />
-    <Resource Include="images\nature\Nature-2.jpg" />
-    <Resource Include="images\nature\Nature-20.jpg" />
-    <Resource Include="images\nature\Nature-3.jpg" />
-    <Resource Include="images\nature\Nature-4.jpg" />
-    <Resource Include="images\nature\Nature-5.jpg" />
-    <Resource Include="images\nature\Nature-6.jpg" />
-    <Resource Include="images\nature\Nature-7.jpg" />
-    <Resource Include="images\nature\Nature-8.jpg" />
-    <Resource Include="images\nature\Nature-9.jpg" />
+    <Resource Include="images\nature\Nature-0.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-18.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-20.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\nature\Nature-9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -39,10 +40,12 @@ namespace WPF
         {
             base.OnRender(drawingContext);
 
+            drawingContext.DrawImage(Images.First().Bitmap, new Rect(RenderSize));
+
             var point = new Point(400, 600);
             foreach (var image in Images)
             {
-                image.DrawCircle(point, drawingContext);
+                image.DrawCircle(point, drawingContext, new Size(Width, Height));
             }
         }
     }

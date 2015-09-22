@@ -7,8 +7,52 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1400" Background="Transparent">
     <Grid>
+        <!--<Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#696988" Offset="1"/>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Viewport3D x:Name="viewPort" ClipToBounds="True" Grid.RowSpan="1" Grid.Row="1">
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="camera" Position="0,20,100" 
+                                   UpDirection="0,1,0" LookDirection="0,-0.3,-1" 
+                                   FieldOfView="100" NearPlaneDistance="0.125"/>
+            </Viewport3D.Camera>
+            <Viewport3D.Children>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight Color="White" Direction="0,0,-1" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D x:Name="visualModel">
+                    <ModelVisual3D.Transform>
+                        <Transform3DGroup>
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D  x:Name="rotationY" 
+                                                          Angle="0" Axis="0,1,0" />
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D  x:Name="rotationX" 
+                                                          Angle="0" Axis="1,0,0" />
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                        </Transform3DGroup>
+                    </ModelVisual3D.Transform>
+
+                </ModelVisual3D>
+            </Viewport3D.Children>
+        </Viewport3D>
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="_trackerCombo" VerticalAlignment="Top" Width="206" />
+        --><!--<Button Height="23" Margin="234,12,0,0" Name="_trackButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" Click="_trackButton_Click">Track</Button>-->
+
     </Grid>
-    
+
     <!--<Window.Background>
         <ImageBrush ImageSource="/WPF;component/images/nature/Nature-5.jpg" />
     </Window.Background>-->

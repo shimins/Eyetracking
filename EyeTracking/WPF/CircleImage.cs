@@ -12,22 +12,23 @@ namespace WPF
 {
     public class CircleImage
     {
-        public int Radidus { get; set; }
+        public int Radius { get; set; }
         public BitmapImage Bitmap { get; set; }
 
         public CircleImage(BitmapImage image, int radius)
         {
-            Radidus = radius;
+            Radius = radius;
             Bitmap = image;
         }
 
-        public void DrawCircle(Point center, DrawingContext drawingContext)
+        public void DrawCircle(Point center, DrawingContext drawingContext, Size windowSize)
         {
-            var rectangle = new Rect(center.X - Radidus, center.Y - Radidus, Radidus * 2, Radidus * 2);
+            var rectangle = new Rect(center.X - Radius, center.Y - Radius, Radius * 2, Radius * 2);
             var path = new PathGeometry();
             path.AddGeometry(new EllipseGeometry(rectangle));
             drawingContext.PushClip(path);
-            drawingContext.DrawImage(Bitmap, rectangle);
+            var windowRect = new Rect(windowSize);
+            drawingContext.DrawImage(Bitmap, windowRect);
             //drawingContext.DrawEllipse(new Pen(new SolidColorBrush(Colors.Black), 200), rectangle);
         }
     }
@@ -39,6 +40,12 @@ namespace WPF
             var bitmap = GetBitmap(bitmapImage);
             var resizedBitmap =  new Bitmap(bitmap, (int) size.Width, (int) size.Height);
             return GetBitmapImage(resizedBitmap);
+        }
+
+        private static Image ropImage(Image img, Rectangle cropArea)
+        {
+            Bitmap bmpImage = new Bitmap(img);
+            return bmpImage.Clone(cropArea, bmpImage.PixelFormat);
         }
 
         private static Bitmap GetBitmap(BitmapSource bitmapImage)
