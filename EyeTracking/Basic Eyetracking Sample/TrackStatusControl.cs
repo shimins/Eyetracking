@@ -112,8 +112,6 @@ namespace BasicEyetrackingSample
             Invalidate();
         }
 
-
-
         protected override void OnPaint(PaintEventArgs e)
         {
 

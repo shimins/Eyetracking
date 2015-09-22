@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBlur", "ImageBlur\Imag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DEyes", "3DEyes\3DEyes.csproj", "{7B3388F8-AAD2-4F89-A4B8-608A910F771F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TobiiData", "TobiiData\TobiiData.csproj", "{A50CA363-72EC-4310-B15B-95E44CEAA07F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,18 @@ Global
 		{7B3388F8-AAD2-4F89-A4B8-608A910F771F}.Release|x64.Build.0 = Release|x64
 		{7B3388F8-AAD2-4F89-A4B8-608A910F771F}.Release|x86.ActiveCfg = Release|x86
 		{7B3388F8-AAD2-4F89-A4B8-608A910F771F}.Release|x86.Build.0 = Release|x86
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|x64.Build.0 = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Debug|x86.Build.0 = Debug|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|x64.Build.0 = Release|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|x86.ActiveCfg = Release|Any CPU
+		{A50CA363-72EC-4310-B15B-95E44CEAA07F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Point = System.Windows.Point;
-using Size = System.Windows.Size;
 
 namespace WPF
 {
@@ -29,54 +23,8 @@ namespace WPF
             drawingContext.PushClip(path);
             var windowRect = new Rect(windowSize);
             drawingContext.DrawImage(Bitmap, windowRect);
-            //drawingContext.DrawEllipse(new Pen(new SolidColorBrush(Colors.Black), 200), rectangle);
+            drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.Red, 2.0), center, Radius, Radius);
+            //drawingContext.DrawRectangle(Brushes.Transparent, new Pen(Brushes.Chocolate, 4.0), rectangle);
         }
     }
-
-    public class ImageHelper
-    {
-        public static BitmapImage ResizeImage(BitmapImage bitmapImage, Size size)
-        {
-            var bitmap = GetBitmap(bitmapImage);
-            var resizedBitmap =  new Bitmap(bitmap, (int) size.Width, (int) size.Height);
-            return GetBitmapImage(resizedBitmap);
-        }
-
-        private static Image ropImage(Image img, Rectangle cropArea)
-        {
-            Bitmap bmpImage = new Bitmap(img);
-            return bmpImage.Clone(cropArea, bmpImage.PixelFormat);
-        }
-
-        private static Bitmap GetBitmap(BitmapSource bitmapImage)
-        {
-            using (var memory = new MemoryStream())
-            {
-                var bitmapEncoder = new BmpBitmapEncoder();
-                bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                bitmapEncoder.Save(memory);
-                var bitmap = new Bitmap(memory);
-
-                return new Bitmap(bitmap);
-            }
-        }
-
-        private static BitmapImage GetBitmapImage(Image bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Bmp);
-                memory.Position = 0;
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-
-                return bitmapImage;
-            }
-        }
-    }
-
-
 }

@@ -47,6 +47,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tobii.EyeTracking.IO">
+      <HintPath>..\Tobii.EyeTracking.IO.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -57,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CircleImage.cs" />
+    <Compile Include="ImageHelper.cs" />
     <Compile Include="TestControl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +151,12 @@
     <Resource Include="images\nature\Nature-9.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TobiiData\TobiiData.csproj">
+      <Project>{A50CA363-72EC-4310-B15B-95E44CEAA07F}</Project>
+      <Name>TobiiData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
