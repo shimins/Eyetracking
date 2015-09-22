@@ -4,9 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Tobii.EyeTracking.IO;
-using TobiiData;
 
 namespace WPF
 {
@@ -24,10 +22,11 @@ namespace WPF
         private bool _tracking;
         private IEyeTracker _tracker;
 
-        private Point3D _leftPos;
-        private Point3D _rightPos;
-        private Point3D _leftGaze;
-        private Point3D _rightGaze;
+        private Point2D _leftGaze;
+        private Point2D _rightGaze;
+
+        private Point2D _current;
+        private Point2D _previous;
 
         public MainWindow()
         {
@@ -63,7 +62,7 @@ namespace WPF
             var point = new Point(_leftGaze.X, _leftGaze.Y);
             foreach (var image in Images)
             {
-                image.DrawCircle(point, drawingContext, new Size(Width, Height));
+                image.DrawCircle(point, drawingContext, new Size(Width,Height));
             }
         }
 
@@ -80,7 +79,7 @@ namespace WPF
             }
             else
             {
-                EyeTrackerInfo etInfo = _trackerCombo.SelectedItem as EyeTrackerInfo;
+                var etInfo = _trackerCombo.SelectedItem as EyeTrackerInfo;
                 if (etInfo != null)
                 {
                     _tracker = etInfo.Factory.CreateEyeTracker();
@@ -100,24 +99,21 @@ namespace WPF
         private void _tracker_GazeDataReceived(object sender, GazeDataEventArgs e)
         {
             // Convert to centimeters
-            const double D = 10.0;
+            const double d = 10.0;
+            var gd = e.GazeDataItem;
 
-            _leftPos.X = e.GazeDataItem.LeftEyePosition3D.X / D;
-            _leftPos.Y = e.GazeDataItem.LeftEyePosition3D.Y / D;
-            _leftPos.Z = e.GazeDataItem.LeftEyePosition3D.Z / D;
+            _leftGaze.X = gd.LeftGazePoint2D.X * Width;
+            _leftGaze.Y = gd.LeftGazePoint2D.Y * Height;
 
-            _rightPos.X = e.GazeDataItem.RightEyePosition3D.X / D;
-            _rightPos.Y = e.GazeDataItem.RightEyePosition3D.Y / D;
-            _rightPos.Z = e.GazeDataItem.RightEyePosition3D.Z / D;
+            _rightGaze.X = gd.RightGazePoint2D.X * Width;
+            _rightGaze.Y = gd.RightGazePoint2D.Y * Height;
 
-            _leftGaze.X = e.GazeDataItem.LeftGazePoint3D.X / D;
-            _leftGaze.Y = e.GazeDataItem.LeftGazePoint3D.Y / D;
-            _leftGaze.Z = e.GazeDataItem.LeftGazePoint3D.Z / D;
+            if (!(_leftGaze.X > -1.0)) return;
+            _current = new Point2D((_leftGaze.X + _rightGaze.X) / 2, (_leftGaze.Y + _rightGaze.Y) / 2);
+            if (!GazeHaveMoved(_current)) return;
+            _previous = _current;
 
-            _rightGaze.X = e.GazeDataItem.RightGazePoint3D.X / D;
-            _rightGaze.Y = e.GazeDataItem.RightGazePoint3D.Y / D;
-            _rightGaze.Z = e.GazeDataItem.RightGazePoint3D.Z / D;
-
+            InvalidateVisual();
         }
 
         void _browser_EyetrackerUpdated(object sender, EyeTrackerInfoEventArgs e)
@@ -149,10 +145,16 @@ namespace WPF
         {
             _browser.StopBrowsing();
 
-            if (_tracker != null)
+            _tracker?.Dispose();
+        }
+
+        private bool GazeHaveMoved(Point2D currentPoint)
+        {
+            if (Math.Abs(_previous.X - currentPoint.X) > 0.03 || Math.Abs(_previous.Y - currentPoint.Y) > 0.03)
             {
-                _tracker.Dispose();
+                return true;
             }
+            return false;
         }
     }
 }
