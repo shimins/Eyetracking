@@ -45,11 +45,6 @@ namespace BasicEyetrackingSample
             this.bitmaps = bitmaps;
         }
 
-        private void _GobackButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void Upate()
         {
             blurFactor = _Image.Width/250;

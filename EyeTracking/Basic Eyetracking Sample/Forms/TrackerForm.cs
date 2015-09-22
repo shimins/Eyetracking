@@ -439,7 +439,7 @@ namespace BasicEyetrackingSample
 
         private void ChangeTrackerControl()
         {
-            TrackStatusControl newStatusControl = new TrackStatusControl(Int32.Parse(_blurLevel.Text),
+            TrackStatusControl newStatusControl = new TrackStatusControl(1,
                 Int32.Parse(_numberOfImages.Text), Int32.Parse(radiusBox.Text), Bitmaps);
             _box2.Controls.Clear();
             _box2.Controls.Add(newStatusControl);

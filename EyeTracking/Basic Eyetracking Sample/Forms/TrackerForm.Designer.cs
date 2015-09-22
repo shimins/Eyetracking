@@ -57,8 +57,8 @@ namespace BasicEyetrackingSample
             this._loadCalibrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this._blurLevel = new System.Windows.Forms.ComboBox();
-            this._blurLevelLabel = new System.Windows.Forms.Label();
+            //this._blurLevel = new System.Windows.Forms.ComboBox();
+            //this._blurLevelLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this._numberOfImages = new System.Windows.Forms.ComboBox();
             this.radiusBox = new System.Windows.Forms.ComboBox();
@@ -283,39 +283,39 @@ namespace BasicEyetrackingSample
             this._saveFileDialog.FileName = "file";
             this._saveFileDialog.Filter = "Calibration Files|*.calib";
             this._saveFileDialog.Title = "Save Calibration File";
-            // 
-            // _blurLevel
-            // 
-            this._blurLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._blurLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._blurLevel.FormattingEnabled = true;
-            this._blurLevel.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this._blurLevel.Location = new System.Drawing.Point(126, 598);
-            this._blurLevel.Name = "_blurLevel";
-            this._blurLevel.Size = new System.Drawing.Size(112, 28);
-            this._blurLevel.TabIndex = 16;
-            this.toolTip.SetToolTip(this._blurLevel, "THIS MIGHT TAKE LONG TIME");
-            this._blurLevel.SelectedIndex = 0;
-            // 
-            // _blurLevelLabel
-            // 
-            this._blurLevelLabel.AutoSize = true;
-            this._blurLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._blurLevelLabel.Location = new System.Drawing.Point(22, 601);
-            this._blurLevelLabel.Name = "_blurLevelLabel";
-            this._blurLevelLabel.Size = new System.Drawing.Size(98, 20);
-            this._blurLevelLabel.TabIndex = 15;
-            this._blurLevelLabel.Text = "Blur Factor:";
+            //// 
+            //// _blurLevel
+            //// 
+            //this._blurLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            //this._blurLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this._blurLevel.FormattingEnabled = true;
+            //this._blurLevel.Items.AddRange(new object[] {
+            //"1",
+            //"2",
+            //"3",
+            //"4",
+            //"5",
+            //"6",
+            //"7",
+            //"8",
+            //"9",
+            //"10"});
+            //this._blurLevel.Location = new System.Drawing.Point(126, 598);
+            //this._blurLevel.Name = "_blurLevel";
+            //this._blurLevel.Size = new System.Drawing.Size(112, 28);
+            //this._blurLevel.TabIndex = 16;
+            //this.toolTip.SetToolTip(this._blurLevel, "THIS MIGHT TAKE LONG TIME");
+            //this._blurLevel.SelectedIndex = 0;
+            //// 
+            //// _blurLevelLabel
+            //// 
+            //this._blurLevelLabel.AutoSize = true;
+            //this._blurLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this._blurLevelLabel.Location = new System.Drawing.Point(22, 601);
+            //this._blurLevelLabel.Name = "_blurLevelLabel";
+            //this._blurLevelLabel.Size = new System.Drawing.Size(98, 20);
+            //this._blurLevelLabel.TabIndex = 15;
+            //this._blurLevelLabel.Text = "Blur Factor:";
             // 
             // label1
             // 
@@ -333,13 +333,20 @@ namespace BasicEyetrackingSample
             this._numberOfImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._numberOfImages.FormattingEnabled = true;
             this._numberOfImages.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4",
             "5",
+            "6",
+            "7",
+            "8",
+            "9",
             "10"});
             this._numberOfImages.Location = new System.Drawing.Point(165, 648);
             this._numberOfImages.Name = "_numberOfImages";
             this._numberOfImages.Size = new System.Drawing.Size(73, 28);
             this._numberOfImages.TabIndex = 18;
-            this._numberOfImages.SelectedIndex = 0;
+            this._numberOfImages.SelectedIndex = 3;
             // 
             // radiusBox
             // 
@@ -383,8 +390,8 @@ namespace BasicEyetrackingSample
             this.Controls.Add(this.radiusLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this._numberOfImages);
-            this.Controls.Add(this._blurLevel);
-            this.Controls.Add(this._blurLevelLabel);
+            //this.Controls.Add(this._blurLevel);
+            //this.Controls.Add(this._blurLevelLabel);
             this.Controls.Add(this._calibrateButton);
             this.Controls.Add(this._box2);
             this.Controls.Add(this._statusStrip);
@@ -431,8 +438,8 @@ namespace BasicEyetrackingSample
         private System.Windows.Forms.ToolStripMenuItem _framerateMenuItem;
         private ToolStripMenuItem imageToolStripMenuItem;
         private ToolStripMenuItem importImageToolStripMenuItem;
-        private ComboBox _blurLevel;
-        private Label _blurLevelLabel;
+        //private ComboBox _blurLevel;
+        //private Label _blurLevelLabel;
         private Label label1;
         private ComboBox _numberOfImages;
         private ComboBox radiusBox;
