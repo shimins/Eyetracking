@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImageBlur">
+      <HintPath>..\ImageBlur\bin\Debug\ImageBlur.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -64,6 +67,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CircleImage.cs" />
+    <Compile Include="CreateImageForm.xaml.cs">
+      <DependentUpon>CreateImageForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageHelper.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +81,10 @@
     <Compile Include="TrackerUserControl.xaml.cs">
       <DependentUpon>TrackerUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="CreateImageForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InputUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

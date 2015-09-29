@@ -15,7 +15,7 @@ namespace WPF
             Bitmap = image;
         }
 
-        public void DrawCircle(Point center, DrawingContext drawingContext, Size windowSize)
+        public void DrawCircle(Point center, DrawingContext drawingContext, Size windowSize, bool drawCircle)
         {
             var rectangle = new Rect(center.X - Radius, center.Y - Radius, Radius * 2, Radius * 2);
             var path = new PathGeometry();
@@ -23,7 +23,9 @@ namespace WPF
             drawingContext.PushClip(path);
             var windowRect = new Rect(windowSize);
             drawingContext.DrawImage(Bitmap, windowRect);
-            //drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.Red, 1.5), center, Radius, Radius);
+
+            if (drawCircle)
+                drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.Red, 1.5), center, Radius, Radius);
         }
     }
 }

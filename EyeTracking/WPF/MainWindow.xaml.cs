@@ -15,6 +15,7 @@ namespace WPF
         //private readonly EyeTrackerBrowser _browser;
 
         public List<BitmapImage> BitmapImages { get; set; }
+        private CreateImageForm createImageForm;
         
         public MainWindow()
         {
@@ -25,6 +26,9 @@ namespace WPF
 
             InputUserControl.TrackerUpdate += TrackerUpdate;
             InputUserControl.UpdateChanges += UpdateChanges;
+
+            createImageForm = new CreateImageForm();
+            createImageForm.BitmapListUpdated += BitmapListUpdate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -56,7 +60,19 @@ namespace WPF
 
         private void UpdateChanges(object sender, EventArgs e)
         {
-            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(), BitmapImages);
+            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(), InputUserControl.GetDrawCircles(), BitmapImages);
+        }
+
+        private void CreateImageButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            createImageForm.SetBitmaps(BitmapImages);
+            createImageForm.Show();
+        }
+
+        private void BitmapListUpdate(object sender, EventArgs e)
+        {
+            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(),
+                InputUserControl.GetDrawCircles(), createImageForm.GeBitmapList());
         }
     }
 }

@@ -19,8 +19,9 @@
         <!--<ComboBox Height="21" HorizontalAlignment="Left" Margin="0,10,0,0" Name="_trackerCombo" VerticalAlignment="Top" Width="157" />
         <Button Height="23" Margin="56,31,0,0" Name="_trackButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" Click="_trackButton_Click" RenderTransformOrigin="-0.046,1.926">Track</Button>-->
 
-        <wpf:InputUserControl x:Name="InputUserControl"></wpf:InputUserControl>
-        <wpf:TrackerUserControl x:Name="TrackerUserControl" Margin="255,0,-1751,0"></wpf:TrackerUserControl>
+        <wpf:InputUserControl x:Name="InputUserControl" Panel.ZIndex="99" Margin="0,0,0,246"></wpf:InputUserControl>
+        <wpf:TrackerUserControl x:Name="TrackerUserControl" Margin="167,0,-1751,0"></wpf:TrackerUserControl>
+        <Button x:Name="CreateImageButton" Content="Import Image" HorizontalAlignment="Left" Margin="10,1058,0,0" VerticalAlignment="Top" Width="139" Height="33" FontSize="16" Click="CreateImageButton_OnClick"/>
 
 
     </Grid>

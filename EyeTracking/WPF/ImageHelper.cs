@@ -22,7 +22,7 @@ namespace WPF
             return bmpImage.Clone(cropArea, bmpImage.PixelFormat);
         }
 
-        private static Bitmap GetBitmap(BitmapSource bitmapImage)
+        public static Bitmap GetBitmap(BitmapSource bitmapImage)
         {
             using (var memory = new MemoryStream())
             {
@@ -34,7 +34,7 @@ namespace WPF
             }
         }
 
-        private static BitmapImage GetBitmapImage(Image bitmap)
+        public static BitmapImage GetBitmapImage(Image bitmap)
         {
             using (var memory = new MemoryStream())
             {

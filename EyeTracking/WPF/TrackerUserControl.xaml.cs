@@ -15,7 +15,7 @@ namespace WPF
     public partial class TrackerUserControl : UserControl
     {
         public bool IsTracking { get; set; }
-        public readonly List<CircleImage> Images = new List<CircleImage>();
+        public List<CircleImage> Images = new List<CircleImage>();
         private IEyeTracker EyeTracker { get; set; }
 
         private Point2D _leftGaze;
@@ -25,19 +25,20 @@ namespace WPF
         private Point2D _previous;
 
         private Point Point { get; set; }
+        private bool DrawCircles { get; set; }
 
         public TrackerUserControl()
         {
             InitializeComponent();
-            SetValue(5,400,new List<BitmapImage>());
+            SetValue(5,400, DrawCircles,new List<BitmapImage>());
 
             _previous.X = 0;
             _previous.Y = 0;
-            InvalidateVisual();
         }
 
         private void SetNewImageSet(int imageCount,int radius, List<BitmapImage> images)
         {
+            Images = new List<CircleImage>();
             var factor = 500 / imageCount;
             if (images.Count <= 0)
             {
@@ -56,33 +57,36 @@ namespace WPF
                     var bitmapImage = images[i];
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
                     var r = (i * factor) + radius;
-                    Images[i] = new CircleImage(img, r);
+                    Images.Add(new CircleImage(img, r));
                 }
+                InvalidateVisual();
             }
         }
 
-        private void SetBackGround(int imageCount, List<BitmapImage> imageList)
-        {
-            if (imageList.Count <= 0)
-            {
-                this.Background =
-                    new ImageBrush(new BitmapImage(new Uri("images/nature/Nature-" + imageCount + ".jpg", UriKind.Relative)));
-            }
-            else
-            {
-                this.Background =
-                   new ImageBrush(imageList[imageCount]);
-            }
-        }
+        //private void SetBackGround(int imageCount, List<BitmapImage> imageList)
+        //{
+        //    if (imageList.Count <= 0)
+        //    {
+        //        this.Background =
+        //            new ImageBrush(new BitmapImage(new Uri("images/nature/Nature-" + imageCount + ".jpg", UriKind.Relative)));
+        //    }
+        //    else
+        //    {
+        //        this.Background =
+        //           new ImageBrush(imageList[imageCount]);
+        //    }
+        //}
 
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
+
+            // Background Image
             drawingContext.DrawImage(Images.First().Bitmap, new Rect(RenderSize));
-            //var point = new Point(_leftGaze.X, _leftGaze.Y);
+
             foreach (var image in Images)
             {
-                image.DrawCircle(Point, drawingContext, RenderSize);
+                image.DrawCircle(Point, drawingContext, RenderSize, DrawCircles);
             }
         }
 
@@ -133,9 +137,9 @@ namespace WPF
             IsTracking = true;
         }
 
-        public void SetValue(int imageCount, int radius, List<BitmapImage> imageList)
+        public void SetValue(int imageCount, int radius, bool drawCircles, List<BitmapImage> imageList)
         {
-            SetBackGround(imageCount, imageList);
+            DrawCircles = drawCircles;
             SetNewImageSet(imageCount, radius, imageList);
         }
     }

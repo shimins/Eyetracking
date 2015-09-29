@@ -5,16 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="Transparent">
+             d:DesignHeight="500" d:DesignWidth="200" Background="Transparent">
     <Grid>
-        <ComboBox Height="21" HorizontalAlignment="Left" Margin="0,10,0,0" Name="_trackerCombo" VerticalAlignment="Top" Width="157" />
-        <Button Height="23" Margin="56,31,0,0" Name="_trackButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" RenderTransformOrigin="-0.046,1.926" Click="_trackButton_Click">Track</Button>
+        <ComboBox Height="21" HorizontalAlignment="Left" Margin="0,10,0,0" Name="_trackerCombo" VerticalAlignment="Top" Width="155" />
+        <Button Height="23" Margin="27,36,0,0" Name="_trackButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" RenderTransformOrigin="-0.046,1.926" Click="_trackButton_Click">Track</Button>
 
-        <Label x:Name="label" Content="Radius:" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.175,2.199"/>
-        <TextBox x:Name="radiusBox" HorizontalAlignment="Left" Height="23" Margin="10,119,0,0" TextWrapping="Wrap" Text="Skrive inn et tall" VerticalAlignment="Top" Width="120"/>
-        
-        <Label x:Name="label1" Content="Antall sirkel:" HorizontalAlignment="Left" Margin="0,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.029,2.782"/>
-        <TextBox x:Name="circleCountBox" HorizontalAlignment="Left" Height="23" Margin="10,186,0,0" TextWrapping="Wrap" Text="1-10" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="ApplyChange" Content="Apply Changes" HorizontalAlignment="Left" Margin="27,225,0,0" VerticalAlignment="Top" Width="85" Click="_applyButton_Click"/>
+        <Label x:Name="label" Content="Radius:" HorizontalAlignment="Left" Margin="0,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.175,2.199"/>
+        <TextBox x:Name="radiusBox" HorizontalAlignment="Left" Height="23" Margin="10,104,0,0" TextWrapping="Wrap" Text="400" VerticalAlignment="Top" Width="145"/>
+
+        <Label x:Name="label1" Content="Antall sirkel:" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.029,2.782"/>
+        <TextBox x:Name="circleCountBox" HorizontalAlignment="Left" Height="23" Margin="10,160,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="145"/>
+        <Button x:Name="ApplyChange" Content="Apply Changes" HorizontalAlignment="Left" Margin="27,188,0,0" VerticalAlignment="Top" Width="99" Click="_applyButton_Click"/>
+        <CheckBox x:Name="drawCircles" Content="Draw Circles" HorizontalAlignment="Left" Margin="8,234,0,0" VerticalAlignment="Top" />
     </Grid>
 </UserControl>
