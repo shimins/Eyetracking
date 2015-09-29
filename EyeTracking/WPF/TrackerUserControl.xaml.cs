@@ -56,7 +56,6 @@ namespace WPF
                     var bitmapImage = images[i];
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
                     var r = (i * factor) + radius;
-                    //Images.RemoveAt(i);
                     Images[i] = new CircleImage(img, r);
                 }
             }

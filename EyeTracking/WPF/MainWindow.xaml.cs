@@ -13,14 +13,18 @@ namespace WPF
     public partial class MainWindow : Window
     {
         //private readonly EyeTrackerBrowser _browser;
+
+        public List<BitmapImage> BitmapImages { get; set; }
         
         public MainWindow()
         {
             Library.Init();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            BitmapImages = new List<BitmapImage>();
             InitializeComponent();
 
             InputUserControl.TrackerUpdate += TrackerUpdate;
+            InputUserControl.UpdateChanges += UpdateChanges;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -48,6 +52,11 @@ namespace WPF
                     InputUserControl._trackButton.Content = "Stop";
                 }
             }
+        }
+
+        private void UpdateChanges(object sender, EventArgs e)
+        {
+            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(), BitmapImages);
         }
     }
 }
