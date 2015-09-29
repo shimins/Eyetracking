@@ -23,8 +23,7 @@ namespace WPF
             drawingContext.PushClip(path);
             var windowRect = new Rect(windowSize);
             drawingContext.DrawImage(Bitmap, windowRect);
-            //drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.Red, 2.0), center, Radius, Radius);
-            //drawingContext.DrawRectangle(Brushes.Transparent, new Pen(Brushes.Chocolate, 4.0), rectangle);
+            //drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.Red, 1.5), center, Radius, Radius);
         }
     }
 }

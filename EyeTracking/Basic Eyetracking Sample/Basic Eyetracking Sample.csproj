@@ -93,16 +93,20 @@
     <Reference Include="ImageBlur">
       <HintPath>..\ImageBlur\obj\Debug\ImageBlur.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="Tobii.EyeTracking.IO">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Tobii.EyeTracking.IO.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\CreateImageForm.cs">
@@ -151,6 +155,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPFControl.xaml.cs">
+      <DependentUpon>WPFControl.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\CreateImageForm.resx">
       <DependentUpon>CreateImageForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,5 +251,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WPFControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
