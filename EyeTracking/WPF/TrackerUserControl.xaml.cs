@@ -15,11 +15,8 @@ namespace WPF
     public partial class TrackerUserControl : UserControl
     {
         public bool IsTracking { get; set; }
+        public readonly List<CircleImage> Images = new List<CircleImage>();
         private IEyeTracker EyeTracker { get; set; }
-
-        private readonly List<CircleImage> Images = new List<CircleImage>();
-        private const int ImageCount = 10;
-        private const int Radius = 400;
 
         private Point2D _leftGaze;
         private Point2D _rightGaze;
@@ -32,20 +29,50 @@ namespace WPF
         public TrackerUserControl()
         {
             InitializeComponent();
+            SetValue(5,400,new List<BitmapImage>());
 
-            SetNewImageSet(ImageCount, "images/nature/");
+            _previous.X = 0;
+            _previous.Y = 0;
             InvalidateVisual();
         }
 
-        private void SetNewImageSet(int imageCount, string imageFolder)
+        private void SetNewImageSet(int imageCount,int radius, List<BitmapImage> images)
         {
             var factor = 500 / imageCount;
-            for (var i = ImageCount; i >= 0; i = i - 1)
+            if (images.Count <= 0)
             {
-                var bitmapImage = new BitmapImage(new Uri(imageFolder + "Nature-" + i + ".jpg", UriKind.Relative));
-                var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
-                var r = (i * factor) + Radius;
-                Images.Add(new CircleImage(img, r));
+                for (var i = imageCount; i >= 0; i = i - 1)
+                {
+                    var bitmapImage = new BitmapImage(new Uri("images/nature/Nature-" + i + ".jpg", UriKind.Relative));
+                    var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
+                    var r = (i*factor) + radius;
+                    Images.Add(new CircleImage(img, r));
+                }
+            }
+            else
+            {
+                for (var i = imageCount; i >= 0; i = i - 1)
+                {
+                    var bitmapImage = images[i];
+                    var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
+                    var r = (i * factor) + radius;
+                    //Images.RemoveAt(i);
+                    Images[i] = new CircleImage(img, r);
+                }
+            }
+        }
+
+        private void SetBackGround(int imageCount, List<BitmapImage> imageList)
+        {
+            if (imageList.Count <= 0)
+            {
+                this.Background =
+                    new ImageBrush(new BitmapImage(new Uri("images/nature/Nature-" + imageCount + ".jpg", UriKind.Relative)));
+            }
+            else
+            {
+                this.Background =
+                   new ImageBrush(imageList[imageCount]);
             }
         }
 
@@ -105,6 +132,12 @@ namespace WPF
             EyeTracker.StartTracking();
             EyeTracker.GazeDataReceived += _tracker_GazeDataReceived;
             IsTracking = true;
+        }
+
+        public void SetValue(int imageCount, int radius, List<BitmapImage> imageList)
+        {
+            SetBackGround(imageCount, imageList);
+            SetNewImageSet(imageCount, radius, imageList);
         }
     }
 }

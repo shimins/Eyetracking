@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -29,7 +30,6 @@ namespace WPF
                 bitmapEncoder.Frames.Add(BitmapFrame.Create(bitmapImage));
                 bitmapEncoder.Save(memory);
                 var bitmap = new Bitmap(memory);
-
                 return new Bitmap(bitmap);
             }
         }

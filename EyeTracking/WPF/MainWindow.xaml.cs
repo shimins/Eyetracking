@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Tobii.EyeTracking.IO;
 
 namespace WPF
@@ -17,7 +19,6 @@ namespace WPF
             Library.Init();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             InitializeComponent();
-
 
             InputUserControl.TrackerUpdate += TrackerUpdate;
         }
