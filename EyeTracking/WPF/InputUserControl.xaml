@@ -11,11 +11,13 @@
         <Button Height="23" Margin="27,36,0,0" Name="_trackButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" RenderTransformOrigin="-0.046,1.926" Click="_trackButton_Click">Track</Button>
 
         <Label x:Name="label" Content="Radius:" HorizontalAlignment="Left" Margin="0,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.175,2.199"/>
-        <TextBox x:Name="radiusBox" HorizontalAlignment="Left" Height="23" Margin="10,104,0,0" TextWrapping="Wrap" Text="400" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="innerRadiusBox" HorizontalAlignment="Left" Height="23" Margin="10,99,0,0" TextWrapping="Wrap" Text="400" VerticalAlignment="Top" Width="145"/>
 
-        <Label x:Name="label1" Content="Antall sirkel:" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.029,2.782"/>
-        <TextBox x:Name="circleCountBox" HorizontalAlignment="Left" Height="23" Margin="10,160,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="145"/>
-        <Button x:Name="ApplyChange" Content="Apply Changes" HorizontalAlignment="Left" Margin="27,188,0,0" VerticalAlignment="Top" Width="99" Click="_applyButton_Click"/>
-        <CheckBox x:Name="drawCircles" Content="Draw Circles" HorizontalAlignment="Left" Margin="8,234,0,0" VerticalAlignment="Top" />
+        <Label x:Name="label1" Content="Blurrness" HorizontalAlignment="Left" Margin="0,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.029,2.782"/>
+        <TextBox x:Name="circleCountBox" HorizontalAlignment="Left" Height="23" Margin="10,196,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="145"/>
+        <Button x:Name="ApplyChange" Content="Apply Changes" HorizontalAlignment="Left" Margin="27,242,0,0" VerticalAlignment="Top" Width="99" Click="_applyButton_Click"/>
+        <CheckBox x:Name="drawCircles" Content="Draw Circles" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" />
+        <Label x:Name="OuterRadiusLabel" Content="Outer Radius:" HorizontalAlignment="Left" Margin="0,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.806,0.391"/>
+        <TextBox x:Name="outerRadiusBox" HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="145"/>
     </Grid>
 </UserControl>

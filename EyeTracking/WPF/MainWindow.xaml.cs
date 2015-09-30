@@ -60,7 +60,8 @@ namespace WPF
 
         private void UpdateChanges(object sender, EventArgs e)
         {
-            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(), InputUserControl.GetDrawCircles(), BitmapImages);
+            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetInnerRadius(),
+                InputUserControl.GetOuterRadius(),InputUserControl.GetDrawCircles(), BitmapImages);
         }
 
         private void CreateImageButton_OnClick(object sender, RoutedEventArgs e)
@@ -71,8 +72,8 @@ namespace WPF
 
         private void BitmapListUpdate(object sender, EventArgs e)
         {
-            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetRadius(),
-                InputUserControl.GetDrawCircles(), createImageForm.GeBitmapList());
+            TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetInnerRadius(),
+                InputUserControl.GetOuterRadius(), InputUserControl.GetDrawCircles(), createImageForm.GeBitmapList());
         }
     }
 }

@@ -30,23 +30,23 @@ namespace WPF
         public TrackerUserControl()
         {
             InitializeComponent();
-            SetValue(5,400, DrawCircles,new List<BitmapImage>());
+            SetValue(5,400, 300, DrawCircles,new List<BitmapImage>());
 
             _previous.X = 0;
             _previous.Y = 0;
         }
 
-        private void SetNewImageSet(int imageCount,int radius, List<BitmapImage> images)
+        private void SetNewImageSet(int imageCount,int innerRadius,int outerRadius, List<BitmapImage> images)
         {
             Images = new List<CircleImage>();
-            var factor = 500 / imageCount;
+            var factor = (innerRadius+outerRadius) / imageCount;
             if (images.Count <= 0)
             {
                 for (var i = imageCount; i >= 0; i = i - 1)
                 {
                     var bitmapImage = new BitmapImage(new Uri("images/nature/Nature-" + i + ".jpg", UriKind.Relative));
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
-                    var r = (i*factor) + radius;
+                    var r = (i*factor) + innerRadius;
                     Images.Add(new CircleImage(img, r));
                 }
             }
@@ -56,7 +56,7 @@ namespace WPF
                 {
                     var bitmapImage = images[i];
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
-                    var r = (i * factor) + radius;
+                    var r = (i * factor) + innerRadius;
                     Images.Add(new CircleImage(img, r));
                 }
                 InvalidateVisual();
@@ -137,10 +137,10 @@ namespace WPF
             IsTracking = true;
         }
 
-        public void SetValue(int imageCount, int radius, bool drawCircles, List<BitmapImage> imageList)
+        public void SetValue(int imageCount, int innerRadius, int outerRadius, bool drawCircles, List<BitmapImage> imageList)
         {
             DrawCircles = drawCircles;
-            SetNewImageSet(imageCount, radius, imageList);
+            SetNewImageSet(imageCount, innerRadius, outerRadius, imageList);
         }
     }
 }
