@@ -30,7 +30,7 @@ namespace WPF
         public TrackerUserControl()
         {
             InitializeComponent();
-            SetValue(5,400, 300, DrawCircles,new List<BitmapImage>());
+            SetValue(5,300, 600, DrawCircles,new List<BitmapImage>());
 
             _previous.X = 0;
             _previous.Y = 0;
@@ -39,14 +39,13 @@ namespace WPF
         private void SetNewImageSet(int imageCount,int innerRadius,int outerRadius, List<BitmapImage> images)
         {
             Images = new List<CircleImage>();
-            var factor = (innerRadius+outerRadius) / imageCount;
             if (images.Count <= 0)
             {
                 for (var i = imageCount; i >= 0; i = i - 1)
                 {
                     var bitmapImage = new BitmapImage(new Uri("images/nature/Nature-" + i + ".jpg", UriKind.Relative));
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
-                    var r = (i*factor) + innerRadius;
+                    var r = GetRadius(i, imageCount, innerRadius, outerRadius);
                     Images.Add(new CircleImage(img, r));
                 }
             }
@@ -56,11 +55,18 @@ namespace WPF
                 {
                     var bitmapImage = images[i];
                     var img = ImageHelper.ResizeImage(bitmapImage, new Size(Width, Height));
-                    var r = (i * factor) + innerRadius;
+                    var r = GetRadius(i, imageCount, innerRadius, outerRadius);
                     Images.Add(new CircleImage(img, r));
                 }
                 InvalidateVisual();
             }
+        }
+
+        private static int GetRadius(int index, int count, int innerRadius, int outerRadius)
+        {
+            var factor = (outerRadius - innerRadius) / count;
+            var r = outerRadius + ((index - count) * factor);
+            return r < innerRadius ? innerRadius : r > outerRadius ? outerRadius : r;
         }
 
         //private void SetBackGround(int imageCount, List<BitmapImage> imageList)
