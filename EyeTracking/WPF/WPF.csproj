@@ -78,6 +78,9 @@
     <Compile Include="InputUserControl.xaml.cs">
       <DependentUpon>InputUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="mainWindow.xaml.cs">
+      <DependentUpon>mainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrackerUserControl.xaml.cs">
       <DependentUpon>TrackerUserControl.xaml</DependentUpon>
     </Compile>
@@ -89,12 +92,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="mainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrackWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="TrackWindow.xaml.cs">
+      <DependentUpon>TrackWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TrackerUserControl.xaml">
