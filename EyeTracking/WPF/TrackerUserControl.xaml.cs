@@ -40,7 +40,7 @@ namespace WPF
             }
             else if (!StaticValues.developerMode)
             {
-                SetValue(2, 100, 600, DrawCircles, new List<BitmapImage>());
+                SetValue(2, 100, 600, true, new List<BitmapImage>());
             }
             _previous.X = 0;
             _previous.Y = 0;
@@ -105,7 +105,7 @@ namespace WPF
             _rightGaze.X = gd.RightGazePoint2D.X*Width;
             _rightGaze.Y = gd.RightGazePoint2D.Y*Height;
 
-            if (!(_leftGaze.X > -1.0)) return;
+            if (_leftGaze.X < 0) return;
             _current = new Point2D((_leftGaze.X + _rightGaze.X)/2, (_leftGaze.Y + _rightGaze.Y)/2);
             if (!StaticValues.developerMode)
             {
@@ -134,7 +134,7 @@ namespace WPF
 
         private bool GazeHaveMoved(Point2D currentPoint)
         {
-            if (Math.Abs(_previous.X - currentPoint.X) > 0.05 || Math.Abs(_previous.Y - currentPoint.Y) > 0.05)
+            if (Math.Abs(_previous.X - currentPoint.X) > 30 || Math.Abs(_previous.Y - currentPoint.Y) > 30)
             {
                 return true;
             }

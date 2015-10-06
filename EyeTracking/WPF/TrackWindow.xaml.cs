@@ -29,10 +29,7 @@ namespace WPF
             Library.Init();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             BitmapImages = new List<BitmapImage>();
-            if (!StaticValues.developerMode)
-            {
-                CreateTestList();
-            }
+            CreateTestList();
             InitializeComponent();
 
             InputUserControl.TrackerUpdate += TrackerUpdate;
@@ -40,6 +37,7 @@ namespace WPF
 
             _createImageForm = new CreateImageForm();
             _createImageForm.BitmapListUpdated += BitmapListUpdate;
+            
         }
 
         private void TrackerUpdate(object sender, EventArgs e)
