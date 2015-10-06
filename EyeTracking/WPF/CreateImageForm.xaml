@@ -10,10 +10,10 @@
         <Label x:Name="ImagePathLabel" Content="Image Before Blur:" HorizontalAlignment="Left" Margin="43,140,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="ImagePath" HorizontalAlignment="Left" Height="29" Margin="145,43,0,0" TextWrapping="Wrap" Text="Image Path" VerticalAlignment="Top" Width="295" FontSize="16" IsEnabled="False"/>
         <Button x:Name="ImportButton" Content="Import" HorizontalAlignment="Left" Margin="462,43,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="ImportButton_OnClick"/>
-        <Label x:Name="ImagePathLabel_Copy" Content="Image Path:" HorizontalAlignment="Left" Margin="43,43,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="ImagePathLabel_Copy1" Content="Image After Blur:" HorizontalAlignment="Left" Margin="544,140,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Image x:Name="imageAfterBlur" HorizontalAlignment="Left" Height="311" Margin="544,194,0,0" VerticalAlignment="Top" Width="465"/>
-        <Image x:Name="imageBeforeBlur" HorizontalAlignment="Left" Height="311" Margin="43,194,0,0" VerticalAlignment="Top" Width="465"/>
+        <Label x:Name="ImagePathLabelCopy" Content="Image Path:" HorizontalAlignment="Left" Margin="43,43,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="ImagePathLabelCopy1" Content="Image After Blur:" HorizontalAlignment="Left" Margin="544,140,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Image x:Name="ImageAfterBlur" HorizontalAlignment="Left" Height="311" Margin="544,194,0,0" VerticalAlignment="Top" Width="465"/>
+        <Image x:Name="ImageBeforeBlur" HorizontalAlignment="Left" Height="311" Margin="43,194,0,0" VerticalAlignment="Top" Width="465"/>
         <Button x:Name="ComfirmButton" Content="Use This Image" HorizontalAlignment="Left" Margin="462,542,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="ComfirmButton_OnClick"/>
 
     </Grid>

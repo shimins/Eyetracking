@@ -6,8 +6,10 @@
         mc:Ignorable="d"
         Title="MenyWindow" Height="300" Width="300">
     <Grid>
-        <Button x:Name="NewUserTestButton" Content="New User Test" HorizontalAlignment="Left" Margin="99,79,0,0" VerticalAlignment="Top" Width="89" Click="NewUserTestButton_OnClick"/>
-        <Button x:Name="DeveloperButton" Content="Developer Mode" HorizontalAlignment="Left" Margin="99,172,0,0" VerticalAlignment="Top" Width="89" Click="DeveloperButton_OnClick"/>
+        <Button x:Name="NewUserTestButton" Content="New User UserTest" HorizontalAlignment="Left" Margin="68,96,0,0" VerticalAlignment="Top" Width="152" Click="NewUserTestButton_OnClick" Height="52" FontSize="18.667" IsEnabled="False"/>
+        <Button x:Name="DeveloperButton" Content="Developer Mode" HorizontalAlignment="Left" Margin="87,212,0,0" VerticalAlignment="Top" Width="116" Click="DeveloperButton_OnClick" Height="43"/>
+        <TextBox x:Name="TesterName" HorizontalAlignment="Left" Height="30" Margin="132,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" FontSize="16" TextChanged="TesterName_OnTextChanged"/>
+        <Label x:Name="TesterNameLabel" Content="Tester Name:" HorizontalAlignment="Left" Height="30" Margin="19,50,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.686,1.098" FontSize="16"/>
 
     </Grid>
 </Window>

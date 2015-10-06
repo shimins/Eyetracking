@@ -13,10 +13,10 @@ namespace WPF
     /// </summary>
     public partial class CreateImageForm : Window
     {
-        private List<BitmapImage> bitmapList;
-        private Blur blur;
-        private Bitmap Image;
-        private Bitmap blurredImage;
+        private List<BitmapImage> _bitmapList;
+        private Blur _blur;
+        private Bitmap _image;
+        private Bitmap _blurredImage;
         
 
         public event EventHandler BitmapListUpdated;
@@ -24,9 +24,9 @@ namespace WPF
 
         public CreateImageForm()
         {
-            bitmapList = new List<BitmapImage>();
+            _bitmapList = new List<BitmapImage>();
             InitializeComponent();
-            blur = new Blur();
+            _blur = new Blur();
         }
 
         private void ImportButton_OnClick(object sender, RoutedEventArgs e)
@@ -37,7 +37,7 @@ namespace WPF
             Nullable<bool> result = fDialog.ShowDialog();
             if (result == true)
             {
-                Image = (Bitmap)System.Drawing.Image.FromFile(fDialog.FileName);
+                _image = (Bitmap)System.Drawing.Image.FromFile(fDialog.FileName);
                 ImagePath.Text = fDialog.FileName;
                 Update();
             }
@@ -45,31 +45,31 @@ namespace WPF
 
         private void Update()
         {
-            var blurFactor = Image.Width / 250;
-            blurredImage = blur.BlurImage(Image, (int)blurFactor);
-            imageBeforeBlur.Source = ImageHelper.GetBitmapImage(Image);
-            imageAfterBlur.Source = ImageHelper.GetBitmapImage(blurredImage);
+            var blurFactor = _image.Width / 250;
+            _blurredImage = _blur.BlurImage(_image, (int)blurFactor);
+            ImageBeforeBlur.Source = ImageHelper.GetBitmapImage(_image);
+            ImageAfterBlur.Source = ImageHelper.GetBitmapImage(_blurredImage);
         }
 
         public void SetBitmaps(List<BitmapImage> bitmapList)
         {
-            this.bitmapList = bitmapList;
+            this._bitmapList = bitmapList;
         }
 
         public List<BitmapImage> GeBitmapList()
         {
-            return this.bitmapList;
+            return this._bitmapList;
         } 
 
         private void ComfirmButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (blurredImage != null)
+            if (_blurredImage != null)
             {
-                bitmapList.Clear();
-                bitmapList.Add(ImageHelper.GetBitmapImage(Image));
+                _bitmapList.Clear();
+                _bitmapList.Add(ImageHelper.GetBitmapImage(_image));
                 for (var i = 1; i <= 10; i++)
                 {
-                    bitmapList.Add(ImageHelper.GetBitmapImage(blur.BlurImage(Image, i)));
+                    _bitmapList.Add(ImageHelper.GetBitmapImage(_blur.BlurImage(_image, i)));
                 }
             }
             this.BitmapListUpdated(this, EventArgs.Empty);

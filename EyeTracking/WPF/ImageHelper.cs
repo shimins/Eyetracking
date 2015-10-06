@@ -16,7 +16,7 @@ namespace WPF
             return GetBitmapImage(resizedBitmap);
         }
 
-        private static Image ropImage(Image img, Rectangle cropArea)
+        private static Image RopImage(Image img, Rectangle cropArea)
         {
             Bitmap bmpImage = new Bitmap(img);
             return bmpImage.Clone(cropArea, bmpImage.PixelFormat);

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using Tobii.EyeTracking.IO;
 
 namespace WPF
@@ -27,11 +28,21 @@ namespace WPF
         private Point Point { get; set; }
         private bool DrawCircles { get; set; }
 
+        public UserTest UserTest { get; set; }
+
         public TrackerUserControl()
         {
             InitializeComponent();
-            SetValue(5,300, 600, DrawCircles,new List<BitmapImage>());
-
+            UserTest = Tests.tests[0];
+            DrawCircles = true;
+            if (StaticValues.developerMode)
+            {
+                SetValue(5, 300, 600, DrawCircles, new List<BitmapImage>());
+            }
+            else if (!StaticValues.developerMode)
+            {
+                SetValue(2, 100, 600, DrawCircles, new List<BitmapImage>());
+            }
             _previous.X = 0;
             _previous.Y = 0;
         }
@@ -69,19 +80,6 @@ namespace WPF
             return r < innerRadius ? innerRadius : r > outerRadius ? outerRadius : r;
         }
 
-        //private void SetBackGround(int imageCount, List<BitmapImage> imageList)
-        //{
-        //    if (imageList.Count <= 0)
-        //    {
-        //        this.Background =
-        //            new ImageBrush(new BitmapImage(new Uri("images/nature/Nature-" + imageCount + ".jpg", UriKind.Relative)));
-        //    }
-        //    else
-        //    {
-        //        this.Background =
-        //           new ImageBrush(imageList[imageCount]);
-        //    }
-        //}
 
         protected override void OnRender(DrawingContext drawingContext)
         {
@@ -110,11 +108,29 @@ namespace WPF
 
             if (!(_leftGaze.X > -1.0)) return;
             _current = new Point2D((_leftGaze.X + _rightGaze.X)/2, (_leftGaze.Y + _rightGaze.Y)/2);
+            if (!StaticValues.developerMode)
+            {
+                SaveData(gd.Timestamp, _current, gd.RightEyePosition3D.Z);
+            }
             if (!GazeHaveMoved(_current)) return;
             _previous = _current;
 
             Point = new Point(_previous.X, _previous.Y);
             InvalidateVisual();
+        }
+
+        private void SaveData(long timestamp, Point2D current, double z)
+        {
+            var element = new XElement("InnerRow");
+
+            element.Add(new XAttribute("Timestamp", timestamp));
+            var position = new XElement("Position");
+            position.Add(new XAttribute("X", current.X));
+            position.Add(new XAttribute("Y", current.Y));
+            element.Add(position);
+            element.Add(new XAttribute("Distance", z));
+
+            UserTest.Document.Root.Add(element);
         }
 
         private bool GazeHaveMoved(Point2D currentPoint)
@@ -133,6 +149,7 @@ namespace WPF
 
             EyeTracker.Dispose();
             IsTracking = false;
+
         }
 
         public void StartTracking(EyeTrackerInfo eyeTrackerInfo)
@@ -141,6 +158,17 @@ namespace WPF
             EyeTracker.StartTracking();
             EyeTracker.GazeDataReceived += _tracker_GazeDataReceived;
             IsTracking = true;
+        }
+
+        public void StartTest(string name, int blurness, int radius)
+        {
+            UserTest = new UserTest(name, radius, blurness);
+        }
+
+        public void StopTest()
+        {
+            StaticValues.User.Tests.Add(UserTest);
+            UserTest.SaveTest(StaticValues.User.Name);
         }
 
         public void SetValue(int imageCount, int innerRadius, int outerRadius, bool drawCircles, List<BitmapImage> imageList)

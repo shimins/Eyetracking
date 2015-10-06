@@ -2,58 +2,59 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using Tobii.EyeTracking.IO;
 
 namespace WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TrackWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TrackWindow : Window
     {
         //private readonly EyeTrackerBrowser _browser;
 
-        public List<BitmapImage> BitmapImages { get; set; }
-        private CreateImageForm createImageForm;
-        
-        public MainWindow()
+        private List<BitmapImage> BitmapImages { get; set; }
+        private CreateImageForm _createImageForm;
+
+        private List<int> Radius;
+        private List<int> Blurness;
+
+        private int testNumber = 0;
+
+        public TrackWindow()
         {
             Library.Init();
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
             BitmapImages = new List<BitmapImage>();
+            if (!StaticValues.developerMode)
+            {
+                CreateTestList();
+            }
             InitializeComponent();
 
             InputUserControl.TrackerUpdate += TrackerUpdate;
             InputUserControl.UpdateChanges += UpdateChanges;
 
-            createImageForm = new CreateImageForm();
-            createImageForm.BitmapListUpdated += BitmapListUpdate;
+            _createImageForm = new CreateImageForm();
+            _createImageForm.BitmapListUpdated += BitmapListUpdate;
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-        }
-
 
         private void TrackerUpdate(object sender, EventArgs e)
         {
             if (TrackerUserControl.IsTracking)
             {
                 TrackerUserControl.StopTracking();
-                InputUserControl._trackButton.Content = "Track";
+                InputUserControl.TrackButton.Content = "Track";
             }
             else
             {
-                var etInfo = InputUserControl._trackerCombo.SelectedItem as EyeTrackerInfo;
+                var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
                 if (etInfo != null)
                 {
                     TrackerUserControl.StartTracking(etInfo);
-                    InputUserControl._trackButton.Content = "Stop";
+                    InputUserControl.TrackButton.Content = "Stop";
                 }
             }
         }
@@ -66,14 +67,80 @@ namespace WPF
 
         private void CreateImageButton_OnClick(object sender, RoutedEventArgs e)
         {
-            createImageForm.SetBitmaps(BitmapImages);
-            createImageForm.Show();
+            _createImageForm.SetBitmaps(BitmapImages);
+            _createImageForm.Show();
         }
 
         private void BitmapListUpdate(object sender, EventArgs e)
         {
             TrackerUserControl.SetValue(InputUserControl.GetImageCount(), InputUserControl.GetInnerRadius(),
-                InputUserControl.GetOuterRadius(), InputUserControl.GetDrawCircles(), createImageForm.GeBitmapList());
+                InputUserControl.GetOuterRadius(), InputUserControl.GetDrawCircles(), _createImageForm.GeBitmapList());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+        }
+
+        private void CreateTestList()
+        {
+            Radius = new List<int>() {100,200,300,400};
+            Blurness = new List<int>() {2,4,6,8};
+            List<UserTest> list = new List<UserTest>();
+            var temp = 1;
+            foreach (var r in Radius)
+            {
+                foreach (var b in Blurness)
+                {
+                    list.Add(new UserTest("Test" + temp, r, b));
+                    temp++;
+                }
+            }
+            Shuffle(list);
+            Tests.tests = list;
+        }
+
+        private void NextTestButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
+                600, true, BitmapImages);
+            testNumber += 1;
+            NextTestButton.IsEnabled = false;
+            ReadyButton.IsEnabled = true;
+            TrackerUserControl.StopTest();
+            TrackerUserControl.StopTracking();
+        }
+
+        public static void Shuffle<T>( IList<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        private void ReadyButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
+                Tests.tests[testNumber].Radius);
+            int index = testNumber + 1;
+            TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
+            var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
+            if (etInfo != null)
+            {
+                TrackerUserControl.StartTracking(etInfo);
+            }
+            NextTestButton.IsEnabled = true;
+            ReadyButton.IsEnabled = false;
         }
     }
 }
