@@ -110,7 +110,7 @@ namespace WPF
             _current = new Point2D((_leftGaze.X + _rightGaze.X)/2, (_leftGaze.Y + _rightGaze.Y)/2);
             if (!StaticValues.developerMode)
             {
-                SaveData(gd.Timestamp, _current, gd.RightEyePosition3D.Z);
+                SaveData(_current, gd.RightEyePosition3D.Z/10);
             }
             if (!GazeHaveMoved(_current)) return;
             _previous = _current;
@@ -119,11 +119,11 @@ namespace WPF
             InvalidateVisual();
         }
 
-        private void SaveData(long timestamp, Point2D current, double z)
+        private void SaveData(Point2D current, double z)
         {
             var element = new XElement("InnerRow");
 
-            element.Add(new XAttribute("Timestamp", timestamp));
+            element.Add(new XAttribute("Timestamp", DateTime.Now));
             var position = new XElement("Position");
             position.Add(new XAttribute("X", current.X));
             position.Add(new XAttribute("Y", current.Y));
