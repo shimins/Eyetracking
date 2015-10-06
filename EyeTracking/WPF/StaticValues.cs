@@ -49,9 +49,9 @@ namespace WPF
             Added = DateTime.Now;
         }
 
-        public void SaveTest(string directory)
+        public void SaveTest(string directory, int index)
         {
-            Document.Save(directory + "/" + Name + ".xml");
+            Document.Save(directory + "/" + index+ "_" + Name + ".xml");
         }
     }
 

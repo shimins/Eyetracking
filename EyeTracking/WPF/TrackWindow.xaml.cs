@@ -22,6 +22,7 @@ namespace WPF
         private List<int> Blurness;
 
         private int testNumber = 0;
+        private int index = 1;
 
         public TrackWindow()
         {
@@ -106,11 +107,11 @@ namespace WPF
         private void NextTestButton_OnClick(object sender, RoutedEventArgs e)
         {
             TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
-                600, true, BitmapImages);
+                600, false, BitmapImages);
             testNumber += 1;
             NextTestButton.IsEnabled = false;
             ReadyButton.IsEnabled = true;
-            TrackerUserControl.StopTest();
+            TrackerUserControl.StopTest(index);
             TrackerUserControl.StopTracking();
         }
 
@@ -132,7 +133,7 @@ namespace WPF
         {
             TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
                 Tests.tests[testNumber].Radius);
-            int index = testNumber + 1;
+            index = testNumber + 1;
             TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
             var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
             if (etInfo != null)

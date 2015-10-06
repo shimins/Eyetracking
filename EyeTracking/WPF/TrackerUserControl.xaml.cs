@@ -34,7 +34,6 @@ namespace WPF
         {
             InitializeComponent();
             UserTest = Tests.tests[0];
-            DrawCircles = true;
             if (StaticValues.developerMode)
             {
                 SetValue(5, 300, 600, DrawCircles, new List<BitmapImage>());
@@ -165,10 +164,10 @@ namespace WPF
             UserTest = new UserTest(name, radius, blurness);
         }
 
-        public void StopTest()
+        public void StopTest(int index)
         {
             StaticValues.User.Tests.Add(UserTest);
-            UserTest.SaveTest(StaticValues.User.Name);
+            UserTest.SaveTest(StaticValues.User.Name, index);
         }
 
         public void SetValue(int imageCount, int innerRadius, int outerRadius, bool drawCircles, List<BitmapImage> imageList)
