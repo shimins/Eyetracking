@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,6 +71,9 @@
     <Compile Include="CreateImageForm.xaml.cs">
       <DependentUpon>CreateImageForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FinishWindow.xaml.cs">
+      <DependentUpon>FinishWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageHelper.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +90,10 @@
       <DependentUpon>TrackerUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateImageForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FinishWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +197,13 @@
       <Link>tetio.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="images\Extra\haters-gonna-hate-potatoes-gonna-potate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Basic Eyetracking Sample\Basic Eyetracking Sample.csproj">
+      <Project>{09EA5D83-F650-4D5F-9FE0-46D92B444E56}</Project>
+      <Name>Basic Eyetracking Sample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

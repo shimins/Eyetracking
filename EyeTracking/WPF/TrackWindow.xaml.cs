@@ -131,17 +131,26 @@ namespace WPF
 
         private void ReadyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
-                Tests.tests[testNumber].Radius);
-            index = testNumber + 1;
-            TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
-            var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
-            if (etInfo != null)
+            if(testNumber < Tests.tests.Count)
             {
-                TrackerUserControl.StartTracking(etInfo);
+                TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
+                    Tests.tests[testNumber].Radius);
+                index = testNumber + 1;
+                TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
+                var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
+                if (etInfo != null)
+                {
+                    TrackerUserControl.StartTracking(etInfo);
+                }
+                NextTestButton.IsEnabled = true;
+                ReadyButton.IsEnabled = false;
             }
-            NextTestButton.IsEnabled = true;
-            ReadyButton.IsEnabled = false;
+            else
+            {
+                FinishWindow finishWindow = new FinishWindow();
+                finishWindow.Show();
+                this.Close();
+            }
         }
     }
 }
