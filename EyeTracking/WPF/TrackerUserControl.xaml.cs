@@ -40,7 +40,7 @@ namespace WPF
             }
             else if (!StaticValues.developerMode)
             {
-                SetValue(2, 100, 600, true, new List<BitmapImage>());
+                SetValue(2, 100, 600, false, new List<BitmapImage>());
             }
             _previous.X = 0;
             _previous.Y = 0;
@@ -164,10 +164,10 @@ namespace WPF
             UserTest = new UserTest(name, radius, blurness);
         }
 
-        public void StopTest(int index)
+        public void StopTest(int index, int blurness, int radius)
         {
             StaticValues.User.Tests.Add(UserTest);
-            UserTest.SaveTest(StaticValues.User.Name, index);
+            UserTest.SaveTest(StaticValues.User.Name,index, blurness, radius);
         }
 
         public void SetValue(int imageCount, int innerRadius, int outerRadius, bool drawCircles, List<BitmapImage> imageList)

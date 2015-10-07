@@ -109,7 +109,7 @@ namespace WPF
             testNumber += 1;
             NextTestButton.IsEnabled = false;
             ReadyButton.IsEnabled = true;
-            TrackerUserControl.StopTest(index);
+            TrackerUserControl.StopTest(index, Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius);
             TrackerUserControl.StopTracking();
         }
 

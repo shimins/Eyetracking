@@ -45,7 +45,7 @@ namespace WPF
 
         private void Update()
         {
-            var blurFactor = _image.Width / 250;
+            var blurFactor = 10;
             _blurredImage = _blur.BlurImage(_image, (int)blurFactor);
             ImageBeforeBlur.Source = ImageHelper.GetBitmapImage(_image);
             ImageAfterBlur.Source = ImageHelper.GetBitmapImage(_blurredImage);
@@ -72,8 +72,8 @@ namespace WPF
                     _bitmapList.Add(ImageHelper.GetBitmapImage(_blur.BlurImage(_image, i)));
                 }
             }
-            this.BitmapListUpdated(this, EventArgs.Empty);
-            this.Close();
+            BitmapListUpdated(this, EventArgs.Empty);
+            this.Hide();
         }
     }
 }

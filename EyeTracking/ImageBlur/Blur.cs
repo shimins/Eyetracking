@@ -151,15 +151,31 @@ namespace ImageBlur
         }
 
 
-        private static Image Resize(Image image, Size size)
+        //private static Image Resize(Image image, Size size)
+        //{
+        //    return new Bitmap(image, size);
+        //}
+
+        static public Bitmap Resize(Image image, int maxWidth, int maxHeight)
         {
-            return new Bitmap(image, size);
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
+            Bitmap bmp = new Bitmap(newImage);
+
+            return bmp;
         }
 
         public Bitmap BlurImage(Bitmap image, int blurSize)
         {
-            //var small = Resize(image, new Size(image.Width / blurSize, image.Height / blurSize));
-            //return (Bitmap)Resize(small, image.Size);
+            //var small = Resize(image, image.Width / blurSize, image.Height / blurSize);
+            //return (Bitmap)Resize(small, image.Width, image.Height);
             return BlurRect(image, new Rectangle(0, 0, image.Width, image.Height), blurSize);
         }
     }

@@ -22,9 +22,9 @@
         <wpf:InputUserControl x:Name="InputUserControl" Panel.ZIndex="99" Margin="0,0,0,246"></wpf:InputUserControl>
         <wpf:TrackerUserControl x:Name="TrackerUserControl" Margin="167,0,-1751,0"></wpf:TrackerUserControl>
         <Button x:Name="CreateImageButton" Content="Import Image" HorizontalAlignment="Left" Margin="10,1130,0,0" VerticalAlignment="Top" Width="139" Height="33" FontSize="16" Click="CreateImageButton_OnClick"/>
-        <Button x:Name="NextTestButton" Content="Next Test" HorizontalAlignment="Left" Height="32" Margin="10,1010,0,0" VerticalAlignment="Top" Width="139" Click="NextTestButton_OnClick"/>
+        <Button x:Name="NextTestButton" Content="Next Test" HorizontalAlignment="Left" Height="32" Margin="10,1010,0,0" VerticalAlignment="Top" Width="139" Click="NextTestButton_OnClick" IsEnabled="False"/>
         <Label x:Name="TestCount" Content="Test nr 1 av 16" HorizontalAlignment="Left" Height="22" Margin="30,983,0,0" VerticalAlignment="Top" Width="90"/>
-        <Button x:Name="ReadyButton" Content="Ready" HorizontalAlignment="Left" Height="32" Margin="10,1068,0,0" VerticalAlignment="Top" Width="139" Click="ReadyButton_OnClick" IsEnabled="False"/>
+        <Button x:Name="ReadyButton" Content="Ready" HorizontalAlignment="Left" Height="32" Margin="10,1068,0,0" VerticalAlignment="Top" Width="139" Click="ReadyButton_OnClick"/>
 
 
     </Grid>
