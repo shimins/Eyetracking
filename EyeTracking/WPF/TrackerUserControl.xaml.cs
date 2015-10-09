@@ -40,7 +40,7 @@ namespace WPF
             }
             else if (!StaticValues.developerMode)
             {
-                SetValue(2, 100, 600, false, new List<BitmapImage>());
+                SetValue(2, 100, 750, false, new List<BitmapImage>());
             }
             _previous.X = 0;
             _previous.Y = 0;

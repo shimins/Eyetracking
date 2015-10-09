@@ -25,6 +25,7 @@
         <Button x:Name="NextTestButton" Content="Next Test" HorizontalAlignment="Left" Height="32" Margin="10,1010,0,0" VerticalAlignment="Top" Width="139" Click="NextTestButton_OnClick" IsEnabled="False"/>
         <Label x:Name="TestCount" Content="Test nr 1 av 16" HorizontalAlignment="Left" Height="22" Margin="30,983,0,0" VerticalAlignment="Top" Width="90"/>
         <Button x:Name="ReadyButton" Content="Ready" HorizontalAlignment="Left" Height="32" Margin="10,1068,0,0" VerticalAlignment="Top" Width="139" Click="ReadyButton_OnClick"/>
+        <Ellipse x:Name="StatusEllipse" Fill="Red" HorizontalAlignment="Left" Height="60" Margin="47,920,0,0" Stroke="Black" VerticalAlignment="Top" Width="60" RenderTransformOrigin="0.467,-0.645"/>
 
 
     </Grid>

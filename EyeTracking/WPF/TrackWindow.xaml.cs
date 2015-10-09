@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Tobii.EyeTracking.IO;
 
@@ -105,12 +106,13 @@ namespace WPF
         private void NextTestButton_OnClick(object sender, RoutedEventArgs e)
         {
             TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
-                600, false, BitmapImages);
+                750, false, BitmapImages);
             testNumber += 1;
             NextTestButton.IsEnabled = false;
             ReadyButton.IsEnabled = true;
             TrackerUserControl.StopTest(index, Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius);
             TrackerUserControl.StopTracking();
+            StatusEllipse.Fill = Brushes.Red;
         }
 
         public static void Shuffle<T>( IList<T> list)
@@ -142,6 +144,7 @@ namespace WPF
                 }
                 NextTestButton.IsEnabled = true;
                 ReadyButton.IsEnabled = false;
+                StatusEllipse.Fill = Brushes.GreenYellow;
             }
             else
             {
