@@ -88,7 +88,7 @@ namespace WPF
         private void CreateTestList()
         {
             Radius = new List<int>() {100,200,300,400};
-            Blurness = new List<int>() {2,4,6,8};
+            Blurness = new List<int>() {2,3,4,5};
             List<UserTest> list = new List<UserTest>();
             var temp = 1;
             foreach (var r in Radius)
@@ -105,14 +105,24 @@ namespace WPF
 
         private void NextTestButton_OnClick(object sender, RoutedEventArgs e)
         {
-            TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
-                750, false, BitmapImages);
-            testNumber += 1;
-            NextTestButton.IsEnabled = false;
-            ReadyButton.IsEnabled = true;
-            TrackerUserControl.StopTest(index, Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius);
-            TrackerUserControl.StopTracking();
-            StatusEllipse.Fill = Brushes.Red;
+            if (testNumber < Tests.tests.Count)
+            {
+                //TestLabel.Content = Tests.tests[testNumber].Blurness + "-" + Tests.tests[testNumber].Radius;
+                TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
+                    750, false, BitmapImages);
+                NextTestButton.IsEnabled = false;
+                ReadyButton.IsEnabled = true;
+                TrackerUserControl.StopTest(index, Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius);
+                TrackerUserControl.StopTracking();
+                testNumber += 1;
+                StatusEllipse.Fill = Brushes.Red;
+            }
+            else
+            {
+                FinishWindow finishWindow = new FinishWindow();
+                finishWindow.Show();
+                this.Close();
+            }
         }
 
         public static void Shuffle<T>( IList<T> list)
@@ -131,7 +141,7 @@ namespace WPF
 
         private void ReadyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if(testNumber < Tests.tests.Count)
+            if (testNumber < Tests.tests.Count)
             {
                 TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
                     Tests.tests[testNumber].Radius);
