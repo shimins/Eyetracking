@@ -105,16 +105,31 @@ namespace WPF
             _rightGaze.X = gd.RightGazePoint2D.X*Width;
             _rightGaze.Y = gd.RightGazePoint2D.Y*Height;
 
-            if (_leftGaze.X < 0) return;
-            _current = new Point2D((_leftGaze.X + _rightGaze.X)/2, (_leftGaze.Y + _rightGaze.Y)/2);
+            if (_leftGaze.X < 0 && _rightGaze.X < 0) return;
+            if (_leftGaze.X > 0 && _rightGaze.X > 0)
+            {
+                _current = new Point2D((_leftGaze.X + _rightGaze.X) / 2, (_leftGaze.Y + _rightGaze.Y) / 2);
+                //Console.WriteLine("new point both gaze is present");
+            }
+            else if (_rightGaze.X > 0)
+            {
+                _current = new Point2D(_rightGaze.X, _rightGaze.Y);
+                Console.WriteLine("new point only rightgaze");
+            }
+            else if (_leftGaze.X > 0)
+            {
+                _current = new Point2D(_leftGaze.X, _leftGaze.Y);
+                Console.WriteLine("new point only leftgaze");
+            }
             if (!StaticValues.developerMode)
             {
                 SaveData(_current, gd.RightEyePosition3D.Z/10);
             }
-            if (!GazeHaveMoved(_current)) return;
-            _previous = _current;
-
-            Point = new Point(_previous.X, _previous.Y);
+            if (GazeHaveMoved(_current))
+            {
+                Point = new Point(_current.X, _current.Y);
+                _previous = _current;
+            }
             InvalidateVisual();
         }
 
