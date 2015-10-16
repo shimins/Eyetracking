@@ -107,7 +107,6 @@ namespace WPF
         {
             if (testNumber < Tests.tests.Count)
             {
-                //TestLabel.Content = Tests.tests[testNumber].Blurness + "-" + Tests.tests[testNumber].Radius;
                 TrackerUserControl.SetValue(Tests.tests[testNumber].Blurness, Tests.tests[testNumber].Radius,
                     750, false, BitmapImages);
                 NextTestButton.IsEnabled = false;
@@ -145,6 +144,7 @@ namespace WPF
             {
                 TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
                     Tests.tests[testNumber].Radius);
+                //TestLabel.Content = Tests.tests[testNumber].Blurness + "-" + Tests.tests[testNumber].Radius;
                 index = testNumber + 1;
                 TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
                 var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;
