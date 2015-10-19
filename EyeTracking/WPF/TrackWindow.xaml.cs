@@ -14,8 +14,6 @@ namespace WPF
     /// </summary>
     public partial class TrackWindow : Window
     {
-        //private readonly EyeTrackerBrowser _browser;
-
         private List<BitmapImage> BitmapImages { get; set; }
         private CreateImageForm _createImageForm;
 
@@ -144,7 +142,6 @@ namespace WPF
             {
                 TrackerUserControl.StartTest(Tests.tests[testNumber].Name, Tests.tests[testNumber].Blurness,
                     Tests.tests[testNumber].Radius);
-                //TestLabel.Content = Tests.tests[testNumber].Blurness + "-" + Tests.tests[testNumber].Radius;
                 index = testNumber + 1;
                 TestCount.Content = "Test nr " + index + " av " + Tests.tests.Count;
                 var etInfo = InputUserControl.TrackerCombo.SelectedItem as EyeTrackerInfo;

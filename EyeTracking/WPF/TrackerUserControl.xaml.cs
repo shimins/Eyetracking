@@ -109,17 +109,14 @@ namespace WPF
             if (_leftGaze.X > 0 && _rightGaze.X > 0)
             {
                 _current = new Point2D((_leftGaze.X + _rightGaze.X) / 2, (_leftGaze.Y + _rightGaze.Y) / 2);
-                //Console.WriteLine("new point both gaze is present");
             }
             else if (_rightGaze.X > 0)
             {
                 _current = new Point2D(_rightGaze.X, _rightGaze.Y);
-                Console.WriteLine("new point only rightgaze");
             }
             else if (_leftGaze.X > 0)
             {
                 _current = new Point2D(_leftGaze.X, _leftGaze.Y);
-                Console.WriteLine("new point only leftgaze");
             }
             if (!StaticValues.developerMode)
             {
